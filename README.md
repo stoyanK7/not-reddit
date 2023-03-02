@@ -1,5 +1,5 @@
 # not-reddit
-![not-reddit-logo](https://imgur.com/yBv7xbP.png)
+![not-reddit-logo](https://imgur.com/pe3rvQY.png)
 
 not-reddit is a social news aggregation platform with sub-communities, messaging, and awards that allows users to post and share content, vote on submissions, and comment on posts.
 
