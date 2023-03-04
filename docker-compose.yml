@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  not-reddit-api:
+    container_name: not-reddit-api
+    build: ./api
+    ports:
+      - "80:80"
