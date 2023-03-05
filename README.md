@@ -1,6 +1,6 @@
 # not-reddit
 
-<img src="https://imgur.com/pe3rvQY.png" width="30%" />
+<img src="docs/img/logo.png" width="30%" />
 
 not-reddit is a social news aggregation platform with sub-communities, messaging, and awards that
 allows users to post and share content, vote on submissions, and comment on posts.
