@@ -1,0 +1,21 @@
+@startuml C4_Container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "User", "Reddit user")
+System_Boundary(c1, "Reddit system") {
+    Container(web_app, "API", "FastAPI", "")
+    System_Boundary(c2, "Message broker system", "RabbitMQ") {
+        Container(exchange, "Exchange")
+        Container(queue, "Queue")
+    }
+    Container(receiver, "Receiver", "Python 3.10", "")
+}
+Container(stdout, "Terminal output", "Bash")
+
+Rel(user, web_app, "Uses", "HTTPS")
+Rel(user, stdout, "Reads", "Standard output")
+Rel(web_app, exchange, "Publishes", "AMQP")
+Rel(receiver, queue, "Subscribed", "AMQP")
+Rel(exchange, queue, "Routes", "AMQP")
+Rel(receiver, stdout, "Writes", "Standard output")
+@enduml
