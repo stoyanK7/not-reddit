@@ -6,3 +6,15 @@ services:
     build: ./api
     ports:
       - "80:80"
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    environment:
+    - RABBITMQ_DEFAULT_USER=root
+    - RABBITMQ_DEFAULT_PASS=root
+    ports:
+      # AMQP protocol port.
+      - '5672:5672'
+      # HTTP management UI.
+      - '15672:15672'
