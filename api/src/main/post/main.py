@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from src.main.database import get_db, engine
@@ -13,7 +11,7 @@ model.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 
-@app.get("/", response_model=List[PostSchema])
+@app.get("/")
 def get_posts():
     """Get all posts."""
     return {"message": "All posts"}
