@@ -5,6 +5,7 @@ from .model import Post as PostModel
 
 
 def create_post(db: Session, post: PostCreate):
+    """Create a new post."""
     db_post = PostModel(**post.dict())
     db.add(db_post)
     db.commit()
