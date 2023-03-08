@@ -2,8 +2,7 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.exc import ArgumentError
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import StaticPool
 from src.main.env import get_env
 
