@@ -2,7 +2,7 @@ name: "Pytest"
 on: push
 
 jobs:
-  pylint:
+  pytest:
     runs-on:
       - self-hosted
     steps:

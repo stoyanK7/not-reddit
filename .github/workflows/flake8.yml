@@ -2,7 +2,7 @@ name: "Flake8"
 on: push
 
 jobs:
-  pylint:
+  flake8:
     runs-on:
       - self-hosted
     steps:
