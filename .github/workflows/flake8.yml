@@ -1,4 +1,4 @@
-name: "Pylint"
+name: "Flake8"
 on: push
 
 jobs:
@@ -12,6 +12,6 @@ jobs:
           python-version: "3.10"
           cache: 'pip'
       - run: pip install -r api/requirements.txt
-      - name: Run pylint
+      - name: Run flake8
         run: |
-          pylint api/src --rcfile=api/.pylintrc
+          flake8 --config api/.flake8 api/src
