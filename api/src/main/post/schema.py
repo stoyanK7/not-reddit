@@ -1,14 +1,18 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 
 class PostBase(BaseModel):
     """Base class for Post model."""
     title: str
+    body: str
 
 
 class Post(PostBase):
     """Database post model."""
     id: int
+    posted_at: datetime
 
     class Config:
         """Database configuration."""
