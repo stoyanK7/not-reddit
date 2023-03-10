@@ -1,28 +1,7 @@
 """This module is used to store pytest fixtures."""
 
 import pytest
-from .database import client, session
-from src.main.post.model import Post as PostModel
-
-
-@pytest.fixture
-def insert_mock_posts():
-    """Insert mock posts into the database."""
-
-    def _insert_mock_posts(amount, session) -> list[PostModel]:
-        posts: list[PostModel] = []
-        for x in range(0, amount):
-            post = {
-                "title": f"Test post {x}",
-                "body": f"Test body {x}"
-            }
-            model = PostModel(**post)
-            posts.append(model)
-            session.add(model)
-        session.commit()
-        return posts
-
-    yield _insert_mock_posts
+from .database import session
 
 
 @pytest.fixture
