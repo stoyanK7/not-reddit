@@ -36,3 +36,11 @@ pip install -r requirements.txt
 ```bash
 docker image prune -f
 ```
+
+## PyCharm
+
+### Custom scope that hides unnecessary files
+
+```bash
+!file:*/__init__.py&&!file:.idea//*&&!file:*/.pytest_cache//*&&!file:*/.coverage&&!file:*/htmlcov//&&!file:*/.venv//
+```
