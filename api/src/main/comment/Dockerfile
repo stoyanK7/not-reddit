@@ -1,0 +1,15 @@
+FROM python:3.10-slim-bullseye
+
+WORKDIR /app
+
+COPY ./requirements.txt /app
+
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+COPY ./src/main/*.py /app/src/main/
+
+COPY ./src/main/comment/.env /app/src/main
+
+COPY ./src/main/comment/*.py /app/src/main/comment/
+
+CMD ["uvicorn", "src.main.comment.main:app", "--host", "0.0.0.0", "--port", "8080"]
