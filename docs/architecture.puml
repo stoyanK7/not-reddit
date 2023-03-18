@@ -3,19 +3,16 @@
 
 Person(user, "User", "Reddit user")
 System_Boundary(c1, "Reddit system") {
-    Container(web_app, "API", "FastAPI", "")
-    System_Boundary(c2, "Message broker system", "RabbitMQ") {
-        Container(exchange, "Exchange")
-        Container(queue, "Queue")
-    }
-    Container(receiver, "Receiver", "Python 3.10", "")
+    Container(users_api, "Users API", "FastAPI", "API endpoint for registering.")
+    Container(comments_api, "Comments API", "FastAPI", "API endpoint for comments.")
+    Container(posts_api, "Posts API", "FastAPI", "API endpoint for posts.")
+    ContainerDb(postgres_db, "Database", "PostgreSQL", "Holds all information.")
 }
-Container(stdout, "Terminal output", "Bash")
 
-Rel(user, web_app, "Uses", "HTTPS")
-Rel(user, stdout, "Reads", "Standard output")
-Rel(web_app, exchange, "Publishes", "AMQP")
-Rel(receiver, queue, "Subscribed", "AMQP")
-Rel(exchange, queue, "Routes", "AMQP")
-Rel(receiver, stdout, "Writes", "Standard output")
+Rel(user, users_api, "Uses", "HTTPS")
+Rel(user, comments_api, "Uses", "HTTPS")
+Rel(user, posts_api, "Uses", "HTTPS")
+Rel(users_api, postgres_db, "Reads/Writes", "SQLAlchemy")
+Rel(comments_api, postgres_db, "Reads/Writes", "SQLAlchemy")
+Rel(posts_api, postgres_db, "Reads/Writes", "SQLAlchemy")
 @enduml
