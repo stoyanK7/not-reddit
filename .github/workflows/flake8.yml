@@ -1,5 +1,8 @@
 name: "Flake8"
-on: push
+on:
+  push:
+    paths:
+      - "api/src/**"
 
 jobs:
   flake8:
