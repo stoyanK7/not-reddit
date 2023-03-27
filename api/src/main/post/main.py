@@ -28,3 +28,9 @@ def get_post(post_id: int, db: Session = Depends(get_db)):
 def create_post(post: PostCreateSchema, db: Session = Depends(get_db)):
     """Create a post."""
     return crud.create_post(db=db, post=post)
+
+
+@app.delete("/{post_id}", status_code=204)
+def delete_post(post_id: int, db: Session = Depends(get_db)):
+    """Delete a post."""
+    return crud.delete_post(db=db, post_id=post_id)

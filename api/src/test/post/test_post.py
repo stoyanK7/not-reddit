@@ -1,6 +1,7 @@
 """This module is used to test the post endpoints."""
 
 from fastapi import status
+from src.main.post.model import Post as PostModel
 
 
 def test_get_posts_length(client, session, insert_mock_posts):
@@ -49,3 +50,12 @@ def test_create_post(client, remove_json_field):
         "title": "Test post",
         "body": "Test body"
     }
+
+
+def test_delete_post(client, session, insert_mock_posts):
+    """Assert that post is deleted."""
+    post = insert_mock_posts(1, session=session)[0]
+    response = client.delete(f"/{post.id}")
+
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+    assert session.query(PostModel).filter_by(id=post.id).first() is None

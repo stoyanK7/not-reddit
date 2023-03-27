@@ -24,3 +24,10 @@ def create_post(db: Session, post: PostCreate):
     db.commit()
     db.refresh(db_post)
     return db_post
+
+
+def delete_post(db: Session, post_id: int):
+    """Delete a post."""
+    db.query(PostModel).filter(PostModel.id == post_id).delete()
+    db.commit()
+    return
