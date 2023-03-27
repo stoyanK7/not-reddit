@@ -1,6 +1,7 @@
 """This module is used to test the comment endpoints."""
 
 from fastapi import status
+from src.main.comment.model import Comment as CommentModel
 
 
 def test_get_comments_length(client, session, insert_mock_comments):
@@ -42,3 +43,12 @@ def test_create_comment(client, remove_json_field):
         "user_id": 1,
         "post_id": 1
     }
+
+
+def test_delete_comment(client, session, insert_mock_comments):
+    """Assert that comment is deleted."""
+    comment = insert_mock_comments(1, session=session)[0]
+    response = client.delete(f"/{comment.id}")
+
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+    assert session.query(CommentModel).filter_by(id=comment.id).first() is None

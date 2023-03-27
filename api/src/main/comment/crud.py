@@ -19,3 +19,10 @@ def create_comment(db: Session, comment: CommentCreate):
     db.commit()
     db.refresh(db_comment)
     return db_comment
+
+
+def delete_comment(db: Session, comment_id: int):
+    """Delete a comment."""
+    db.query(CommentModel).filter(CommentModel.id == comment_id).delete()
+    db.commit()
+    return

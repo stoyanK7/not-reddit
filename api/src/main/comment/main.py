@@ -22,3 +22,9 @@ def get_comments(page: int = 0, db: Session = Depends(get_db)):
 def create_comment(comment: CommentCreateSchema, db: Session = Depends(get_db)):
     """Create a comment."""
     return crud.create_comment(db=db, comment=comment)
+
+
+@app.delete("/{comment_id}", status_code=204)
+def delete_comment(comment_id: int, db: Session = Depends(get_db)):
+    """Delete a comment."""
+    return crud.delete_comment(db=db, comment_id=comment_id)
