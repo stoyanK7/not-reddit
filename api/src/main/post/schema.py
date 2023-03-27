@@ -1,5 +1,6 @@
-from datetime import datetime
+"""This module contains the Post schemas."""
 
+from datetime import datetime
 from pydantic import BaseModel
 
 

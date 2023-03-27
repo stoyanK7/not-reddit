@@ -1,5 +1,6 @@
-from datetime import datetime
+"""This module contains the Comment schemas."""
 
+from datetime import datetime
 from pydantic import BaseModel
 
 

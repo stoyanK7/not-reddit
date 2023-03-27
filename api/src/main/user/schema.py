@@ -1,3 +1,5 @@
+"""This module contains the User schemas."""
+
 from pydantic import BaseModel
 
 
