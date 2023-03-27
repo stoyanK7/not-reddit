@@ -82,5 +82,19 @@ services:
     networks:
       - not-reddit
 
+  subreddit:
+    container_name: subreddit
+    build:
+      context: ./api
+      dockerfile: ./src/main/subreddit/Dockerfile
+    restart: on-failure
+    depends_on:
+      - postgres
+      - rabbitmq
+    ports:
+      - "8084:8084"
+    networks:
+      - not-reddit
+
 networks:
   not-reddit:
