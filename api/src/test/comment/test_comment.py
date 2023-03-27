@@ -24,7 +24,7 @@ def test_get_comments_pagination(client, session, insert_mock_comments):
     assert len(response.json()) == 3
 
 
-def test_create_comment(client, remove_json_field):
+def test_create_comment(client, remove_json_fields):
     """Assert that comment is created."""
     body = {
         "body": "Test body",
@@ -37,7 +37,7 @@ def test_create_comment(client, remove_json_field):
     assert response.status_code == status.HTTP_201_CREATED
     assert {"id", "user_id", "post_id", "body", "commented_at"} == set(response.json().keys())
     # commented_at is a timestamp which the test cannot predict, so we remove it.
-    assert remove_json_field(response.json(), "commented_at") == {
+    assert remove_json_fields(response.json(), "commented_at") == {
         "id": 1,
         "body": "Test body",
         "user_id": 1,

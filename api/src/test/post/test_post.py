@@ -33,7 +33,7 @@ def test_get_post(client, session, insert_mock_posts):
     assert {"id", "title", "body", "posted_at"} == set(response.json().keys())
 
 
-def test_create_post(client, remove_json_field):
+def test_create_post(client, remove_json_fields):
     """Assert that post is created."""
     body = {
         "title": "Test post",
@@ -45,7 +45,7 @@ def test_create_post(client, remove_json_field):
     assert response.status_code == status.HTTP_201_CREATED
     assert {"id", "title", "body", "posted_at"} == set(response.json().keys())
     # posted_at is a timestamp which the test cannot predict, so we remove it.
-    assert remove_json_field(response.json(), "posted_at") == {
+    assert remove_json_fields(response.json(), "posted_at") == {
         "id": 1,
         "title": "Test post",
         "body": "Test body"

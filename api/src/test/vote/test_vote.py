@@ -1,4 +1,4 @@
-"""This module is used to test the post endpoints."""
+"""This module is used to test the vote endpoints."""
 
 from fastapi import status
 

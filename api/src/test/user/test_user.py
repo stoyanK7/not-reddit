@@ -5,7 +5,7 @@ from fastapi import status
 from src.main.user.model import User as UserModel
 
 
-def test_create_user(client, session, mock_user, remove_json_field):
+def test_create_user(client, session, mock_user, remove_json_fields):
     """Assert that user is created."""
     body = mock_user
 
@@ -15,7 +15,7 @@ def test_create_user(client, session, mock_user, remove_json_field):
 
 
 @pytest.mark.skip(reason="Password is not yet hashed.")
-def test_create_user_password_hashed(client, session, mock_user, remove_json_field):
+def test_create_user_password_hashed(client, session, mock_user, remove_json_fields):
     """Assert that user is created."""
     body = mock_user
 
