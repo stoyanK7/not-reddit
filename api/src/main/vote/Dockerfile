@@ -1,0 +1,15 @@
+FROM python:3.10-slim-bullseye
+
+WORKDIR /app
+
+COPY ./requirements.txt /app
+
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
+
+COPY ./src/main/*.py /app/src/main/
+
+COPY ./src/main/vote/.env /app/src/main
+
+COPY ./src/main/vote/*.py /app/src/main/vote/
+
+CMD ["uvicorn", "src.main.vote.main:app", "--host", "0.0.0.0", "--port", "8083"]

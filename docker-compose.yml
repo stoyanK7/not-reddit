@@ -18,8 +18,8 @@ services:
     container_name: rabbitmq
     image: rabbitmq:3-management
     environment:
-    - RABBITMQ_DEFAULT_USER=root
-    - RABBITMQ_DEFAULT_PASS=root
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root
     ports:
       # AMQP protocol port.
       - '5672:5672'
@@ -65,6 +65,20 @@ services:
       - rabbitmq
     ports:
       - "8082:8082"
+    networks:
+      - not-reddit
+
+  vote:
+    container_name: vote
+    build:
+      context: ./api
+      dockerfile: ./src/main/vote/Dockerfile
+    restart: on-failure
+    depends_on:
+      - postgres
+      - rabbitmq
+    ports:
+      - "8083:8083"
     networks:
       - not-reddit
 
