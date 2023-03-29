@@ -16,28 +16,28 @@ and some are scaled down to a reasonable level for our application. The metrics 
 
 - **The application should support 500 landing page visitors per second.**
 
-  > Further clarification:
-  > - all visitors should be served the landing page in under 5 seconds.
-  > - all text and images should be rendered.
+  Further clarification:
+    - all visitors should be served the landing page in under 5 seconds.
+    - all text and images should be rendered.
 
   Derived from the fact that:
   > Reddit received 30 billion average monthly views in 2020.
 
   To make this metric more digestible:
 
-  ```math
-  30,000,000,000 views / 365 days / 24 hours / 60 minutes / 60 seconds ~= 951 views per second
-  ```
+   ```math
+   30,000,000,000 views / 365 days / 24 hours / 60 minutes / 60 seconds ~= 951 views per second
+   ```
 
   This number is scaled down to 500 visitors per second for our application.
 
 - **The application should process 10 posts per second.**
 
-  > Further clarification:
-  > - 6 of these posts should be text posts ranging from 1,000 to 10,000 characters in length.
-  > - 3 of these posts should be image posts with images from 1MB to 5MB in size.
-  > - 1 of these posts should be a video post with a video from 1MB to 10MB in size.
-  > - all posts should be processed in under 20 seconds.
+  Further clarification:
+    - 6 of these posts should be text posts ranging from 1,000 to 10,000 characters in length.
+    - 3 of these posts should be image posts with images from 1MB to 5MB in size.
+    - 1 of these posts should be a video post with a video from 1MB to 10MB in size.
+    - all posts should be processed in under 20 seconds.
 
   Derived from the fact that:
   > 303.4 million posts were uploaded in 2020.
@@ -53,9 +53,9 @@ and some are scaled down to a reasonable level for our application. The metrics 
 
 - **The application should process 63 comments per second.**
 
-  > Further clarification:
-  > - all comments should be text comments ranging from 500 to 2,000 characters in length.
-  > - all comments should be processed in under 10 seconds.
+  Further clarification:
+    - all comments should be text comments ranging from 500 to 2,000 characters in length.
+    - all comments should be processed in under 10 seconds.
 
   Derived from the fact that:
   > In 2020, Reddit users posted over two billion comments.
@@ -70,11 +70,11 @@ and some are scaled down to a reasonable level for our application. The metrics 
 
 - **The application should process 1585 votes per second.**
 
-  > Further clarification:
-  > - all votes should a mix of upvotes and downvotes.
+  Further clarification:
+    - all votes should a mix of upvotes and downvotes.
 
   Derived from the fact that:
-  > In 2020, Reddit users posted .. and 49.2 billion upvotes
+  > In 2020, Reddit users posted ... and 49.2 billion upvotes
 
   To make this metric more digestible:
 
@@ -85,6 +85,39 @@ and some are scaled down to a reasonable level for our application. The metrics 
   Again, this number seems reasonable for our application. Though, it is a bit on the high side.
 
 ### Scalability
+
+The scalability metrics are derived from the real reddit application statistics [[1]](#references)
+and some are scaled down to a reasonable level for our application. The metrics are as follows:
+
+- **The application should support 30 concurrent users.**
+
+  Further clarification:
+    - all visitors should be served the landing page in under 2 seconds.
+
+  Reddit does not disclose the number of concurrent users, therefore, we will use 30 concurrent
+  users as a reasonable metric.
+
+- **The application should support an increase from 30 concurrent users to 300 in less than
+  10 seconds.**
+
+  Further clarification:
+    - the influx of users will be **instantaneous**.
+    - all visitors should be served the landing page in under 3 seconds.
+
+  Derived from the fact that:
+  > Reddit ... reporting that 52 million users logged on daily to the app.
+
+  To make this metric more digestible:
+
+    ```math
+    52,000,000 users / 24 hours / 60 minutes / 60 seconds ~= 601 users per second
+    ```
+
+- **The application should support an increase from 300 concurrent users to 3000 in a minute.**
+
+  Further clarification:
+    - the influx of users will be **gradual**.
+    - all visitors should be served the landing page in under 5 seconds.
 
 ### Security
 
