@@ -109,34 +109,57 @@ and some are scaled down to a reasonable level for our application. The metrics 
 
 ### Security
 
-- **The application should ensure that sensitive data is encrypted.**
+- **The application should be protected from SQL injections.**
 
-    - all sensitive data should be encrypted both at rest and in transit.
-    - all sensitive data should be encrypted using AES-256.
-    - sensitive data includes user credentials, personal and financial information.
+  From `Misuse Case 1: SQL Injection`.
 
-- **The application should validate all user input to prevent injection attacks.**
-
-    - the input includes credentials and content.
+  To mitigate this misuse case, the application should use avoid using raw SQL queries and instead
+  rely on an ORM library to generate the SQL queries [[3]](#references) - `SQLAlchemy`. Moreover,
+  the application should ensure that sensitive data is encrypted - both at rest and in transit.
+  Sensitive data includes user credentials, personal and financial information. The encryption
+  method should be recommended by the developers of the technology used in the application.
 
 - **The application should have monitoring mechanisms.**
 
-    - this includes logging and alerts.
-    - all errors should be logged.
-    - all requests that include sensitive data should be logged.
-    - alerts should be sent to the administrator's email address.
-    - alerts should be sent when there are more than 10 errors in a 30 seconds timeframe.
+  From `Misuse Case 2: Denial-of-Service (DoS)` and `Misuse Case 3: Spamming`.
+
+  To mitigate this misuse case, the application should have monitoring mechanisms in place
+  [[4]](#references). This includes logging and alerts. All errors should be logged. All requests
+  that include sensitive data should be logged. Alerts should be sent to the administrator's email
+  address. In addition, rate limiting of 10 requests per 5 seconds for unregistered users should be
+  imposed. And rate limiting of 30 requests per 5 seconds for registered users should be imposed.
+  Finally, if those limits are exceeded, the user should be asked to fill in a CAPTCHA.
+
+- **The application should allow only certain media filetypes of uploads.**
+
+  From `Misuse Case 4: Malware and Phishing`.
+
+  To mitigate this misuse case, the application should allow only certain media filetypes of
+  uploads. The allowed filetypes should be limited to the following:
+    - Image: `jpg`, `jpeg`, `png`, `gif`
+    - Video: `mp4`, `webm`
+
+  Links to external media should also be allowed. The application should also visually warn
+  users
+  that this is an external link. Possibly, by adding a small icon next to the link. Ideally, it
+  should compare the link against a list of known malicious websites [[5]](#references).
 
 - **The application support the 0Auth2 standard.**
 
-    - the provider can be any of the following:
-        - Google
-        - Facebook
-        - GitHub
-        - LinkedIn
+  The provider of the 0Auth2 service could be any of the following:
+    - Google
+    - Facebook
+    - GitHub
+    - LinkedIn
 
 ## References
 
     [1] [Reddit Statistics](https://www.businessofapps.com/data/reddit-statistics/)
 
     [2] [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+
+    [3] [Stackoverflow answer on SQL Injections in SQLAlchemy](https://stackoverflow.com/a/6501664/9553927)
+
+    [4] [What is DDoS Mitigation & 6 Tips to Prevent an Attack](https://www.liquidweb.com/blog/ddos-mitigation/)
+
+    [5] [List of known malicious websites](https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset)
