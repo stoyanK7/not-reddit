@@ -152,6 +152,8 @@ and some are scaled down to a reasonable level for our application. The metrics 
     - GitHub
     - LinkedIn
 
+  Or the application could implement its own 0Auth2 service.
+
 ## References
 
     [1] [Reddit Statistics](https://www.businessofapps.com/data/reddit-statistics/)
