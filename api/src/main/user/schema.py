@@ -10,7 +10,7 @@ class UserBase(BaseModel):
 
 
 class User(UserBase):
-    """Database post model."""
+    """Database user model."""
     id: int
     password: str
 
