@@ -6,7 +6,7 @@ def test_get_comments_length(client, session, insert_mock_comments):
     """Assert that comments length is 10."""
     insert_mock_comments(12, session=session)
 
-    response = client.get("/")
+    response = client.get("/comment")
 
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) == 10
@@ -16,7 +16,7 @@ def test_get_comments_pagination(client, session, insert_mock_comments):
     """Assert that pagination works."""
     insert_mock_comments(23, session=session)
 
-    response = client.get("/?page=2")
+    response = client.get("/comment?page=2")
 
     assert response.status_code == status.HTTP_200_OK
     assert len(response.json()) == 3
@@ -30,7 +30,7 @@ def test_create_comment(client, remove_json_fields):
         "post_id": 1
     }
 
-    response = client.post("/", json=body)
+    response = client.post("/comment", json=body)
 
     assert response.status_code == status.HTTP_201_CREATED
     assert {"id", "user_id", "post_id", "body", "commented_at"} == set(response.json().keys())
@@ -46,7 +46,7 @@ def test_create_comment(client, remove_json_fields):
 def test_delete_comment(client, session, insert_mock_comments):
     """Assert that comment is deleted."""
     comment = insert_mock_comments(1, session=session)[0]
-    response = client.delete(f"/{comment.id}")
+    response = client.delete(f"/comment/{comment.id}")
 
     assert response.status_code == status.HTTP_204_NO_CONTENT
     assert session.query(CommentModel).filter_by(id=comment.id).first() is None
