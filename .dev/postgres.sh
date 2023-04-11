@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NETWORK="postgresql-network"
-POSTGRESQL="postgresql"
+POSTGRES="postgres"
 PGADMIN="pgadmin"
 
 echo "Checking if network $NETWORK is created."
@@ -13,25 +13,25 @@ else
   docker network create "$NETWORK"
 fi
 
-echo "Checking if container $POSTGRESQL is created."
-if [ "$(docker ps -aq -f name="$POSTGRESQL")" ]; then
-  if [ "$(docker ps -aq -f name="$POSTGRESQL" -f status=running)" ]; then
-    echo "Stopping container $POSTGRESQL"
-    docker stop "$POSTGRESQL"
+echo "Checking if container $POSTGRES is created."
+if [ "$(docker ps -aq -f name="$POSTGRES")" ]; then
+  if [ "$(docker ps -aq -f name="$POSTGRES" -f status=running)" ]; then
+    echo "Stopping container $POSTGRES"
+    docker stop "$POSTGRES"
   else
-    echo "Running container $POSTGRESQL"
-    docker start "$POSTGRESQL"
+    echo "Running container $POSTGRES"
+    docker start "$POSTGRES"
   fi
 else
-  echo "Container $POSTGRESQL is not created."
-  echo "Creating $POSTGRESQL container."
+  echo "Container $POSTGRES is not created."
+  echo "Creating $POSTGRES container."
   docker run \
   -d \
   -p 5432:5432 \
   -e "POSTGRES_PASSWORD=root" \
   -v /data:/var/lib/postgresql/data \
   --network="$NETWORK" \
-  --name "$POSTGRESQL" \
+  --name "$POSTGRES" \
   postgres
 fi
 
