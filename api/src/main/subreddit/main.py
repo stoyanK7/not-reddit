@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import APIRouter, FastAPI, Depends
 from sqlalchemy.orm import Session
 from src.main.database import get_db, engine
 from . import crud, model
@@ -7,8 +7,12 @@ from .schema import SubredditCreate as SubredditCreateSchema
 model.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+router = APIRouter(prefix="/subreddit")
 
 
-@app.post("/subreddit", status_code=201)
+@router.post("/", status_code=201)
 def create_subreddit(subreddit: SubredditCreateSchema, db: Session = Depends(get_db)):
     return crud.create_subreddit(db=db, subreddit=subreddit)
+
+
+app.include_router(router)
