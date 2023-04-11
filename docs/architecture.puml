@@ -1,18 +1,26 @@
 @startuml C4_Container
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-Person(user, "User", "Reddit user")
+Person(user_person, "User", "Reddit user")
 System_Boundary(c1, "Reddit system") {
-    Container(users_api, "Users API", "FastAPI", "API endpoint for registering.")
-    Container(comments_api, "Comments API", "FastAPI", "API endpoint for comments.")
-    Container(posts_api, "Posts API", "FastAPI", "API endpoint for posts.")
+    Container(gateway, "Gateway", "FastAPI", "Entry point for the system. Handles authentication and routing.")
+    Container(user, "User", "FastAPI", "Microservice for users.")
+    Container(comment, "Comment", "FastAPI", "Microservice for comments.")
+    Container(post, "Post", "FastAPI", "Microservice for posts.")
+    Container(vote, "Vote", "FastAPI", "Microservice for votes.")
+    Container(subreddit, "Subreddit", "FastAPI", "Microservice for subreddits.")
     ContainerDb(postgres_db, "Database", "PostgreSQL", "Holds all information.")
 }
 
-Rel(user, users_api, "Uses", "HTTPS")
-Rel(user, comments_api, "Uses", "HTTPS")
-Rel(user, posts_api, "Uses", "HTTPS")
-Rel(users_api, postgres_db, "Reads/Writes", "SQLAlchemy")
-Rel(comments_api, postgres_db, "Reads/Writes", "SQLAlchemy")
-Rel(posts_api, postgres_db, "Reads/Writes", "SQLAlchemy")
+Rel(user_person, gateway, "Uses", "HTTPS")
+Rel(gateway, user, "Routes to", "HTTPS")
+Rel(gateway, comment, "Routes to", "HTTPS")
+Rel(gateway, post, "Routes to", "HTTPS")
+Rel(gateway, vote, "Routes to", "HTTPS")
+Rel(gateway, subreddit, "Routes to", "HTTPS")
+Rel(user, postgres_db, "Reads/Writes", "SQLAlchemy")
+Rel(comment, postgres_db, "Reads/Writes", "SQLAlchemy")
+Rel(post, postgres_db, "Reads/Writes", "SQLAlchemy")
+Rel(vote, postgres_db, "Reads/Writes", "SQLAlchemy")
+Rel(subreddit, postgres_db, "Reads/Writes", "SQLAlchemy")
 @enduml
