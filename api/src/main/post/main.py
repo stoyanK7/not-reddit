@@ -1,9 +1,10 @@
 from fastapi import APIRouter, FastAPI, Depends
 from sqlalchemy.orm import Session
+
 from src.main.database import get_db, engine
-from . import crud, model
-from .schema import Post as PostSchema
-from .schema import PostCreate as PostCreateSchema
+from src.main.post import crud, model
+from src.main.post.schema import Post as PostSchema
+from src.main.post.schema import PostCreate as PostCreateSchema
 
 model.Base.metadata.create_all(bind=engine)
 

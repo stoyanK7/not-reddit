@@ -1,8 +1,9 @@
 from fastapi import APIRouter, FastAPI, Depends
 from sqlalchemy.orm import Session
+
 from src.main.database import get_db, engine
-from . import crud, model
-from .schema import VoteCreate as VoteCreateSchema
+from src.main.vote import crud, model
+from src.main.vote.schema import VoteCreate as VoteCreateSchema
 
 model.Base.metadata.create_all(bind=engine)
 

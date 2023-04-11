@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-from .schema import CommentCreate
-from .model import Comment as CommentModel
+
+from src.main.comment.schema import CommentCreate
+from src.main.comment.model import Comment as CommentModel
 
 
 def get_10_comments(db: Session, page: int = 0):

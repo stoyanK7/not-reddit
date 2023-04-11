@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-from .schema import PostCreate
-from .model import Post as PostModel
+
+from src.main.post.schema import PostCreate
+from src.main.post.model import Post as PostModel
 
 
 def get_10_posts(db: Session, page: int = 0):

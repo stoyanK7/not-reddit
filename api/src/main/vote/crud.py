@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-from .schema import VoteCreate
-from .model import Vote as VoteModel
+
+from src.main.vote.schema import VoteCreate
+from src.main.vote.model import Vote as VoteModel
 
 
 def cast_vote(db: Session, vote: VoteCreate):

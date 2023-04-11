@@ -1,5 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
+
 from src.main.user.main import app
 from src.main.database import get_db, Base
 from src.test.database import engine

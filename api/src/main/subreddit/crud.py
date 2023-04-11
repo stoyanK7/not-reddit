@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-from .schema import SubredditCreate
-from .model import Subreddit as SubredditModel
+
+from src.main.subreddit.schema import SubredditCreate
+from src.main.subreddit.model import Subreddit as SubredditModel
 
 
 def create_subreddit(db: Session, subreddit: SubredditCreate) -> SubredditModel:

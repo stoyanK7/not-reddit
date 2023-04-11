@@ -1,7 +1,8 @@
 """This module is used to store pytest fixtures."""
 
 import pytest
-from .database import session
+
+from src.test.database import session
 
 
 @pytest.fixture

@@ -1,9 +1,8 @@
 from fastapi import APIRouter, FastAPI, Depends
 from sqlalchemy.orm import Session
 from src.main.database import get_db, engine
-from . import crud, model
-from .schema import Comment as CommentSchema
-from .schema import CommentCreate as CommentCreateSchema
+from src.main.comment import crud, model
+from src.main.comment.schema import Comment as CommentSchema, CommentCreate as CommentCreateSchema
 
 model.Base.metadata.create_all(bind=engine)
 

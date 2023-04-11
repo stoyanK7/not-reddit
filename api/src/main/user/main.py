@@ -1,9 +1,10 @@
 from fastapi import FastAPI, Depends, APIRouter
 from sqlalchemy.orm import Session
+
 from src.main.database import get_db, engine
-from . import crud, model
-from .hash import get_password_hash
-from .schema import UserCreate as UserCreateSchema
+from src.main.user import crud, model
+from src.main.user.hash import get_password_hash
+from src.main.user.schema import UserCreate as UserCreateSchema
 
 model.Base.metadata.create_all(bind=engine)
 

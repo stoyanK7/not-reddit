@@ -1,6 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel
-from .model import TargetType, VoteType
+from src.main.vote.model import TargetType, VoteType
 
 
 class VoteBase(BaseModel):

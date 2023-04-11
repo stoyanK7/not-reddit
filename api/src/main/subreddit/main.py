@@ -1,8 +1,9 @@
 from fastapi import APIRouter, FastAPI, Depends
 from sqlalchemy.orm import Session
+
 from src.main.database import get_db, engine
-from . import crud, model
-from .schema import SubredditCreate as SubredditCreateSchema
+from src.main.subreddit import crud, model
+from src.main.subreddit.schema import SubredditCreate as SubredditCreateSchema
 
 model.Base.metadata.create_all(bind=engine)
 
