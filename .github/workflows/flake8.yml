@@ -16,5 +16,4 @@ jobs:
           cache: 'pip'
       - run: pip install -r api/requirements.txt
       - name: Run flake8
-        run: |
-          flake8 --config api/.flake8 api/src
+        run: ./.ci/flake8.sh

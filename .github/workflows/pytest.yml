@@ -16,6 +16,4 @@ jobs:
           cache: 'pip'
       - run: pip install -r api/requirements.txt
       - name: Run pytest
-        run: |
-          cd api/src/test
-          pytest
+        run: ./.ci/pytest.sh
