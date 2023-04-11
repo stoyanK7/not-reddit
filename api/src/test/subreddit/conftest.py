@@ -1,5 +1,3 @@
-"""This module is used to store pytest fixtures for subreddits."""
-
 import pytest
 from fastapi.testclient import TestClient
 from src.main.subreddit.main import app

@@ -1,5 +1,3 @@
-"""This module contains the comment REST API endpoints."""
-
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from src.main.database import get_db, engine
@@ -14,17 +12,14 @@ app = FastAPI()
 
 @app.get("/", response_model=list[CommentSchema])
 def get_comments(page: int = 0, db: Session = Depends(get_db)):
-    """Get 10 comments."""
-    return crud.get_comments(db=db, page=page)
+    return crud.get_10_comments(db=db, page=page)
 
 
 @app.post("/", status_code=201, response_model=CommentSchema)
 def create_comment(comment: CommentCreateSchema, db: Session = Depends(get_db)):
-    """Create a comment."""
     return crud.create_comment(db=db, comment=comment)
 
 
 @app.delete("/{comment_id}", status_code=204)
 def delete_comment(comment_id: int, db: Session = Depends(get_db)):
-    """Delete a comment."""
     return crud.delete_comment(db=db, comment_id=comment_id)

@@ -1,5 +1,3 @@
-"""This module contains the Vote model."""
-
 import enum
 from sqlalchemy import Column, Integer, DateTime, Enum
 from sqlalchemy.sql import func
@@ -17,8 +15,6 @@ class TargetType(enum.Enum):
 
 
 class Vote(Base):
-    """Vote model."""
-
     __tablename__ = "votes"
 
     id = Column(Integer, primary_key=True, index=True)

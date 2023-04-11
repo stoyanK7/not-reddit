@@ -1,24 +1,19 @@
-"""This module contains the Post CRUD operations."""
-
 from sqlalchemy.orm import Session
 from .schema import PostCreate
 from .model import Post as PostModel
 
 
-def get_posts(db: Session, page: int = 0):
-    """Get 10 posts."""
+def get_10_posts(db: Session, page: int = 0):
     post_limit = 10
     offset = page * post_limit
     return db.query(PostModel).offset(offset).limit(post_limit).all()
 
 
 def get_post(db: Session, post_id: int):
-    """Get a post."""
     return db.query(PostModel).filter(PostModel.id == post_id).first()
 
 
 def create_post(db: Session, post: PostCreate):
-    """Create a new post."""
     db_post = PostModel(**post.dict())
     db.add(db_post)
     db.commit()
@@ -27,7 +22,6 @@ def create_post(db: Session, post: PostCreate):
 
 
 def delete_post(db: Session, post_id: int):
-    """Delete a post."""
     db.query(PostModel).filter(PostModel.id == post_id).delete()
     db.commit()
     return

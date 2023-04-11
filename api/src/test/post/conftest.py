@@ -1,5 +1,3 @@
-"""This module is used to store pytest fixtures for posts."""
-
 import pytest
 from fastapi.testclient import TestClient
 from src.main.post.model import Post as PostModel

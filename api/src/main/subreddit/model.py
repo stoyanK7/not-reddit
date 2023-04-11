@@ -1,13 +1,9 @@
-"""This module contains the Subreddit model."""
-
 from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.sql import func
 from src.main.database import Base
 
 
 class Subreddit(Base):
-    """Subreddit model."""
-
     __tablename__ = "subreddits"
 
     id = Column(Integer, primary_key=True, index=True)

@@ -1,5 +1,3 @@
-"""This module is used to test the post endpoints."""
-
 from fastapi import status
 from src.main.post.model import Post as PostModel
 

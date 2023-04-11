@@ -1,5 +1,3 @@
-"""This module is used to test the subreddit endpoints."""
-
 from fastapi import status
 
 

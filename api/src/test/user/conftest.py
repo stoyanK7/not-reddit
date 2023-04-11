@@ -1,5 +1,3 @@
-"""This module is used to store pytest fixtures for users."""
-
 import pytest
 from fastapi.testclient import TestClient
 from src.main.user.main import app
@@ -30,9 +28,6 @@ def client(session):
 
 @pytest.fixture
 def mock_user():
-    """
-    A fixture for a mock user.
-    """
     return {
         "username": "testusername",
         "email": "testemail",

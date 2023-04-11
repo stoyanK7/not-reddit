@@ -1,5 +1,3 @@
-"""This module is used to store pytest fixtures for comments."""
-
 import pytest
 from fastapi.testclient import TestClient
 from src.main.comment.main import app

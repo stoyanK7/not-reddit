@@ -1,5 +1,3 @@
-"""This module is used to test the comment endpoints."""
-
 from fastapi import status
 from src.main.comment.model import Comment as CommentModel
 
