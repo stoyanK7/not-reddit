@@ -6,12 +6,12 @@ assert_in_api_dir
 assert_venv_active
 
 SERVICES=(
-  "gateway"
-  "post"
-  "user"
-  "comment"
-  "vote"
-  "subreddit"
+  "gateway" # 8000
+  "post" # 8001
+  "user" # 8002
+  "comment" # 8003
+  "vote" # 8004
+  "subreddit" # 8005
 )
 STARTING_PORT=8000
 for SERVICE in "${SERVICES[@]}"; do
