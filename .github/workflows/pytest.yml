@@ -4,6 +4,10 @@ on:
     paths:
       - "api/src/**"
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 jobs:
   pytest:
     runs-on:
