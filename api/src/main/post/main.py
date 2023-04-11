@@ -13,7 +13,7 @@ router = APIRouter(prefix="/post")
 
 
 @router.get("/", response_model=list[PostSchema])
-def get_posts(page: int = 0, db: Session = Depends(get_db)):
+def get_10_posts(page: int = 0, db: Session = Depends(get_db)):
     return crud.get_10_posts(db=db, page=page)
 
 

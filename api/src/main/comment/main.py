@@ -11,7 +11,7 @@ router = APIRouter(prefix="/comment")
 
 
 @router.get("/", response_model=list[CommentSchema])
-def get_comments(page: int = 0, db: Session = Depends(get_db)):
+def get_10_comments(page: int = 0, db: Session = Depends(get_db)):
     return crud.get_10_comments(db=db, page=page)
 
 
