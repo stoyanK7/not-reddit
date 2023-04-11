@@ -7,3 +7,11 @@ function assert_in_api_dir {
     exit 1
   fi
 }
+
+function assert_venv_active {
+  # Assert that the virtual environment is active.
+  if [[ -z "$VIRTUAL_ENV" ]]; then
+    echo "Please activate the virtual environment before running this script."
+    exit 1
+  fi
+}
