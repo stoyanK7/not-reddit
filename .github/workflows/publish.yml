@@ -1,4 +1,4 @@
-name: Create and publish API Docker images
+name: "Create and publish API Docker images"
 
 on:
   workflow_dispatch:
