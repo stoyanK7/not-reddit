@@ -5,7 +5,7 @@ from sqlalchemy.exc import ArgumentError
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import StaticPool
 
-from src.main.log_config import logger
+from src.main.logger import logger
 from src.main.settings import settings
 
 
