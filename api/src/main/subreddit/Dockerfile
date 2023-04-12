@@ -12,8 +12,6 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 COPY ./src/main/*.py /app/src/main/
 
-COPY ./src/main/subreddit/.env /app/src/main
-
 COPY ./src/main/subreddit/*.py /app/src/main/subreddit/
 
-CMD ["uvicorn", "src.main.subreddit.main:app", "--host", "0.0.0.0", "--port", "8084"]
+CMD ["uvicorn", "src.main.subreddit.main:app", "--host", "0.0.0.0", "--port", "8080"]

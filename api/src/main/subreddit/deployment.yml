@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subreddit-api-deployment
+  labels:
+    app: subreddit-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: subreddit-api
+  template:
+    metadata:
+      labels:
+        app: subreddit-api
+    spec:
+      containers:
+      - name: subreddit-api
+        image: subreddit-api
+        envFrom:
+          - secretRef:
+              name: subreddit-api-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: subreddit-api-service
+spec:
+  selector:
+    app: subreddit-api
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subreddit-database-deployment
+  labels:
+    app: subreddit-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: subreddit-database
+  template:
+    metadata:
+      labels:
+        app: subreddit-database
+    spec:
+      containers:
+        - name: subreddit-database
+          image: postgres:15.2-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: subreddit-database-secret
+                  key: subreddit-database-password
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: subreddit-database-secret
+                  key: subreddit-database-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: subreddit-database-service
+spec:
+  selector:
+    app: subreddit-database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

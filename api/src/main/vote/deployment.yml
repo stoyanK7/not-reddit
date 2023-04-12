@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote-api-deployment
+  labels:
+    app: vote-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vote-api
+  template:
+    metadata:
+      labels:
+        app: vote-api
+    spec:
+      containers:
+      - name: vote-api
+        image: vote-api
+        envFrom:
+          - secretRef:
+              name: vote-api-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote-api-service
+spec:
+  selector:
+    app: vote-api
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-api-deployment
+  labels:
+    app: comment-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comment-api
+  template:
+    metadata:
+      labels:
+        app: comment-api
+    spec:
+      containers:
+      - name: comment-api
+        image: comment-api
+        envFrom:
+          - secretRef:
+              name: comment-api-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comment-api-service
+spec:
+  selector:
+    app: comment-api
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

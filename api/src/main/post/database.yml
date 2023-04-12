@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-database-deployment
+  labels:
+    app: post-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-database
+  template:
+    metadata:
+      labels:
+        app: post-database
+    spec:
+      containers:
+        - name: post-database
+          image: postgres:15.2-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: post-database-secret
+                  key: post-database-password
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: post-database-secret
+                  key: post-database-db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-database-service
+spec:
+  selector:
+    app: post-database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

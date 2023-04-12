@@ -12,8 +12,6 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 COPY ./src/main/*.py /app/src/main/
 
-COPY ./src/main/gateway/.env /app/src/main
-
 COPY ./src/main/gateway/*.py /app/src/main/gateway/
 
 CMD ["uvicorn", "src.main.gateway.main:app", "--host", "0.0.0.0", "--port", "8080"]
