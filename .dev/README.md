@@ -57,6 +57,12 @@ services.sh
 docker image prune -f
 ```
 
+### Remove not-reddit images
+
+```bash
+docker rmi $(docker images | grep not-reddit | tr -s ' ' | cut -d ' ' -f 3)
+```
+
 ## PyCharm
 
 ### Custom scope that hides unnecessary files
