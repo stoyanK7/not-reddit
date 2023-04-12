@@ -13,6 +13,12 @@ export PATH="<...>/not-reddit/.dev:$PATH"
 
 ## Useful scripts
 
+### Encode in base64
+
+```bash
+echo -n "blabla" | base64
+```
+
 ### Create virtual environment
 
 ```bash
@@ -49,7 +55,25 @@ Make sure you are in the `api` directory and virtual environment is activated.
 services.sh
 ```
 
+## Kubernetes
+
+## Use with local images
+
+```bash
+eval $(minikube docker-env)
+```
+
+Then use `imagePullPolicy: Never`.
+
 ## Docker
+
+### Build images
+
+From `api` directory:
+
+```bash
+docker build -t user -f src/main/user/Dockerfile .
+```
 
 ### Clean dangling images
 
