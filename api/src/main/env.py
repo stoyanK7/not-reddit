@@ -1,12 +1,6 @@
-""""This module is used to get environment variables from .env file"""
-
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-
-def get_env(key) -> str:
+def get_env(key: str) -> str:
     """
     Gets environment variable.
 
@@ -16,4 +10,4 @@ def get_env(key) -> str:
     Returns:
         str: Environment variable value.
     """
-    return os.getenv(key)
+    return os.environ.get(key)
