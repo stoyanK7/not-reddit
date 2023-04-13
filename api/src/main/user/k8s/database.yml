@@ -1,0 +1,73 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: user-database-storageclass
+provisioner: file.csi.azure.com
+allowVolumeExpansion: false
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=0
+  - gid=0
+  - mfsymlinks
+  - cache=strict
+  - actimeo=30
+parameters:
+  skuName: Standard_LRS
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: user-database-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: user-database-storageclass
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-database-deployment
+  labels:
+    app: user-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-database
+  template:
+    metadata:
+      labels:
+        app: user-database
+    spec:
+      volumes:
+        - name: user-database-volume
+          persistentVolumeClaim:
+            claimName: user-database-claim
+      containers:
+        - name: user-database
+          image: postgres:15.2-alpine
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: user-database-secret
+          volumeMounts:
+            - name: user-database-volume
+              mountPath: /var/lib/postgresql
+              subPath: data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-database-service
+spec:
+  selector:
+    app: user-database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
