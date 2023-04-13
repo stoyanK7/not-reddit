@@ -3,6 +3,8 @@
 The purpose of this folder is to contain scripts and other references that are used to build and
 maintain the project.
 
+---
+
 ## Prerequisites
 
 Add this to your `~/.bashrc` or `~/.zshrc`:
@@ -10,6 +12,8 @@ Add this to your `~/.bashrc` or `~/.zshrc`:
 ```bash
 export PATH="<...>/not-reddit/.dev:$PATH"
 ```
+
+---
 
 ## Useful scripts
 
@@ -55,15 +59,32 @@ Make sure you are in the `api` directory and virtual environment is activated.
 services.sh
 ```
 
+---
+
 ## Kubernetes
 
-## Use with local images
+### Use with local images
 
 ```bash
 eval $(minikube docker-env)
 ```
 
 Then use `imagePullPolicy: Never`.
+
+### Get contexts
+
+```bash
+kubectl config get-contexts
+
+```
+
+### Use context
+
+```bash
+kubectl config use-context <context>
+```
+
+---
 
 ## Docker
 
@@ -86,6 +107,8 @@ docker image prune -f
 ```bash
 docker rmi $(docker images | grep not-reddit | tr -s ' ' | cut -d ' ' -f 3)
 ```
+
+---
 
 ## PyCharm
 
