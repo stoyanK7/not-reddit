@@ -159,4 +159,4 @@ cython_debug/
 #.idea/
 
 src/main/.env
-src/main/**/.env
+src/main/**/*.env
