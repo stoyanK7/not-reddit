@@ -19,6 +19,7 @@ coverage.xml
 .pytest_cache
 .hypothesis
 # Project specific
-.venv
-comment/Dockerfile
-k8s
+**/Dockerfile
+**/k8s
+**/__pycache__
+**/.venv

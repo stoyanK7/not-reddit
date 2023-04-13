@@ -6,12 +6,12 @@ LABEL org.opencontainers.image.licenses="GPL-3.0"
 
 WORKDIR /app
 
-COPY ./requirements.txt /app
+COPY ./user/requirements.txt /app
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-COPY ./src/main/*.py /app/src/main/
+COPY ./*.py /app/src/main/
 
-COPY ./src/main/user/*.py /app/src/main/user/
+COPY ./user/ /app/src/main/user/
 
 CMD ["uvicorn", "src.main.user.main:app", "--host", "0.0.0.0", "--port", "8080"]
