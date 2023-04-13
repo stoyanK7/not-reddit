@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: subreddit-api
-        image: subreddit-api
+        image: notreddit.azurecr.io/subreddit-api
         envFrom:
           - secretRef:
               name: subreddit-api-secret

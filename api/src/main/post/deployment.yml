@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: post-api
-        image: post-api
+        image: notreddit.azurecr.io/post-api
         envFrom:
           - secretRef:
               name: post-api-secret

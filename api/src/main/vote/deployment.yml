@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: vote-api
-        image: vote-api
+        image: notreddit.azurecr.io/vote-api
         envFrom:
           - secretRef:
               name: vote-api-secret

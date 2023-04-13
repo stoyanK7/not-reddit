@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: gateway-api
-        image: gateway-api
+        image: notreddit.azurecr.io/gateway-api
         envFrom:
           - secretRef:
               name: gateway-api-secret
