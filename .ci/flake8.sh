@@ -1,3 +1,4 @@
 #!/bin/bash
 
-flake8 --config api/.flake8 api/src
+cd api || exit
+flake8 --config .flake8 src/
