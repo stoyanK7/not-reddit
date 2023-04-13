@@ -1,0 +1,73 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: vote-database-storageclass
+provisioner: file.csi.azure.com
+allowVolumeExpansion: false
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=0
+  - gid=0
+  - mfsymlinks
+  - cache=strict
+  - actimeo=30
+parameters:
+  skuName: Standard_LRS
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vote-database-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: vote-database-storageclass
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote-database-deployment
+  labels:
+    app: vote-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vote-database
+  template:
+    metadata:
+      labels:
+        app: vote-database
+    spec:
+      volumes:
+        - name: vote-database-volume
+          persistentVolumeClaim:
+            claimName: vote-database-claim
+      containers:
+        - name: vote-database
+          image: postgres:15.2-alpine
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: vote-database-secret
+          volumeMounts:
+            - name: vote-database-volume
+              mountPath: /var/lib/postgresql
+              subPath: data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vote-database-service
+spec:
+  selector:
+    app: vote-database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

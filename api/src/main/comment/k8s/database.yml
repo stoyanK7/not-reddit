@@ -1,0 +1,73 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: comment-database-storageclass
+provisioner: file.csi.azure.com
+allowVolumeExpansion: false
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=0
+  - gid=0
+  - mfsymlinks
+  - cache=strict
+  - actimeo=30
+parameters:
+  skuName: Standard_LRS
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: comment-database-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: comment-database-storageclass
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-database-deployment
+  labels:
+    app: comment-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comment-database
+  template:
+    metadata:
+      labels:
+        app: comment-database
+    spec:
+      volumes:
+        - name: comment-database-volume
+          persistentVolumeClaim:
+            claimName: comment-database-claim
+      containers:
+        - name: comment-database
+          image: postgres:15.2-alpine
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: comment-database-secret
+          volumeMounts:
+            - name: comment-database-volume
+              mountPath: /var/lib/postgresql
+              subPath: data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comment-database-service
+spec:
+  selector:
+    app: comment-database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
