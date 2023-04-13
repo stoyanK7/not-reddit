@@ -1,4 +1,4 @@
-FROM python:3.10-slim-bullseye
+FROM python:3.11-slim-bullseye
 
 LABEL org.opencontainers.image.source="https://github.com/stoyanK7/not-reddit"
 LABEL org.opencontainers.image.description="Not-reddit comment service API"
