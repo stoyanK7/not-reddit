@@ -1,4 +1,4 @@
-name: "Publish to Azure Container Registry"
+name: "Azure Container Registry"
 
 on:
   workflow_dispatch:
