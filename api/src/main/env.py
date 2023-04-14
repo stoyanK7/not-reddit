@@ -1,5 +1,6 @@
 import os
 
+
 def get_env(key: str) -> str:
     """
     Gets environment variable.
@@ -10,4 +11,4 @@ def get_env(key: str) -> str:
     Returns:
         str: Environment variable value.
     """
-    return os.environ.get(key)
+    return os.environ.get(key, "")
