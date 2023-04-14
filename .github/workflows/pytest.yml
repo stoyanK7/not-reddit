@@ -2,7 +2,7 @@ name: "Pytest"
 on:
   push:
     paths:
-      - "api/src/**"
+      - "api/src/**.py"
 
 concurrency:
   group: ${{ github.workflow }}
