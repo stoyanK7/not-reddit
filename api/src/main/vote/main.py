@@ -1,4 +1,4 @@
-from fastapi import APIRouter, FastAPI, Depends
+from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
 from src.main.database import get_db, engine
@@ -8,13 +8,9 @@ from src.main.vote.schema import VoteCreate as VoteCreateSchema
 model.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-router = APIRouter(prefix="/vote")
 
 
-@router.post("/", status_code=204)
+@app.post("/", status_code=204)
 def cast_vote(vote: VoteCreateSchema, db: Session = Depends(get_db)):
     crud.cast_vote(db=db, vote=vote)
     return
-
-
-app.include_router(router)
