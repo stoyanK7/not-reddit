@@ -14,3 +14,7 @@ app = FastAPI()
 def create_user(user: UserCreateSchema, db: Session = Depends(get_db)):
     crud.create_user(db=db, user=user)
     return
+
+@app.get("/{username}", status_code=200)
+def get_user(username: str, db: Session = Depends(get_db)):
+    return crud.get_user(db=db, username=username)

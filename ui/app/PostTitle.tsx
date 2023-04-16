@@ -1,5 +1,5 @@
-export default function PostTitle() {
+export default function PostTitle({ title }: { title: string }) {
     return (
-        <div><h3 className="font-bold">Title of post asd</h3></div>
+        <div><h3 className="font-bold">{title}</h3></div>
     )
 }

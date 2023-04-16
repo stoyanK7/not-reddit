@@ -11,3 +11,6 @@ class Post(Base):
     title = Column(String)
     body = Column(String)
     posted_at = Column(DateTime(timezone=True), server_default=func.now())
+    # username = Column(String)
+    # subreddit = Column(String)
+    # votes = Column(Integer)

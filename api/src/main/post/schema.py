@@ -2,18 +2,20 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class PostBase(BaseModel):
-    title: str
-    body: str
-
-
-class Post(PostBase):
+class Post(BaseModel):
     id: int
     posted_at: datetime
+    title: str
+    body: str
+    # user_id: int
+    # subreddit_id: int
 
     class Config:
         orm_mode = True
 
 
-class PostCreate(PostBase):
-    pass
+class PostCreate(BaseModel):
+    title: str
+    body: str
+    # user_id: int
+    # subreddit_id: int

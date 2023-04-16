@@ -1,11 +1,29 @@
+import Link from "next/link";
 import SubredditOnPostLink from "./SubredditOnPostLink";
 
-export default function PostInfo() {
+export default function PostInfo({
+    subreddit = "unknown",
+    username = "unknown",
+    postedAt }
+    : {
+        subreddit: string,
+        username: string,
+        postedAt: string
+    }
+) {
     return (
         <div className="flex gap-2">
-            <SubredditOnPostLink />
+            <SubredditOnPostLink subreddit={subreddit} />
             <span>•</span>
-            <div>Posted by u/asdasd 1 day ago</div>
+            <div className="flex gap-2">
+                <span>
+                    Posted by&nbsp;
+                    <Link href={`/user/${username}`}>
+                        u/{username}
+                    </Link>
+                </span>
+                <span>{postedAt.split('T')[0]}</span>
+            </div>
         </div>
     )
 }

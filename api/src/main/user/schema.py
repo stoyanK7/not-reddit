@@ -7,7 +7,6 @@ class UserBase(BaseModel):
 
 
 class User(UserBase):
-    id: int
     password: str
 
     class Config:

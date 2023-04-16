@@ -14,10 +14,12 @@ export default function CreatePost() {
                         fill />
                 </a>
             </Link>
-            <input className="rounded-sm px-4 py-2 border-2 border-transparent bg-[#F6F7F8]
+            <Link href="/post/create">
+                <input className="rounded-sm px-4 py-2 border-2 border-transparent bg-[#F6F7F8]
                 hover:border-blue grow"
                 type="text"
                 placeholder="Create Post" />
+            </Link>
             <Link href="/" className="p-2 rounded-sm text-2xl hover:bg-reddit-gray-hover">
                 <span>Image</span>
             </Link>
