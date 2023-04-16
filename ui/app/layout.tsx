@@ -1,21 +1,29 @@
+"use client";
+
 import './globals.css'
 import React from "react";
+import { Configuration, PublicClientApplication } from "@azure/msal-browser";
+import { MsalProvider } from "@azure/msal-react";
 
-export const metadata = {
-    title: 'not-reddit',
-    description: 'not-reddit is a social news aggregation platform with sub-communities, ' +
-        'messaging, and awards that allows users to post and share content, vote on submissions, ' +
-        'and comment on posts.',
-}
+const msalConfig: Configuration = {
+  auth: {
+    clientId: "d448d19c-b7c3-4c1f-8c1b-e726b3a3ba88",
+    redirectUri: "http://localhost:3000",
+  },
+};
+
+const msalClient = new PublicClientApplication(msalConfig);
 
 export default function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode
+  children,
+}: {
+  children: React.ReactNode
 }) {
-    return (
-        <html lang="en">
+  return (
+    <MsalProvider instance={msalClient}>
+      <html lang="en">
         <body>{children}</body>
-        </html>
-    )
+      </html>
+    </MsalProvider>
+  )
 }
