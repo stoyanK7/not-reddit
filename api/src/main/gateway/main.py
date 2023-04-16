@@ -1,6 +1,6 @@
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 
-from src.main.gateway.config import configure_cors, azure_scheme, load_openid_config_on_startup
+from src.main.gateway.config import configure_cors, load_openid_config_on_startup
 from src.main.gateway.routers.user import router as user_router
 from src.main.gateway.routers.comment import router as comment_router
 from src.main.gateway.routers.post import router as post_router
@@ -18,11 +18,6 @@ app = FastAPI(
 
 configure_cors(app)
 load_openid_config_on_startup(app)
-
-
-@app.get("/", dependencies=[Depends(azure_scheme)])
-async def root():
-    return {"message": "Hello World"}
 
 
 app.include_router(user_router)
