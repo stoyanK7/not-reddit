@@ -1,35 +1,25 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faArrowUp,
-    faArrowDown,
-    faShare,
-    faBookmark,
-    faComment,
-    faGift
-} from "@fortawesome/free-solid-svg-icons";
-
 export default function PostActions() {
     return (
-        <div className="flex gap-2 text-not-reddit-grey hover:cursor-pointer">
+        <div className="flex gap-2 text-reddit-gray hover:cursor-pointer">
             <div className="flex items-center">
-                <FontAwesomeIcon icon={faArrowUp} className="mr-2 p-1 rounded-sm hover:bg-not-reddit-grey-hover hover:text-not-reddit-orange" />
-                <span className="font-bold text-not-reddit-black">134</span>
-                <FontAwesomeIcon icon={faArrowDown} className="ml-2 p-1 rounded-sm hover:bg-not-reddit-grey-hover hover:text-not-reddit-blue" />
+                <span className="p-2 mr-1 rounded-sm hover:bg-reddit-gray-hover hover:text-reddit-orange">
+                    Up
+                </span>
+                <span className="font-bold text-reddit-black">134</span>
+                <span className="p-2 ml-1 rounded-sm hover:bg-reddit-gray-hover hover:text-reddit-blue">
+                    Down
+                </span>
             </div>
-            <div className="p-2 rounded-sm hover:bg-not-reddit-grey-hover">
-                <FontAwesomeIcon icon={faComment} className="mr-2" />
+            <div className="p-2 rounded-sm hover:bg-reddit-gray-hover">
                 Comments
             </div>
-            <div className="p-2 rounded-sm hover:bg-not-reddit-grey-hover">
-                <FontAwesomeIcon icon={faGift} className="mr-2" />
+            <div className="p-2 rounded-sm hover:bg-reddit-gray-hover">
                 Award
             </div>
-            <div className="p-2 rounded-sm hover:bg-not-reddit-grey-hover">
-                <FontAwesomeIcon icon={faShare} className="mr-2" />
+            <div className="p-2 rounded-sm hover:bg-reddit-gray-hover">
                 Share
             </div>
-            <div className="p-2 rounded-sm hover:bg-not-reddit-grey-hover">
-                <FontAwesomeIcon icon={faBookmark} className="mr-2" />
+            <div className="p-2 rounded-sm hover:bg-reddit-gray-hover">
                 Save
             </div>
         </div>

@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink, faImage } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -17,14 +15,14 @@ export default function CreatePost() {
                 </a>
             </Link>
             <input className="rounded-sm px-4 py-2 border-2 border-transparent bg-[#F6F7F8]
-                hover:border-reddit-blue grow"
+                hover:border-blue grow"
                 type="text"
                 placeholder="Create Post" />
-            <Link href="" className="p-2 rounded-sm text-2xl hover:bg-reddit-gray-hover">
-                <FontAwesomeIcon icon={faImage} />
+            <Link href="/" className="p-2 rounded-sm text-2xl hover:bg-reddit-gray-hover">
+                <span>Image</span>
             </Link>
-            <Link href="" className="p-2 rounded-sm text-2xl hover:bg-reddit-gray-hover">
-                <FontAwesomeIcon icon={faLink} />
+            <Link href="/" className="p-2 rounded-sm text-2xl hover:bg-reddit-gray-hover">
+                <span>Link</span>
             </Link>
         </div>
     )
