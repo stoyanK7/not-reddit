@@ -18,6 +18,7 @@ module.exports = {
         'reddit-gray': '#939698',
         'reddit-gray-hover': '#E7E7E7',
         'reddit-gray-background': '#DAE0E6',
+        'reddit-black': '#222222'
       }
     },
   },
