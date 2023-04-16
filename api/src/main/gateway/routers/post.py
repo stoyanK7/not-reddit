@@ -11,9 +11,8 @@ router = APIRouter()
     service_url=settings.POST_SERVICE_URL,
     gateway_path='/post',
     service_path='/',
-    body_params=['body'],
 )
-def get_10_posts(body: dict, request: Request, response: Response):
+def get_10_posts(request: Request, response: Response):
     pass
 
 
@@ -22,9 +21,8 @@ def get_10_posts(body: dict, request: Request, response: Response):
     service_url=settings.POST_SERVICE_URL,
     gateway_path='/post/{post_id}',
     service_path='/{post_id}',
-    body_params=['body'],
 )
-async def get_post(body: dict, post_id: int, request: Request, response: Response):
+async def get_post(post_id: int, request: Request, response: Response):
     pass
 
 
@@ -44,7 +42,6 @@ async def create_post(body: dict, request: Request, response: Response):
     service_url=settings.POST_SERVICE_URL,
     gateway_path='/post/{post_id}',
     service_path='/{post_id}',
-    body_params=['body'],
 )
-async def delete_post(body: dict, post_id: int, request: Request, response: Response):
+async def delete_post(post_id: int, request: Request, response: Response):
     pass
