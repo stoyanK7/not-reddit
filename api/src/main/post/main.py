@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Request
 from sqlalchemy.orm import Session
 
 from src.main.database import get_db, engine
@@ -12,7 +12,8 @@ app = FastAPI()
 
 
 @app.get("/", response_model=list[PostSchema])
-def get_10_posts(page: int = 0, db: Session = Depends(get_db)):
+def get_10_posts(request: Request, page: int = 0, db: Session = Depends(get_db)):
+    print(request.headers['authorization']) # TODO: use jwt to extract username etc..
     return crud.get_10_posts(db=db, page=page)
 
 
