@@ -13,7 +13,7 @@ app = FastAPI()
 
 @app.get("/", response_model=list[PostSchema])
 def get_10_posts(request: Request, page: int = 0, db: Session = Depends(get_db)):
-    print(request.headers['authorization']) # TODO: use jwt to extract username etc..
+    # print(request.headers['authorization']) # TODO: use jwt to extract username etc..
     return crud.get_10_posts(db=db, page=page)
 
 
