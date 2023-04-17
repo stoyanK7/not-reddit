@@ -3,9 +3,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMsal } from "@azure/msal-react";
+import { EventMessage, EventType } from "@azure/msal-browser";
+import { useEffect, useState } from "react";
 
 export default function Auth() {
     const { instance, accounts, inProgress } = useMsal();
+    const [hydrated, setHydrated] = useState(false);
+
+    useEffect(() => {
+        setHydrated(true);
+
+        instance.enableAccountStorageEvents();
+        instance.addEventCallback((message: EventMessage) => {
+            if (message.eventType === EventType.LOGIN_SUCCESS) {
+                // make request to see if such user exists, if not, ask for username
+            }
+        });
+    }, []);
+
+    // Render nothing until hydrated.
+    if (!hydrated) { return null }
 
     return (
         <main className="flex w-screen h-screen justify-center items-center">
@@ -16,7 +33,10 @@ export default function Auth() {
                         style={{ objectFit: 'contain' }}
                         src="/logo-full.png"
                         alt="Application logo"
-                        fill />
+                        fill
+                        sizes="(max-width: 768px) 100vw,
+                        (max-width: 1200px) 50vw,
+                        33vw" />
                 </div>
                 <h1>Welcome to <b>not-reddit</b>!</h1>
                 {accounts.length > 0 && (
