@@ -18,6 +18,10 @@ if [[ -z "$STARTING_PORT" ]]; then
   export STARTING_PORT=8080
 fi
 
+set -a
+source src/main/.env
+set +a
+
 echo "Starting $SERVICE service on port $STARTING_PORT."
 gnome-terminal --tab -- uvicorn src.main."$SERVICE".main:app \
   --reload \
