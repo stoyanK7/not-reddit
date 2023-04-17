@@ -19,5 +19,9 @@ if [[ -z "$STARTING_PORT" ]]; then
 fi
 
 echo "Starting $SERVICE service on port $STARTING_PORT."
-gnome-terminal --tab -- uvicorn src.main."$SERVICE".main:app --reload --port "$STARTING_PORT"
+gnome-terminal --tab -- uvicorn src.main."$SERVICE".main:app \
+  --reload \
+  --reload-delay 3 \
+  --reload-dir src/main/"$SERVICE" \
+  --port "$STARTING_PORT"
 STARTING_PORT=$((STARTING_PORT + 1))
