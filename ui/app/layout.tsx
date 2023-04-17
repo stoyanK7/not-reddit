@@ -20,10 +20,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <MsalProvider instance={msalClient}>
-      <html lang="en">
+    <html lang="en">
+      <MsalProvider instance={msalClient}>
         <body>{children}</body>
-      </html>
-    </MsalProvider>
+      </MsalProvider>
+    </html>
   )
 }
