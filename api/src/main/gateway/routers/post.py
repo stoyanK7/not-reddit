@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Request, Response
+from fastapi import APIRouter, Request, Response, Security
 from fastapi_gateway import route
 
 from src.main.gateway.settings import settings
+from src.main.gateway.config import azure_scheme
 
 router = APIRouter()
 
@@ -32,6 +33,7 @@ async def get_post(post_id: int, request: Request, response: Response):
     gateway_path='/post',
     service_path='/',
     body_params=['body'],
+    dependencies=[Security(azure_scheme)]
 )
 async def create_post(body: dict, request: Request, response: Response):
     pass

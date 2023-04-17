@@ -3,11 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMsal } from "@azure/msal-react";
-import { EventMessage, EventType } from "@azure/msal-browser";
+import { EventMessage, EventType, InteractionRequiredAuthError } from "@azure/msal-browser";
 import { useEffect, useState } from "react";
+import { loginRequest } from "@/app/loginRequest";
 
 export default function Auth() {
     const { instance, accounts, inProgress } = useMsal();
+    const [isRegistered, setIsRegistered] = useState(true);
     const [hydrated, setHydrated] = useState(false);
 
     useEffect(() => {
@@ -16,10 +18,35 @@ export default function Auth() {
         instance.enableAccountStorageEvents();
         instance.addEventCallback((message: EventMessage) => {
             if (message.eventType === EventType.LOGIN_SUCCESS) {
-                // make request to see if such user exists, if not, ask for username
+                console.log(message.payload);
+                instance.setActiveAccount(accounts[0]);
             }
         });
     }, []);
+
+    function makeRequest() {
+        instance.acquireTokenSilent(loginRequest)
+            .then(async tokenResponse => {
+                const headers = new Headers();
+                const bearer = "Bearer " + tokenResponse.accessToken;
+                headers.append("Authorization", bearer);
+                const options = {
+                    method: "POST",
+                    headers: headers,
+                    body: JSON.stringify({ email: "asd@asdas.com" })
+                };
+
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/user/registered`, options);
+                const data = await res.json();
+                console.log(data);
+            }).catch(async (error) => {
+                console.log(error);
+                if (error instanceof InteractionRequiredAuthError) {
+                    return instance.acquireTokenPopup(loginRequest);
+                }
+            })
+
+    }
 
     // Render nothing until hydrated.
     if (!hydrated) { return null }
@@ -52,7 +79,7 @@ export default function Auth() {
                         </Link>
                         <span>or..</span>
                         <button className="p-2 rounded-sm bg-red-800 text-white"
-                            onClick={() => instance.logout()}>Logout</button>
+                            onClick={() => instance.logoutPopup()}>Logout</button>
                     </>
                 )}
                 {inProgress === "login" && (
@@ -67,11 +94,12 @@ export default function Auth() {
                                 alt="User avatar"
                                 src="/ms-symbollockup-signin-light.svg"
                                 fill
-                                onClick={() => instance.loginPopup()} />
+                                onClick={() => instance.loginPopup(loginRequest)} />
                         </div>
                     </>
                 )}
             </div>
+            <button onClick={makeRequest}>MAKE REQUEST</button>
         </main>
     )
 }
