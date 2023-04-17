@@ -25,9 +25,9 @@ export default function Auth() {
     if (!hydrated) { return null }
 
     return (
-        <main className="flex w-screen h-screen justify-center items-center">
+        <main className="flex bg-white w-screen h-screen justify-center items-center">
             <div className="rounded-sm bg-white p-4 m-2 flex flex-col justify-center items-center
-                gap-2">
+                gap-2 shadow-reddit border border-reddit-postline">
                 <div className="relative overflow-visible w-1/2 h-10">
                     <Image
                         style={{ objectFit: 'contain' }}
@@ -41,7 +41,10 @@ export default function Auth() {
                 <h1>Welcome to <b>not-reddit</b>!</h1>
                 {accounts.length > 0 && (
                     <>
-                        <span>There are currently {accounts.length} users signed in!</span>
+                        <span>There are currently
+                            &nbsp;<b className="text-reddit-orange">{accounts.length}</b>&nbsp;
+                            users signed in!
+                        </span>
                         <Link href="/">
                             <button className="p-2 rounded-sm bg-reddit-orange text-white">
                                 Go to home page
