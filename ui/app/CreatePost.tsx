@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function CreatePost() {
     return (
-        <div className="flex w-full items-center gap-2 text-reddit-gray bg-white rounded-sm border
+        <div className="flex w-full items-center gap-2 text-reddit-gray bg-white rounded-sm
         shadow-reddit border border-reddit-postline mb-4 p-2">
             <Link href="/r/all" passHref legacyBehavior>
                 <a className="relative w-10 h-10 grow-0">
@@ -20,10 +20,12 @@ export default function CreatePost() {
                 type="text"
                 placeholder="Create Post" />
             </Link>
-            <Link href="/" className="p-2 rounded-sm text-2xl hover:bg-reddit-gray-hover grow-0">
+            <Link href="/post/create?image" className="p-2 rounded-sm text-2xl
+                hover:bg-reddit-gray-hover grow-0">
                 <span>Image</span>
             </Link>
-            <Link href="/" className="p-2 rounded-sm text-2xl hover:bg-reddit-gray-hover grow-0">
+            <Link href="/post/create?link" className="p-2 rounded-sm text-2xl
+                hover:bg-reddit-gray-hover grow-0">
                 <span>Link</span>
             </Link>
         </div>
