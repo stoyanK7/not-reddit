@@ -15,7 +15,7 @@ if [[ -z "$SERVICE" ]]; then
 fi
 
 if [[ -z "$STARTING_PORT" ]]; then
-  export STARTING_PORT=8080
+  export STARTING_PORT=8081
 fi
 
 set -a
