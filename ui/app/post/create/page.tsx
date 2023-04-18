@@ -60,19 +60,23 @@ export default function CreatePost() {
     }
 
     return (
-        <div className="flex flex-col">
-            <h1>Create a post</h1>
-            <br />
-            <ToastContainer />
-            <input
-                type="text"
-                placeholder="Title"
-                onChange={e => setTitle(e.currentTarget.value)} />
-            <input
-                type="text"
-                placeholder="Text (optional)"
-                onChange={e => setBody(e.currentTarget.value)} />
-            <button onClick={createPost}>Post</button>
-        </div>
+        <main className="flex w-screen h-screen justify-center items-center">
+            <div className="flex flex-col p-2 gap-2 shadow-reddit border border-reddit-postline">
+                <h1 className="self-center">Create a post</h1>
+                <br />
+                <ToastContainer />
+                <input
+                    className="border border-reddit-postline rounded-sm p-2"
+                    type="text"
+                    placeholder="Title"
+                    onChange={e => setTitle(e.currentTarget.value)} />
+                <textarea
+                    className="border border-reddit-postline rounded-sm p-2"
+                    placeholder="Text (optional)"
+                    onChange={e => setBody(e.currentTarget.value)} />
+                <button className="p-2 rounded-sm bg-reddit-orange text-white"
+                    onClick={createPost}>Post</button>
+            </div>
+        </main>
     )
 }
