@@ -1,0 +1,17 @@
+#spring:
+#  main:
+#    allow-bean-definition-overriding: true
+#  cloud:
+#    azure:
+#      active-directory:
+#        enabled: true
+#        credential:
+#          client-id: d448d19c-b7c3-4c1f-8c1b-e726b3a3ba88
+#        app-id-uri: api://d448d19c-b7c3-4c1f-8c1b-e726b3a3ba88
+service:
+  url:
+    user: ${USER_SERVICE_URL}
+    post: ${POST_SERVICE_URL}
+    vote: ${VOTE_SERVICE_URL}
+    comment: ${COMMENT_SERVICE_URL}
+    subreddit: ${SUBREDDIT_SERVICE_URL}
