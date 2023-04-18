@@ -6,7 +6,7 @@ export default async function Home() {
   const posts = await res.json();
 
   return (
-    <main className="">
+    <main className="w-1/2 mx-auto min-w-fit my-2">
       <CreatePost />
       <div className="flex flex-col gap-2">
         {posts.map((post: any) => (

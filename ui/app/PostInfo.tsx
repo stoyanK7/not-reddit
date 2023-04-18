@@ -2,7 +2,7 @@ import Link from "next/link";
 import SubredditOnPostLink from "./SubredditOnPostLink";
 
 export default function PostInfo({
-    subreddit = "unknown",
+    subreddit = "all",
     username = "unknown",
     postedAt }
     : {
