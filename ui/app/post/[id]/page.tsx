@@ -2,7 +2,8 @@
 
 import { ToastContainer, toast } from "react-toast";
 import { useSearchParams } from 'next/navigation';
-import Post from "@/app/Post";
+import PostItem from "@/app/PostItem";
+import CommentList from "@/app/CommentList";
 
 async function getPost(id: string) {
     const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/post/${id}`);
@@ -33,8 +34,8 @@ export default async function PostPage({ params }: { params: { id: string } }) {
         <main className="flex w-screen h-screen justify-center items-center">
             <div className="flex flex-col p-2 gap-2">
                 <ToastContainer />
-                <Post post={post} />
-                <CommentList comments={comments} />
+                <PostItem post={post} />
+                {/* <CommentList comments={comments} /> */}
             </div>
         </main>
     )

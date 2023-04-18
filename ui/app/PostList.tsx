@@ -1,4 +1,4 @@
-import Post from "@/app/Post";
+import PostItem from "@/app/PostItem";
 
 export default async function PostList() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/post/`);
@@ -7,7 +7,7 @@ export default async function PostList() {
     return (
         <div className="flex flex-col gap-2">
             {posts.map((post: any) => (
-                <Post key={post.id} post={post} />
+                <PostItem key={post.id} post={post} />
             ))}
         </div>
     )

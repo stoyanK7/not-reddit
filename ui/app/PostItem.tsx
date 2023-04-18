@@ -3,7 +3,7 @@ import PostTitle from "./PostTitle";
 import PostBody from "./PostBody";
 import PostActions from "./PostActions";
 
-export default function Post({ post }: { post: any }) {
+export default function PostItem({ post }: { post: any }) {
     return (
         <div className="grid grid-rows-[auto_auto_1fr_auto] grid-cols-1 gap-2 bg-white
             rounded-sm p-2 shadow-reddit border border-reddit-postline">
