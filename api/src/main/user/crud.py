@@ -12,7 +12,7 @@ def create_user(db: Session, user: UserCreate) -> UserModel:
     return db_user
 
 
-def get_user(db: Session, username: str) -> UserModel:
+def get_user_by_username(db: Session, username: str) -> UserModel:
     return db.query(UserModel).filter(UserModel.username == username).first()
 
 

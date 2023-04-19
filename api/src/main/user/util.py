@@ -1,7 +1,7 @@
 import jwt
 from fastapi import HTTPException, Request
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_409_CONFLICT
+from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
 from src.main.user.crud import get_user_by_username_or_email
 
 
@@ -24,6 +24,14 @@ def assert_is_username_and_email_not_taken(username: str, email: str, db: Sessio
         raise HTTPException(
             status_code=HTTP_409_CONFLICT,
             detail="Username or email already taken"
+        )
+
+
+def assert_is_user_exists(user):
+    if not user:
+        raise HTTPException(
+            status_code=HTTP_404_NOT_FOUND,
+            detail="User not found"
         )
 
 
