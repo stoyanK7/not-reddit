@@ -5,7 +5,7 @@ import jwt
 from src.main.user.model import User as UserModel
 
 
-def test_create_user(client, session, mock_user, remove_json_fields):
+def test_create_user(client, session, mock_user):
     """Assert that user is created."""
     body = mock_user
     jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
@@ -26,9 +26,10 @@ def test_create_user_with_different_jwt_email_and_body_email(client, session, mo
     assert response.json() == {"detail": "Unauthorized"}
 
 
-def test_create_user_with_taken_username(client, session, mock_user):
+def test_create_user_with_taken_username(client, session, mock_user_with_username):
     """Assert that user is not created when username is taken."""
-    body = mock_user
+    body = mock_user_with_username
+    body["username"] = "taken_username"
     jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
     session.add(UserModel(**body))
     session.commit()
@@ -39,23 +40,23 @@ def test_create_user_with_taken_username(client, session, mock_user):
     assert response.json() == {"detail": "Username or email already taken"}
 
 
-def test_create_user_with_taken_email(client, session, mock_user):
+def test_create_user_with_taken_email(client, session, mock_user_with_username):
     """Assert that user is not created when email is taken."""
-    body = mock_user
+    body = mock_user_with_username
+    body["email"] = "taken_email"
     jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
     session.add(UserModel(**body))
     session.commit()
 
-    body["username"] = "different_username"
     response = client.post("/", json=body, headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_409_CONFLICT
     assert response.json() == {"detail": "Username or email already taken"}
 
 
-def test_get_user_by_username(client, session, mock_user):
+def test_get_user_by_username(client, session, mock_user_with_username):
     """Assert that user is returned."""
-    body = mock_user
+    body = mock_user_with_username
     jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
     session.add(UserModel(**body))
     session.commit()
@@ -66,9 +67,9 @@ def test_get_user_by_username(client, session, mock_user):
     assert response.json() == body
 
 
-def test_get_user_by_username_with_non_existing_user(client, session, mock_user):
+def test_get_user_by_username_with_non_existing_user(client, session, mock_user_with_username):
     """Assert that 404 is returned when user does not exist."""
-    body = mock_user
+    body = mock_user_with_username
     jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
 
     response = client.get(f"/{body['username']}", headers={"Authorization": f"Bearer {jwt_token}"})
@@ -77,9 +78,9 @@ def test_get_user_by_username_with_non_existing_user(client, session, mock_user)
     assert response.json() == {"detail": "User not found"}
 
 
-def test_check_if_registered(client, session, mock_user):
+def test_check_if_registered(client, session, mock_user_with_username):
     """Assert that user is registered."""
-    body = mock_user
+    body = mock_user_with_username
     jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
     session.add(UserModel(**body))
     session.commit()

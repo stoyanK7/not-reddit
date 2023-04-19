@@ -1,11 +1,10 @@
 from sqlalchemy.orm import Session
 
-from src.main.user.schema import UserCreate
 from src.main.user.model import User as UserModel
 
 
-def create_user(db: Session, user: UserCreate) -> UserModel:
-    db_user = UserModel(**user.dict())
+def create_user(db: Session, username: str, email: str) -> UserModel:
+    db_user = UserModel(username=username, email=email)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
