@@ -24,8 +24,8 @@ not-reddit
     <a href="https://github.com/stoyanK7/not-reddit/actions/workflows/eslint.yml">
         <img src="https://github.com/stoyanK7/not-reddit/actions/workflows/eslint.yml/badge.svg"/>
     </a>
-    <a href="https://github.com/stoyanK7/not-reddit/actions/workflows/shellchecl.yml">
-        <img src="https://github.com/stoyanK7/not-reddit/actions/workflows/shellchecl.yml/badge.svg"/>
+    <a href="https://github.com/stoyanK7/not-reddit/actions/workflows/shellcheck.yml">
+        <img src="https://github.com/stoyanK7/not-reddit/actions/workflows/shellcheck.yml/badge.svg"/>
     </a>
     <br/>
     <a href="https://github.com/stoyanK7/not-reddit/actions/workflows/azure-container-registry.yml">
