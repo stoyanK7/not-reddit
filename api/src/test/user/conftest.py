@@ -36,7 +36,13 @@ def client(session):
 @pytest.fixture
 def mock_user():
     return {
-        "username": "testusername",
         "email": "testemail",
-        "password": "testpassword"
+    }
+
+
+@pytest.fixture
+def mock_user_with_username():
+    return {
+        "email": "testemail",
+        "username": "testusername",
     }
