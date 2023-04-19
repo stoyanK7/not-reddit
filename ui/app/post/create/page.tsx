@@ -9,7 +9,6 @@ import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
 
-
 export default function PostCreatePage() {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");

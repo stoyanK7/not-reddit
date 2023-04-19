@@ -14,7 +14,8 @@ class User(UserBase):
 
 
 class UserCreate(UserBase):
-    password: str
+    email: str
+    username: str
 
 
 class UserCheckIfRegistered(BaseModel):

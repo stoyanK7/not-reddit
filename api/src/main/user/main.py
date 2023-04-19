@@ -15,6 +15,8 @@ configure_cors(app)
 
 @app.post("/", status_code=201)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    # TODO: check token an ensure email is the same as the one in the token
+    # TODO: check if username and email are unique
     crud.create_user(db=db, user=user)
     return
 
@@ -27,7 +29,8 @@ def get_user(username: str, db: Session = Depends(get_db)):
 @app.post("/registered", status_code=200)
 def check_if_registered(request: Request, body: UserCheckIfRegistered,
                         db: Session = Depends(get_db)):
-    # print(request.heaaders)
+    # TODO: check if request is made by the same user
+    print(request.headers)
     print('hello')
     registered = crud.check_if_registered(db=db, email=body.email)
     return {"registered": registered}
