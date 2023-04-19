@@ -16,5 +16,10 @@ def get_user(db: Session, username: str) -> UserModel:
     return db.query(UserModel).filter(UserModel.username == username).first()
 
 
-def check_if_registered(db: Session, email: str) -> bool:
-    return db.query(UserModel).filter(UserModel.email == email).first() is not None
+def get_user_by_email(db: Session, email: str) -> UserModel:
+    return db.query(UserModel).filter(UserModel.email == email).first()
+
+
+def get_user_by_username_or_email(db: Session, username: str, email: str) -> UserModel:
+    return db.query(UserModel)\
+        .filter((UserModel.username == username) or (UserModel.email == email)).first()
