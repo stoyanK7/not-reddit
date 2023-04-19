@@ -1,0 +1,30 @@
+name: "ESLint"
+on:
+  push:
+    paths:
+      - "ui/**.tsx"
+      - "ui/**.ts"
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  eslint:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "19.9.0"
+          cache: "npm"
+          cache-dependency-path: "ui/package-lock.json"
+
+      - name: Install dependencies
+        run: npm --prefix ui/ ci
+
+      - name: Run ESLint
+        run: ./.ci/eslint.sh
