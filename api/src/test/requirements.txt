@@ -5,3 +5,4 @@ psycopg2-binary==2.9.6
 pytest==7.3.0
 httpx==0.24.0
 fastapi-azure-auth==4.0.0
+pyjwt==2.6.0
