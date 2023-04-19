@@ -1,4 +1,4 @@
-from starlette.status import HTTP_201_CREATED
+from starlette.status import HTTP_201_CREATED, HTTP_401_UNAUTHORIZED, HTTP_409_CONFLICT
 import jwt
 
 from src.main.user.model import User as UserModel
@@ -21,7 +21,7 @@ def test_create_user_with_different_jwt_email_and_body_email(client, session, mo
 
     response = client.post("/", json=body, headers={"Authorization": f"Bearer {jwt_token}"})
 
-    assert response.status_code == 401
+    assert response.status_code == HTTP_401_UNAUTHORIZED
     assert response.json() == {"detail": "Unauthorized"}
 
 
@@ -34,7 +34,7 @@ def test_create_user_with_taken_username(client, session, mock_user):
 
     response = client.post("/", json=body, headers={"Authorization": f"Bearer {jwt_token}"})
 
-    assert response.status_code == 409
+    assert response.status_code == HTTP_409_CONFLICT
     assert response.json() == {"detail": "Username or email already taken"}
 
 
@@ -48,5 +48,5 @@ def test_create_user_with_taken_email(client, session, mock_user):
     body["username"] = "different_username"
     response = client.post("/", json=body, headers={"Authorization": f"Bearer {jwt_token}"})
 
-    assert response.status_code == 409
+    assert response.status_code == HTTP_409_CONFLICT
     assert response.json() == {"detail": "Username or email already taken"}
