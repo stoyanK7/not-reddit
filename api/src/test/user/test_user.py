@@ -5,6 +5,6 @@ def test_create_user(client, session, mock_user, remove_json_fields):
     """Assert that user is created."""
     body = mock_user
 
-    response = client.post("/user", json=body)
+    response = client.post("/", json=body)
 
     assert response.status_code == HTTP_201_CREATED

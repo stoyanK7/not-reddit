@@ -9,7 +9,7 @@ def test_upvote_post(client, session):
         "vote_type": "up"
     }
 
-    response = client.post("/vote", json=body)
+    response = client.post("/", json=body)
 
     assert response.status_code == status.HTTP_204_NO_CONTENT
 
@@ -22,7 +22,7 @@ def test_downvote_post(client, session):
         "vote_type": "down"
     }
 
-    response = client.post("/vote", json=body)
+    response = client.post("/", json=body)
 
     assert response.status_code == status.HTTP_204_NO_CONTENT
 
@@ -35,7 +35,7 @@ def test_upvote_comment(client, session):
         "vote_type": "up"
     }
 
-    response = client.post("/vote", json=body)
+    response = client.post("/", json=body)
 
     assert response.status_code == status.HTTP_204_NO_CONTENT
 
@@ -48,6 +48,6 @@ def test_downvote_comment(client, session):
         "vote_type": "down"
     }
 
-    response = client.post("/vote", json=body)
+    response = client.post("/", json=body)
 
     assert response.status_code == status.HTTP_204_NO_CONTENT

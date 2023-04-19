@@ -8,7 +8,7 @@ def test_create_subreddit(client, remove_json_fields):
         "description": "test"
     }
 
-    response = client.post("/subreddit", json=body)
+    response = client.post("/", json=body)
 
     assert response.status_code == status.HTTP_201_CREATED
     assert {"id", "name", "description", "user_id", "created_at"} == set(response.json().keys())
