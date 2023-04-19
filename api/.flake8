@@ -2,3 +2,7 @@
 max-line-length = 100
 per-file-ignores=
     conftest.py:F401,F811
+exclude =
+    __pycache__
+    .venv
+    .pytest_cache
