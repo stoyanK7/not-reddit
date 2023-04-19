@@ -33,7 +33,10 @@ export default function AuthPage() {
     }, []);
 
     async function checkIfUserIsRegistered() {
-        const accessToken: string = await getAccessToken(instance, accounts);
+        const accessToken: string | null = await getAccessToken(instance, accounts);
+        if (accessToken === null) {
+            return;
+        }
         const options = {
             method: "POST",
             headers: buildJSONHeaders(accessToken),

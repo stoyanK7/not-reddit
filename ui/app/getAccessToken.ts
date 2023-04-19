@@ -2,6 +2,10 @@ import {AuthenticationResult, IPublicClientApplication} from "@azure/msal-browse
 import {loginRequest} from "@/app/loginRequest";
 
 export default async function getAccessToken(instance: IPublicClientApplication, accounts: any[]) {
+    if (!accounts.length) {
+        return null;
+    }
+
     const tokenResponse: AuthenticationResult = await instance
         .acquireTokenSilent({scopes: loginRequest.scopes, account: accounts[0]})
     return tokenResponse.accessToken;
