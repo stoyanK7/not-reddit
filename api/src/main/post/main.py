@@ -27,6 +27,7 @@ def get_post_by_id(post_id: int, db: Session = Depends(get_db)):
 
 @app.post("/", status_code=HTTP_201_CREATED)
 def create_post(post: PostCreate, db: Session = Depends(get_db)):
+    # TODO: Think about handling media
     return crud.create_post(db=db, post=post)
 
 
