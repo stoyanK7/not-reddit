@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from src.main.database import get_db, engine
 from src.main.subreddit import crud, model
 from src.main.subreddit.schema import SubredditCreate as SubredditCreateSchema
-from src.main.auth_config import configure_cors, azure_scheme
+from src.main.auth_config import configure_cors
 
 model.Base.metadata.create_all(bind=engine)
 

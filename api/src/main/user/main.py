@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from src.main.database import get_db, engine
 from src.main.user import crud, model
 from src.main.user.schema import UserCreate
-from src.main.user.schema import  UserCheckIfRegistered
+from src.main.user.schema import UserCheckIfRegistered
 from src.main.auth_config import configure_cors, azure_scheme
 
 model.Base.metadata.create_all(bind=engine)
@@ -25,10 +25,9 @@ def get_user(username: str, db: Session = Depends(get_db)):
 
 
 @app.post("/registered", status_code=200)
-def check_if_registered(request: Request,
-    body: UserCheckIfRegistered,
-    db: Session = Depends(get_db)):
+def check_if_registered(request: Request, body: UserCheckIfRegistered,
+                        db: Session = Depends(get_db)):
     # print(request.heaaders)
     print('hello')
     registered = crud.check_if_registered(db=db, email=body.email)
-    return { "registered": registered }
+    return {"registered": registered}

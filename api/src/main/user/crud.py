@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 
 from src.main.user.schema import UserCreate
-from src.main.user.schema import UserCheckIfRegistered
 from src.main.user.model import User as UserModel
 
 

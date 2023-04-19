@@ -5,7 +5,7 @@ from src.main.database import get_db, engine
 from src.main.post import crud, model
 from src.main.post.schema import Post as PostSchema
 from src.main.post.schema import PostCreate as PostCreateSchema
-from src.main.auth_config import configure_cors, azure_scheme
+from src.main.auth_config import configure_cors
 
 model.Base.metadata.create_all(bind=engine)
 
