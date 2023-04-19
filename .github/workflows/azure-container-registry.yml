@@ -12,10 +12,11 @@ jobs:
     strategy:
       matrix:
         service:
+          - gateway
           - user
-          - comment
           - post
           - vote
+          - comment
           - subreddit
     runs-on: self-hosted
     steps:
