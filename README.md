@@ -5,7 +5,6 @@
 not-reddit is a social news aggregation platform with sub-communities, messaging, and awards that
 allows users to post and share content, vote on submissions, and comment on posts.
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## Licensing
 
