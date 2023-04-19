@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-api-deployment
+  labels:
+    app: gateway-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-api
+  template:
+    metadata:
+      labels:
+        app: gateway-api
+    spec:
+      containers:
+      - name: gateway-api
+        image: notreddit.azurecr.io/gateway-api
+        envFrom:
+          - secretRef:
+              name: gateway-api-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-api-service
+spec:
+  selector:
+    app: gateway-api
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
