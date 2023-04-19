@@ -7,7 +7,7 @@ export default function IsSignedIn() {
 
     async function logout() {
         await instance.logoutPopup();
-        toast.info("Logged out successfully.");
+        toast.success("Logged out successfully.");
     }
 
     return (

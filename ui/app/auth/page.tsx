@@ -3,7 +3,6 @@
 import Image from "next/image";
 import {useMsal} from "@azure/msal-react";
 import {
-    EventMessage,
     EventType,
 } from "@azure/msal-browser";
 import {useEffect, useState} from "react";
@@ -12,7 +11,6 @@ import IsNotSignedIn from "@/app/post/create/IsNotSignedIn";
 import IsSignedIn from "@/app/post/create/IsSignedIn";
 import getAccessToken from "@/app/getAccessToken";
 import buildJSONHeaders from "@/app/buildJSONHeaders";
-import IsNotRegistered from "@/app/IsNotRegistered";
 
 export default function AuthPage() {
     const {instance, accounts, inProgress} = useMsal();
@@ -21,12 +19,19 @@ export default function AuthPage() {
 
     useEffect(() => {
         setHydrated(true);
-        checkIfUserIsRegistered();
+        if (accounts.length > 0) {
+            checkIfUserIsRegistered();
+        }
 
         instance.enableAccountStorageEvents();
-        instance.addEventCallback((message: EventMessage) => {
+        instance.addEventCallback(async (message: any) => {
             if (message.eventType === EventType.LOGIN_SUCCESS) {
-                checkIfUserIsRegistered();
+                if (message.payload !== null && !await checkIfUserIsRegistered()) {
+                    instance.setActiveAccount(message.payload.account);
+                    if (!isRegistered) {
+                        await registerUser(message.payload.account.username);
+                    }
+                }
                 toast.success("Logged in successfully.");
             }
         });
@@ -45,6 +50,24 @@ export default function AuthPage() {
         const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/user/registered`, options);
         const data = await res.json();
         setIsRegistered(data.isRegistered);
+        return data.isRegistered;
+    }
+
+    async function registerUser(email: string) {
+        const accessToken: string | null = await getAccessToken(instance, accounts);
+        if (accessToken === null) {
+            toast.error("Failed to get your access token.");
+            return;
+        }
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/user/`, {
+            method: 'POST',
+            headers: buildJSONHeaders(accessToken),
+            body: JSON.stringify({email}),
+        });
+
+        if (res.ok) {
+            toast.success("Registered successfully.");
+        }
     }
 
     // Render nothing until hydrated.
@@ -54,7 +77,7 @@ export default function AuthPage() {
 
     return (
         <main className="flex flex-col bg-white w-screen h-screen justify-center items-center">
-            <ToastContainer/>
+            <ToastContainer delay={5000}/>
             <div className="rounded-sm bg-white p-4 m-2 flex flex-col justify-center items-center
                 gap-2 shadow-reddit border border-reddit-postline">
                 <div className="relative overflow-visible w-1/2 h-10">
@@ -72,7 +95,6 @@ export default function AuthPage() {
                 {inProgress === "login" && (<span>Logging in...</span>)}
                 {accounts.length === 0 && inProgress !== "login" && <IsNotSignedIn/>}
             </div>
-            {!isRegistered && <IsNotRegistered/>}
         </main>
     )
 }
