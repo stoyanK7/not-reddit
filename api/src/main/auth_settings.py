@@ -9,7 +9,11 @@ class Settings(BaseSettings):
     APP_CLIENT_ID = get_env("APP_CLIENT_ID")
     OPENAPI_CLIENT_ID = get_env("OPENAPI_CLIENT_ID")
     # CORS
-    CORS_ORIGINS: list[Union[str, AnyHttpUrl]] = ['http://localhost:8000', "http://localhost:8080"]
+    CORS_ORIGINS: list[Union[str, AnyHttpUrl]] = [
+        'http://localhost:8000',
+        "http://localhost:8080",
+        "http://localhost:3000",
+    ]
 
 
 settings = Settings()
