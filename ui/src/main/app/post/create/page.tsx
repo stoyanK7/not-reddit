@@ -4,7 +4,6 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toast';
 import { useMsal } from "@azure/msal-react";
 import { InteractionRequiredAuthError } from "@azure/msal-browser";
-import { loginRequest } from "@/app/loginRequest";
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
