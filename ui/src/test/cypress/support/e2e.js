@@ -38,12 +38,8 @@ function loginViaAAD(username, password) {
       }
     )
   
-    // Ensure Microsoft has redirected us back to the sample app with our logged in user.
-    cy.url().should('equal', '/')
-    cy.get('#welcome-div').should(
-      'contain',
-      `Welcome `
-    )
+    cy.url().should('contain', '/auth')
+    cy.getBySel('logOut').should('be.visible')
 }
   
 Cypress.Commands.add('loginToAAD', (username, password) => {
@@ -66,13 +62,8 @@ Cypress.Commands.add('loginToAAD', (username, password) => {
     },
     {
       validate: () => {
-        // this is a very basic form of session validation for this demo.
-        // depending on your needs, something more verbose might be needed
-        cy.visit('/')
-        cy.get('#welcome-div').should(
-          'contain',
-          `Welcome ${Cypress.env('aad_username')}!`
-        )
+        cy.visit('/auth')
+        cy.getBySel('accountsAmount').should('have.text', '1')
       },
     }
   )
