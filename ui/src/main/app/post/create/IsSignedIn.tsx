@@ -14,7 +14,11 @@ export default function IsSignedIn() {
     return (
         <>
             <span>There are currently
-                &nbsp;<b className="text-reddit-orange">{accounts.length}</b>&nbsp;
+                &nbsp;
+                <b className="text-reddit-orange">
+                    {accounts.length}
+                </b>
+                &nbsp;
                 users signed in!
             </span>
             <Link href="/">
@@ -23,7 +27,9 @@ export default function IsSignedIn() {
                 </button>
             </Link>
             <span>or..</span>
-            <button className="p-2 rounded-sm bg-red-800 text-white" onClick={logout}>
+            <button className="p-2 rounded-sm bg-red-800 text-white"
+                onClick={logout}
+                data-cy="logOut">
                 Logout
             </button>
         </>
