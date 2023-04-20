@@ -23,7 +23,7 @@ export default function CreateComment({ postId }: { postId: string }) {
 
     return (
         <div className="flex flex-col gap-2">
-            <ToastContainer />
+            <ToastContainer delay={8000}/>
             <span>Comment on the post</span>
             <textarea rows={10}
                 onChange={e => setCommentBody(e.currentTarget.value)}

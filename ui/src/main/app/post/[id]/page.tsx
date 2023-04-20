@@ -24,7 +24,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
     return (
         <main className="flex w-screen h-screen justify-center items-center">
             <div className="flex flex-col p-2 gap-2">
-                <ToastContainer />
+                <ToastContainer delay={8000}/>
                 <PostItem post={post} />
                 <CreateComment postId={post.id} />
                 {/* <CommentList comments={comments} /> */}
