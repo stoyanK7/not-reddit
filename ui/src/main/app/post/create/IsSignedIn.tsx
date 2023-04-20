@@ -15,7 +15,7 @@ export default function IsSignedIn() {
         <>
             <span>There are currently
                 &nbsp;
-                <b className="text-reddit-orange">
+                <b className="text-reddit-orange" data-cy="accountsAmount">
                     {accounts.length}
                 </b>
                 &nbsp;

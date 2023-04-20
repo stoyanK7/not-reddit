@@ -4,7 +4,7 @@ import { loginRequest, msalInstance } from "@/app/authConfig";
 export default function IsNotSignedIn() {
     return (
         <>
-            <span>There are currently no users signed in!</span>
+            <span data-cy="nobodySignedIn">There are currently no users signed in!</span>
             <div className="relative overflow-visible w-1/2 h-10 hover:cursor-pointer">
                 <Image
                     style={{ objectFit: 'contain' }}
