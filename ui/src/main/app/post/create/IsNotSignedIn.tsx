@@ -1,10 +1,7 @@
 import Image from "next/image";
-import { loginRequest } from "@/app/authConfig";
-import { useMsal } from "@azure/msal-react";
+import { loginRequest, msalInstance } from "@/app/authConfig";
 
 export default function IsNotSignedIn() {
-    const { instance } = useMsal();
-
     return (
         <>
             <span>There are currently no users signed in!</span>
@@ -14,7 +11,7 @@ export default function IsNotSignedIn() {
                     alt="User avatar"
                     src="/ms-symbollockup-signin-light.svg"
                     fill
-                    onClick={() => instance.loginRedirect(loginRequest)}
+                    onClick={() => msalInstance.loginRedirect(loginRequest)}
                     data-cy="signIn" />
             </div>
         </>

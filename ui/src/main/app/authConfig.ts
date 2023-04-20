@@ -1,4 +1,11 @@
-import { LogLevel } from "@azure/msal-browser";
+import { 
+    AuthenticationResult,
+    EventMessage,
+    EventType,
+    LogLevel,
+    PublicClientApplication 
+} from "@azure/msal-browser";
+import { toast } from "react-toast";
 
 export const msalConfig = {
     auth: {
@@ -36,6 +43,32 @@ export const msalConfig = {
     }
 };
 
+export const msalInstance = new PublicClientApplication(msalConfig);
+
+msalInstance.addEventCallback((event: EventMessage) => {
+  if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
+    const payload = event.payload as AuthenticationResult;
+    const account = payload.account;
+    msalInstance.setActiveAccount(account);
+    tokenRequest.account = msalInstance.getActiveAccount();
+    if (account) {
+        toast.success(`Logged in as ${account.username}`);
+    }
+  }
+});
+
 export const loginRequest = {
     scopes: ["api://d448d19c-b7c3-4c1f-8c1b-e726b3a3ba88/user_impersonation"]
+};
+
+export const tokenRequest = {
+    scopes: ["api://d448d19c-b7c3-4c1f-8c1b-e726b3a3ba88/user_impersonation"],
+    account: msalInstance.getActiveAccount()
+};
+
+export const getTokenRequest = (): any => {
+    return {
+      scopes: ["api://d448d19c-b7c3-4c1f-8c1b-e726b3a3ba88/user_impersonation"],
+      account: msalInstance.getActiveAccount()
+    };
 };

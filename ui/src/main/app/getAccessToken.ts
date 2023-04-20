@@ -1,12 +1,12 @@
-import {AuthenticationResult, IPublicClientApplication} from "@azure/msal-browser";
-import { loginRequest } from "@/app/authConfig";
+import { AuthenticationResult } from "@azure/msal-browser";
+import { getTokenRequest, msalInstance } from "@/app/authConfig";
 
-export default async function getAccessToken(instance: IPublicClientApplication, accounts: any[]) {
-    if (!accounts.length) {
+export default async function getAccessToken() {
+    if (!getTokenRequest().account) {
         return null;
     }
 
-    const tokenResponse: AuthenticationResult = await instance
-        .acquireTokenSilent({scopes: loginRequest.scopes, account: accounts[0]})
+    const tokenResponse: AuthenticationResult = await msalInstance
+                                                    .acquireTokenSilent(getTokenRequest());
     return tokenResponse.accessToken;
 }

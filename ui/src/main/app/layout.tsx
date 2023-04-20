@@ -1,12 +1,10 @@
 "use client";
 
-import './globals.css'
 import React from "react";
-import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
-import { msalConfig } from '@/app/authConfig';
+import '@/app/globals.css'
+import { msalInstance } from '@/app/authConfig';
 
-const msalClient = new PublicClientApplication(msalConfig);
 
 export default function RootLayout({
   children,
@@ -14,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <MsalProvider instance={msalClient}>
+    <MsalProvider instance={msalInstance}>
       <html lang="en">
         <body>{children}</body>
       </html>

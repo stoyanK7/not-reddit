@@ -1,12 +1,13 @@
-import {useMsal} from "@azure/msal-react";
+import { useMsal } from "@azure/msal-react";
 import Link from "next/link";
-import {toast} from "react-toast";
+import { toast } from "react-toast";
+import { msalInstance } from "@/app/authConfig";
 
 export default function IsSignedIn() {
-    const {instance, accounts} = useMsal();
+    const { accounts } = useMsal();
 
     async function logout() {
-        await instance.logoutPopup();
+        await msalInstance.logoutPopup();
         toast.success("Logged out successfully.");
     }
 

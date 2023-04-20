@@ -73,7 +73,7 @@ export default function PostCreatePage() {
             <div className="flex w-1/2 flex-col p-2 gap-2 shadow-reddit border border-reddit-postline">
                 <h1 className="self-center">Create a post</h1>
                 <br />
-                <ToastContainer />
+                <ToastContainer delay={8000}/>
                 <input
                     className="border border-reddit-postline rounded-sm p-2"
                     type="text"
