@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {useMsal} from "@azure/msal-react";
+import {useIsAuthenticated, useMsal} from "@azure/msal-react";
 import {
     EventType,
 } from "@azure/msal-browser";
@@ -14,6 +14,7 @@ import buildJSONHeaders from "@/app/buildJSONHeaders";
 
 export default function AuthPage() {
     const {instance, accounts, inProgress} = useMsal();
+    const isAuthenticated = useIsAuthenticated();
     const [isRegistered, setIsRegistered] = useState(true);
     const [hydrated, setHydrated] = useState(false);
 
@@ -91,9 +92,8 @@ export default function AuthPage() {
                         33vw"/>
                 </div>
                 <h1>Welcome to <b>not-reddit</b>!</h1>
-                {accounts.length > 0 && <IsSignedIn/>}
+                {isAuthenticated ? <IsSignedIn/> : <IsNotSignedIn/>}
                 {inProgress === "login" && (<span>Logging in...</span>)}
-                {accounts.length === 0 && inProgress !== "login" && <IsNotSignedIn/>}
             </div>
         </main>
     )
