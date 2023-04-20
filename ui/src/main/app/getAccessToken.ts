@@ -1,5 +1,5 @@
 import {AuthenticationResult, IPublicClientApplication} from "@azure/msal-browser";
-import {loginRequest} from "@/app/loginRequest";
+import { loginRequest } from "@/app/authConfig";
 
 export default async function getAccessToken(instance: IPublicClientApplication, accounts: any[]) {
     if (!accounts.length) {
