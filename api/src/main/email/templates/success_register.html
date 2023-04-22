@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <h1>
+        Welcome to not-reddit!
+    </h1>
+
+    <p>
+        Dear,
+        {% for recipient in recipients %}
+            {{ recipient }}
+        {% endfor %},
+        Thank you for registering with not-reddit!
+    </p>
+
+    <p>Enjoy browsing fun posts.</p>
+</body>
+</html>
