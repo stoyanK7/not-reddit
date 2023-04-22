@@ -1,26 +1,46 @@
 @startuml C4_Container
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
+
+LAYOUT_LEFT_RIGHT()
+
 Person(user_person, "User", "Reddit user")
 System_Boundary(c1, "Reddit system") {
-    Container(gateway, "Gateway", "FastAPI", "Entry point for the system. Handles authentication and routing.")
+    Container(spa, "Single-Page Application", "NextJS", "Frontend.", , $sprite="nextjs_original")
+    Container(gateway, "Gateway", "Nginx", "Routes requests to microservices.")
     Container(user, "User", "FastAPI", "Microservice for users.")
     Container(comment, "Comment", "FastAPI", "Microservice for comments.")
     Container(post, "Post", "FastAPI", "Microservice for posts.")
     Container(vote, "Vote", "FastAPI", "Microservice for votes.")
-    Container(subreddit, "Subreddit", "FastAPI", "Microservice for subreddits.")
-    ContainerDb(postgres_db, "Database", "PostgreSQL", "Holds all information.")
+    ContainerDb(postgres_user_db, "User database", "PostgreSQL", "Holds user information.")
+    ContainerDb(postgres_comment_db, "Comment database", "PostgreSQL", "Holds comment information.")
+    ContainerDb(postgres_post_db, "Post database", "PostgreSQL", "Holds post information.")
+    ContainerDb(postgres_vote_db, "Vote database", "PostgreSQL", "Holds vote information.")
+
+    Container(email, "Email", "Python3", "Microservice for emails.")
+    Container(rabbitmq, "RabbitMQ", "RabbitMQ", "Message broker for microservices.")
 }
 
-Rel(user_person, gateway, "Uses", "HTTPS")
+System_Ext(email_communication_service, " Microsoft Azure Email Communication Service", "Email communication service provider.")
+System_Ext(azure_ad, "Microsoft Azure AD", "OAuth2.0 provider.")
+
+Lay_U(user, rabbitmq)
+'
+Rel(user_person, spa, "Uses", "HTTPS")
+Rel(spa, gateway, "Uses", "HTTPS")
 Rel(gateway, user, "Routes to", "HTTPS")
 Rel(gateway, comment, "Routes to", "HTTPS")
 Rel(gateway, post, "Routes to", "HTTPS")
 Rel(gateway, vote, "Routes to", "HTTPS")
-Rel(gateway, subreddit, "Routes to", "HTTPS")
-Rel(user, postgres_db, "Reads/Writes", "SQLAlchemy")
-Rel(comment, postgres_db, "Reads/Writes", "SQLAlchemy")
-Rel(post, postgres_db, "Reads/Writes", "SQLAlchemy")
-Rel(vote, postgres_db, "Reads/Writes", "SQLAlchemy")
-Rel(subreddit, postgres_db, "Reads/Writes", "SQLAlchemy")
+Rel(user, postgres_user_db, "Reads/Writes", "SQLAlchemy")
+Rel(comment, postgres_comment_db, "Reads/Writes", "SQLAlchemy")
+Rel(post, postgres_post_db, "Reads/Writes", "SQLAlchemy")
+Rel(vote, postgres_vote_db, "Reads/Writes", "SQLAlchemy")
+Rel(user, azure_ad, "Authenticates with", "OAuth2.0")
+Rel(post, azure_ad, "Authenticates with", "OAuth2.0")
+Rel(comment, azure_ad, "Authenticates with", "OAuth2.0")
+Rel(vote, azure_ad, "Authenticates with", "OAuth2.0")
+Rel(user, rabbitmq, "Sends", "AMQP")
+Rel(email, rabbitmq, "Consumes", "AMQP")
+Rel(email, email_communication_service, "Sends", "SMTP")
 @enduml

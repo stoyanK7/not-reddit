@@ -2,7 +2,17 @@
 
 This document describes the history of the architecture of the project. Latest is always on the top.
 
-## 11 April 2023 (Latest)
+## 22 April 2023 (Latest)
+
+The gateway has been migrated to nginx for performance increase and development simplicity. Each microservice now has
+its own database. Moreover, there is an email service which is subscribed to a _RabbitMQ_ queue and sends emails
+using _Microsoft Azure Email Communication_ service. In addition, every microservice validates the JWT token
+by making a request to _Azure Active Directory_.
+See [07. Database per microservice](decisions/api/07-database-per-microservice.md) for more details.
+
+![img](img/2023-04-22-architecture.png "Architecture from 22 April 2023")
+
+## 11 April 2023
 
 The application has a single point of entry, the API gateway. It is responsible for routing the
 requests and for authentication. The subreddit and vote services are now implemented:
