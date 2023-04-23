@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # Activate the virtual environment.
-# Any service should work since they all have the same dependencies.
-source src/main/user/.venv/bin/activate
+# The test folder is perfect since it holds all the dependencies.
+source src/test/.venv/bin/activate
