@@ -1,5 +1,6 @@
 @startuml C4_Container
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
 
 LAYOUT_LEFT_RIGHT()
@@ -23,6 +24,7 @@ System_Boundary(c1, "Reddit system") {
 
 System_Ext(email_communication_service, " Microsoft Azure Email Communication Service", "Email communication service provider.")
 System_Ext(azure_ad, "Microsoft Azure AD", "OAuth2.0 provider.")
+SystemDb_Ext(blob_storage, "Microsoft Azure Blob Storage", "Storage for images and videos.")
 
 Lay_U(user, rabbitmq)
 '
@@ -35,6 +37,7 @@ Rel(gateway, vote, "Routes to", "HTTPS")
 Rel(user, postgres_user_db, "Reads/Writes", "SQLAlchemy")
 Rel(comment, postgres_comment_db, "Reads/Writes", "SQLAlchemy")
 Rel(post, postgres_post_db, "Reads/Writes", "SQLAlchemy")
+Rel(post, blob_storage, "Reads/Writes", "HTTPS")
 Rel(vote, postgres_vote_db, "Reads/Writes", "SQLAlchemy")
 Rel(user, azure_ad, "Authenticates with", "OAuth2.0")
 Rel(post, azure_ad, "Authenticates with", "OAuth2.0")
