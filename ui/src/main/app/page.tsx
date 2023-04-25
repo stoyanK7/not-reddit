@@ -1,5 +1,5 @@
 import CreatePost from "./CreatePost";
-import PostList from "@/app/PostList";
+import PostList from "@/app/post/PostList";
 
 export default function Home() {
   return (

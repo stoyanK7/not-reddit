@@ -1,7 +1,7 @@
 "use client";
 
 import { ToastContainer, toast } from "react-toast";
-import PostItem from "@/app/PostItem";
+import PostItem from "@/app/post/PostItem";
 import CommentList from "@/app/CommentList";
 import CreateComment from "@/app/CreateComment";
 

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function SubredditOnPostLink({ subreddit }: { subreddit: string }) {
+export default function PostSubreddit({ subreddit }: { subreddit: string }) {
     return (
         <div className="flex gap-2 items-center">
             <Link href={`r/${subreddit}`} passHref legacyBehavior>

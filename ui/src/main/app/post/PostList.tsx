@@ -1,4 +1,4 @@
-import PostItem from "@/app/PostItem";
+import PostItem from "@/app/post/PostItem";
 
 export default async function PostList() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/post/`);

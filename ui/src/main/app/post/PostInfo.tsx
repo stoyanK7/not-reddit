@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SubredditOnPostLink from "./SubredditOnPostLink";
+import PostSubreddit from "./PostSubreddit";
 
 export default function PostInfo({
     subreddit = "all",
@@ -13,7 +13,7 @@ export default function PostInfo({
 ) {
     return (
         <div className="flex gap-2">
-            <SubredditOnPostLink subreddit={subreddit} />
+            <PostSubreddit subreddit={subreddit} />
             <span>•</span>
             <div className="flex gap-2">
                 <span>
