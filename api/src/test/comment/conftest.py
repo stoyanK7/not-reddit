@@ -23,9 +23,6 @@ def client(session):
     def override_get_db():
         yield session
 
-    def override_azure_scheme():
-        return None
-
     app.dependency_overrides[get_db] = override_get_db
     yield TestClient(app)
     del app.dependency_overrides[get_db]
