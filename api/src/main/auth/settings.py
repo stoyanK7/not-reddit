@@ -4,7 +4,7 @@ from pydantic import AnyHttpUrl, BaseSettings
 from src.main.env import get_env
 
 
-class Settings(BaseSettings):
+class AuthSettings(BaseSettings):
     # Auth
     APP_CLIENT_ID = get_env("APP_CLIENT_ID")
     OPENAPI_CLIENT_ID = get_env("OPENAPI_CLIENT_ID")
@@ -16,4 +16,4 @@ class Settings(BaseSettings):
     ]
 
 
-settings = Settings()
+settings = AuthSettings()

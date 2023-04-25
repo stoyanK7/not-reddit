@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi_azure_auth import MultiTenantAzureAuthorizationCodeBearer
 from starlette.middleware.cors import CORSMiddleware
 
-from src.main.auth_settings import settings
+from src.main.auth.settings import settings
 from src.main.logger import logger
 
 
