@@ -8,7 +8,6 @@ from src.main.user.model import Base
 from src.main.user import crud
 from src.main.user.schema import UserCreate
 from src.main.user.schema import UserCheckIfRegistered
-from src.main.auth_config import configure_cors, azure_scheme
 from src.main.user.util import assert_is_jwt_email_same_as_provided_email, \
     assert_is_username_and_email_not_taken, assert_is_user_exists, \
     send_successful_registration_email
@@ -17,10 +16,9 @@ from random_username.generate import generate_username
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(lifespan=lifespan)
-configure_cors(app)
 
 
-@app.get("/{username}", status_code=HTTP_200_OK, dependencies=[Depends(azure_scheme)])
+@app.get("/{username}", status_code=HTTP_200_OK)
 def get_user_by_username(username: str, db: Session = Depends(get_db)):
     user = crud.get_user_by_username(db=db, username=username)
     assert_is_user_exists(user)
@@ -28,7 +26,7 @@ def get_user_by_username(username: str, db: Session = Depends(get_db)):
     return user
 
 
-@app.post("/", status_code=HTTP_201_CREATED, dependencies=[Depends(azure_scheme)])
+@app.post("/", status_code=HTTP_201_CREATED)
 def create_user(request: Request, body: UserCreate, db: Session = Depends(get_db)):
     assert_is_jwt_email_same_as_provided_email(body.email, request=request)
     new_username = generate_username(1)[0]
@@ -39,7 +37,7 @@ def create_user(request: Request, body: UserCreate, db: Session = Depends(get_db
     return
 
 
-@app.post("/registered", status_code=HTTP_200_OK, dependencies=[Depends(azure_scheme)])
+@app.post("/registered", status_code=HTTP_200_OK)
 def check_if_registered(request: Request, body: UserCheckIfRegistered,
                         db: Session = Depends(get_db)):
     assert_is_jwt_email_same_as_provided_email(body.email, request=request)

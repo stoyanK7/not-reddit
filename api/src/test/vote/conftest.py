@@ -1,7 +1,6 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from src.main.auth_config import azure_scheme
 from src.main.vote.main import app
 from src.main.database import get_db, Base
 from src.test.database import engine
@@ -27,7 +26,5 @@ def client(session):
         return None
 
     app.dependency_overrides[get_db] = override_get_db
-    app.dependency_overrides[azure_scheme] = override_azure_scheme
     yield TestClient(app)
     del app.dependency_overrides[get_db]
-    del app.dependency_overrides[azure_scheme]

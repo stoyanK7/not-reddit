@@ -4,12 +4,10 @@ from sqlalchemy.orm import Session
 from src.main.database import get_db, engine
 from src.main.vote import crud, model
 from src.main.vote.schema import VoteCreate as VoteCreateSchema
-from src.main.auth_config import configure_cors
 
 model.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-configure_cors(app)
 
 
 @app.post("/", status_code=204)

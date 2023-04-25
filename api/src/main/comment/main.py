@@ -3,12 +3,10 @@ from sqlalchemy.orm import Session
 from src.main.database import get_db, engine
 from src.main.comment import crud, model
 from src.main.comment.schema import Comment as CommentSchema, CommentCreate as CommentCreateSchema
-from src.main.auth_config import configure_cors
 
 model.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-configure_cors(app)
 
 
 @app.get("/", response_model=list[CommentSchema])
