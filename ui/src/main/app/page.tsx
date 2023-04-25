@@ -1,3 +1,5 @@
+"use client"
+
 import CreatePost from "./CreatePost";
 import PostList from "@/app/post/PostList";
 import {AuthenticatedTemplate} from "@azure/msal-react";
