@@ -24,3 +24,13 @@ for SERVICE in "${SERVICES[@]}"; do
   --port "$STARTING_PORT"
   STARTING_PORT=$((STARTING_PORT + 1))
 done
+
+# Start auth service on 8090
+gnome-terminal --tab -- uvicorn src.main.auth.main:app \
+  --reload \
+  --reload-delay 3 \
+  --reload-dir src/main/auth \
+  --port 8090
+
+# Start email service
+PYTHONPATH=$(pwd) python3 src/main/email/main.py
