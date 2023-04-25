@@ -3,9 +3,6 @@
 import {useState} from "react";
 import {ToastContainer, toast} from 'react-toast';
 import {useMsal} from "@azure/msal-react";
-import {InteractionRequiredAuthError} from "@azure/msal-browser";
-import {redirect} from 'next/navigation';
-import {useRouter} from 'next/navigation';
 import Link from "next/link";
 import getAccessToken from "@/app/getAccessToken";
 import buildJSONHeaders from "@/app/buildJSONHeaders";
@@ -14,11 +11,8 @@ export default function PostCreatePage() {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [success, setSuccess] = useState(false);
-    const [status, setStatus] = useState(false);
-    const {instance, accounts} = useMsal();
     const [postId, setPostId] = useState("");
     const [postType, setPostType] = useState("text");
-    const router = useRouter()
 
     async function createPost() {
         if (!title) {
