@@ -1,7 +1,7 @@
 import os
 
 from fastapi import UploadFile
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+from azure.storage.blob import BlobServiceClient
 
 from src.main.post.storage import settings
 
@@ -21,7 +21,7 @@ async def upload_file_to_blob_storage(file: UploadFile):
         blob_service_client = BlobServiceClient.from_connection_string(
             settings.BLOB_STORAGE_CONNECTION_STRING
         )
-        file_type = file.content_type
+        # file_type = file.content_type
         container_client = blob_service_client.get_container_client("images")
         blob_client = container_client.get_blob_client(file.filename)
 
