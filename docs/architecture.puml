@@ -3,47 +3,63 @@
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
 
-LAYOUT_LEFT_RIGHT()
-
 Person(user_person, "User", "Reddit user")
+
 System_Boundary(c1, "Reddit system") {
-    Container(spa, "Single-Page Application", "NextJS", "Frontend.", , $sprite="nextjs_original")
-    Container(gateway, "Gateway", "Nginx", "Routes requests to microservices.")
-    Container(user, "User", "FastAPI", "Microservice for users.")
-    Container(comment, "Comment", "FastAPI", "Microservice for comments.")
-    Container(post, "Post", "FastAPI", "Microservice for posts.")
-    Container(vote, "Vote", "FastAPI", "Microservice for votes.")
-    ContainerDb(postgres_user_db, "User database", "PostgreSQL", "Holds user information.")
-    ContainerDb(postgres_comment_db, "Comment database", "PostgreSQL", "Holds comment information.")
-    ContainerDb(postgres_post_db, "Post database", "PostgreSQL", "Holds post information.")
-    ContainerDb(postgres_vote_db, "Vote database", "PostgreSQL", "Holds vote information.")
+    Container(spa, "Single-Page Application", "NextJS", "Frontend.",)
+
+    Container(gateway, "Gateway", "Nginx", "Routes requests")
+
+    Container(auth, "Auth", "FastAPI", "Ensures requests are authenticated")
+
+    Container(user, "User", "FastAPI", "Handles all user requests")
+    ContainerDb(user_db, "User database", "PostgreSQL", "Holds user information.")
+
+    Container(comment, "Comment", "FastAPI", "Handles all comment requests")
+    ContainerDb(comment_db, "Comment database", "PostgreSQL", "Holds comment information.")
+
+    Container(post, "Post", "FastAPI", "Handles all post requests")
+    ContainerDb(post_db, "Post database", "PostgreSQL", "Holds post information.")
+
+    Container(vote, "Vote", "FastAPI", "Handles all vote requests")
+    ContainerDb(vote_db, "Vote database", "PostgreSQL", "Holds vote information.")
 
     Container(email, "Email", "Python3", "Microservice for emails.")
     Container(rabbitmq, "RabbitMQ", "RabbitMQ", "Message broker for microservices.")
 }
 
-System_Ext(email_communication_service, " Microsoft Azure Email Communication Service", "Email communication service provider.")
 System_Ext(azure_ad, "Microsoft Azure AD", "OAuth2.0 provider.")
+System_Ext(email_communication_service, " Microsoft Azure Email Communication Service", "Sends emails on behalf of not-reddit")
 SystemDb_Ext(blob_storage, "Microsoft Azure Blob Storage", "Storage for images and videos.")
 
-Lay_U(user, rabbitmq)
-'
+Rel(spa, azure_ad, "Gets access token from", "OAuth2.0")
+
 Rel(user_person, spa, "Uses", "HTTPS")
+
 Rel(spa, gateway, "Uses", "HTTPS")
+
 Rel(gateway, user, "Routes to", "HTTPS")
 Rel(gateway, comment, "Routes to", "HTTPS")
 Rel(gateway, post, "Routes to", "HTTPS")
 Rel(gateway, vote, "Routes to", "HTTPS")
-Rel(user, postgres_user_db, "Reads/Writes", "SQLAlchemy")
-Rel(comment, postgres_comment_db, "Reads/Writes", "SQLAlchemy")
-Rel(post, postgres_post_db, "Reads/Writes", "SQLAlchemy")
-Rel(post, blob_storage, "Reads/Writes", "HTTPS")
-Rel(vote, postgres_vote_db, "Reads/Writes", "SQLAlchemy")
-Rel(user, azure_ad, "Authenticates with", "OAuth2.0")
-Rel(post, azure_ad, "Authenticates with", "OAuth2.0")
-Rel(comment, azure_ad, "Authenticates with", "OAuth2.0")
-Rel(vote, azure_ad, "Authenticates with", "OAuth2.0")
-Rel(user, rabbitmq, "Sends", "AMQP")
-Rel(email, rabbitmq, "Consumes", "AMQP")
-Rel(email, email_communication_service, "Sends", "SMTP")
+Rel_R(gateway, auth, "Routes to", "HTTPS")
+
+Rel_R(auth, azure_ad, "Authenticates with", "OAuth2.0")
+
+Rel_D(user, user_db, "Reads/Writes", "SQLAlchemy")
+Rel_L(user, rabbitmq, "Sends", "AMQP")
+
+Rel(comment, comment_db, "Reads/Writes", "SQLAlchemy")
+
+Rel(post, post_db, "Reads/Writes", "SQLAlchemy")
+Rel_R(post, blob_storage, "Reads/Writes", "HTTPS")
+
+Rel(vote, vote_db, "Reads/Writes", "SQLAlchemy")
+
+Rel_R(email, rabbitmq, "Consumes", "AMQP")
+Rel_L(email, email_communication_service, "Sends", "SMTP")
+
+Lay_R(vote, post)
+Lay_R(comment,post)
+
 @enduml

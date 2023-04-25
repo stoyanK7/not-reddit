@@ -2,7 +2,16 @@
 
 This document describes the history of the architecture of the project. Latest is always on the top.
 
-## 22 April 2023 (Latest)
+## 25 April 2023 (Latest)
+
+The gateway now checks the tokens instead of the microservices. The tradeoff is that I need to tell
+it what it needs to check instead of doing it in the microservice itself, so it is a bit more work.
+Moreover, the post microservice uses Azure Blob Storage for storing images and videos. See decision
+record for [08. Azure Blob Storage](decisions/api/08-azure-blob-storage.md) for more details.
+
+![img](img/2023-04-25-architecture.png "Architecture from 25 April 2023")
+
+## 22 April 2023
 
 The gateway has been migrated to nginx for performance increase and development simplicity. Each microservice now has
 its own database. Moreover, there is an email service which is subscribed to a _RabbitMQ_ queue and sends emails
