@@ -12,4 +12,4 @@ class DatabaseSettings(BaseSettings):
     DB_PORT: str = get_env("DB_PORT")
 
 
-settings = DatabaseSettings()
+db_settings = DatabaseSettings()

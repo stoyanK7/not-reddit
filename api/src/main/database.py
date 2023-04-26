@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import StaticPool
 
 from src.main.logger import logger
-from src.main.settings import settings
+from src.main.settings import db_settings
 
 
 def create_db_engine():
@@ -16,15 +16,15 @@ def create_db_engine():
     Returns:
         Engine: A database engine.
     """
-    database_url = f"{settings.DB_DIALECT}:" \
-                   f"//{settings.DB_USER}:{settings.DB_PASSWORD}" \
-                   f"@{settings.DB_HOST}:{settings.DB_PORT}" \
-                   f"/{settings.DB_NAME}"
+    database_url = f"{db_settings.DB_DIALECT}:" \
+                   f"//{db_settings.DB_USER}:{db_settings.DB_PASSWORD}" \
+                   f"@{db_settings.DB_HOST}:{db_settings.DB_PORT}" \
+                   f"/{db_settings.DB_NAME}"
 
     try:
         # Try to connect to the database.
         db_engine = create_engine(database_url)
-        logger.info(f"Connected to the {settings.DB_DIALECT} database.")
+        logger.info(f"Connected to the {db_settings.DB_DIALECT} database.")
     except ArgumentError:
         # Fall back to in-memory database.
         db_engine = create_engine("sqlite:///:memory:",
