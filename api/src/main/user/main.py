@@ -33,6 +33,7 @@ def create_user(request: Request, body: UserCreate, db: Session = Depends(get_db
     assert_is_username_and_email_not_taken(username=new_username, email=body.email, db=db)
 
     crud.create_user(db=db, username=new_username, email=body.email)
+    # TODO: notify post service about new user
     send_successful_registration_email(email=body.email)
     return
 
