@@ -1,6 +1,7 @@
 @startuml C4_Container
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 
 Person(user_person, "User", "Reddit user")
@@ -10,22 +11,37 @@ System_Boundary(c1, "Reddit system") {
 
     Container(gateway, "Gateway", "Nginx", "Routes requests")
 
-    Container(auth, "Auth", "FastAPI", "Ensures requests are authenticated")
+    Boundary(auth_microservice, "Authentication microservice") {
+        Container(auth, "Auth", "FastAPI", "Ensures requests are authenticated")
+    }
 
-    Container(user, "User", "FastAPI", "Handles all user requests")
-    ContainerDb(user_db, "User database", "PostgreSQL", "Holds user information.")
+    Boundary(rabbitmq, "RabbitMQ Message broker") {
+        Component(success_registration_queue, "Successful registration queue")
+    }
 
-    Container(comment, "Comment", "FastAPI", "Handles all comment requests")
-    ContainerDb(comment_db, "Comment database", "PostgreSQL", "Holds comment information.")
+    Boundary(user_microservice, "User microservice") {
+        Container(user, "User", "FastAPI", "Handles all user requests")
+        ContainerDb(user_db, "User database", "PostgreSQL", "Holds user microservice information.")
+    }
 
-    Container(post, "Post", "FastAPI", "Handles all post requests")
-    ContainerDb(post_db, "Post database", "PostgreSQL", "Holds post information.")
+    Boundary(comment_microservice, "Comment microservice") {
+        Container(comment, "Comment", "FastAPI", "Handles all comment requests")
+        ContainerDb(comment_db, "Comment database", "PostgreSQL", "Holds comment microservice information.")
+    }
 
-    Container(vote, "Vote", "FastAPI", "Handles all vote requests")
-    ContainerDb(vote_db, "Vote database", "PostgreSQL", "Holds vote information.")
+    Boundary(post_microservice, "Post microservice") {
+        Container(post, "Post", "FastAPI", "Handles all post requests")
+        ContainerDb(post_db, "Post database", "PostgreSQL", "Holds post microservice information.")
+    }
 
-    Container(email, "Email", "Python3", "Microservice for emails.")
-    Container(rabbitmq, "RabbitMQ", "RabbitMQ", "Message broker for microservices.")
+    Boundary(vote_microservice, "Vote microservice") {
+        Container(vote, "Vote", "FastAPI", "Handles all vote requests")
+        ContainerDb(vote_db, "Vote database", "PostgreSQL", "Holds vote microservice information.")
+    }
+
+    Boundary(email_microservice, "Email microservice") {
+        Container(email, "Email", "Python3", "Builds and sends emails.")
+    }
 }
 
 System_Ext(azure_ad, "Microsoft Azure AD", "OAuth2.0 provider.")
@@ -38,28 +54,28 @@ Rel(user_person, spa, "Uses", "HTTPS")
 
 Rel(spa, gateway, "Uses", "HTTPS")
 
-Rel(gateway, user, "Routes to", "HTTPS")
-Rel(gateway, comment, "Routes to", "HTTPS")
-Rel(gateway, post, "Routes to", "HTTPS")
-Rel(gateway, vote, "Routes to", "HTTPS")
-Rel_R(gateway, auth, "Routes to", "HTTPS")
+Rel(gateway, user_microservice, "Routes to", "HTTPS")
+Rel(gateway, comment_microservice, "Routes to", "HTTPS")
+Rel(gateway, post_microservice, "Routes to", "HTTPS")
+Rel(gateway, vote_microservice, "Routes to", "HTTPS")
+Rel_R(gateway, auth_microservice, "Routes to", "HTTPS")
 
-Rel_R(auth, azure_ad, "Authenticates with", "OAuth2.0")
+Rel_R(auth_microservice, azure_ad, "Authenticates with", "OAuth2.0")
 
-Rel_D(user, user_db, "Reads/Writes", "SQLAlchemy")
-Rel_L(user, rabbitmq, "Sends", "AMQP")
+Rel(user, user_db, "Reads/Writes", "SQLAlchemy")
+Rel(user_microservice, success_registration_queue, "Sends", "AMQP")
 
 Rel(comment, comment_db, "Reads/Writes", "SQLAlchemy")
 
 Rel(post, post_db, "Reads/Writes", "SQLAlchemy")
-Rel_R(post, blob_storage, "Reads/Writes", "HTTPS")
+Rel(post_microservice, blob_storage, "Reads/Writes", "HTTPS")
+Rel(post_microservice, success_registration_queue, "Consumes", "AMQP")
 
 Rel(vote, vote_db, "Reads/Writes", "SQLAlchemy")
 
-Rel_R(email, rabbitmq, "Consumes", "AMQP")
-Rel_L(email, email_communication_service, "Sends", "SMTP")
+Rel_U(email_microservice, success_registration_queue, "Consumes", "AMQP")
+Rel(email_microservice, email_communication_service, "Sends", "SMTP")
 
-Lay_R(vote, post)
-Lay_R(comment,post)
+Lay_R(vote_microservice, comment_microservice)
 
 @enduml
