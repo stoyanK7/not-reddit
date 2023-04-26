@@ -28,9 +28,9 @@ def get_user_by_username(username: str, db: Session = Depends(get_db)):
 
 @app.post("/", status_code=HTTP_201_CREATED)
 def create_user(request: Request, body: UserCreate, db: Session = Depends(get_db)):
-    assert_is_jwt_email_same_as_provided_email(body.email, request=request)
+    # assert_is_jwt_email_same_as_provided_email(body.email, request=request)
     new_username = generate_username(1)[0]
-    assert_is_username_and_email_not_taken(username=new_username, email=body.email, db=db)
+    # assert_is_username_and_email_not_taken(username=new_username, email=body.email, db=db)
 
     crud.create_user(db=db, username=new_username, email=body.email)
     # TODO: notify post service about new user
