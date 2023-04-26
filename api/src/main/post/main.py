@@ -4,13 +4,14 @@ from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 
 from src.main.database import get_db, engine
 from src.main.post import crud
+from src.main.post.lifespan import lifespan
 from src.main.post.model import Base
 from src.main.post.schema import TextPostCreate
 from src.main.post.util import upload_file
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/", status_code=HTTP_200_OK)

@@ -37,3 +37,7 @@ async def upload_file_to_local_storage(file: UploadFile):
     file_location = f"{current_dir}/src/main/post/files/{file.filename}"
     with open(file_location, "wb+") as file_object:
         file_object.write(file.file.read())
+
+
+def insert_user_to_db(ch, method, properties, body):
+    print(body)
