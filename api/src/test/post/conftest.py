@@ -29,7 +29,7 @@ def client(session):
 
 
 @pytest.fixture
-def insert_mock_posts():
+def insert_mock_text_posts():
     """Insert mock posts into the database."""
 
     def _insert_mock_posts(amount, session) -> list[PostModel]:
