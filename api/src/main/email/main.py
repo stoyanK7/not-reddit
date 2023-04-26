@@ -1,31 +1,46 @@
+import asyncio
 import os
 import sys
 
-import pika
+from aio_pika import connect_robust
+from aio_pika.abc import ExchangeType
 
 from src.main.email.send_email import send_email
 from src.main.email.settings import settings
 from src.main.logger import logger
 
 
-def main():
-    logger.info("Connecting to RabbitMQ.")
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host=settings.RABBITMQ_HOST))
-    channel = connection.channel()
+async def consume_messages():
+    connection = await connect_robust(settings.AMQP_URL)
+    logger.info("Connected via AMQP.")
 
-    queue_name = "email"
-    logger.info(f"Declaring queue {queue_name}.")
-    channel.queue_declare(queue=queue_name)
-    channel.basic_consume(queue=queue_name,
-                          auto_ack=True,
-                          on_message_callback=send_email)
-    logger.info("Waiting for messages. To exit press CTRL+C.")
-    channel.start_consuming()
+    async with connection:
+        channel = await connection.channel()
+        logger.info("Channel opened.")
+
+        prefetch_count = 1
+        await channel.set_qos(prefetch_count=prefetch_count)
+        logger.info(f"QoS set to {prefetch_count}.")
+
+        exchange_name = "successful_registration"
+        exchange_type = ExchangeType.FANOUT
+        exchange = await channel.declare_exchange(exchange_name, exchange_type)
+        logger.info(f"Declared exchange '{exchange_name}' of type {exchange_type}.")
+
+        queue = await channel.declare_queue(exclusive=True)
+        logger.info(f"Declared queue '{queue.name}'.")
+
+        await queue.bind(exchange)
+        logger.info(f"Bound queue '{queue.name}' to exchange '{exchange_name}'.")
+
+        await queue.consume(send_email)
+        logger.info(f"Consuming messages from queue '{queue.name}'.")
+
+        await asyncio.Future()
 
 
-# PYTHONPATH=$(pwd) python3 src/main/email/main.py
 try:
-    main()
+    asyncio.run(consume_messages())
 except KeyboardInterrupt:
     logger.info("Interrupted.")
     try:
