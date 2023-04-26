@@ -15,8 +15,8 @@ def connect_to_rabbitmq():
     channel = rabbitmq_connection.channel()
     logger.info("Connected to RabbitMQ.")
 
-    channel.queue_declare(queue=settings.RABBITMQ_EMAIL_QUEUE)
-    logger.info(f"Declared queue '{settings.RABBITMQ_EMAIL_QUEUE}'.")
+    channel.exchange_declare(exchange="successful_registration", exchange_type="fanout")
+    logger.info("Declared exchange 'successful_registration'.")
 
 
 def disconnect_from_rabbitmq():

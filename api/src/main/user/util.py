@@ -7,7 +7,6 @@ from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND, HTTP_409
 from src.main.jwt_util import get_jwt_token
 from src.main.user.crud import get_user_by_username_or_email
 from src.main.user.rabbitmq import channel
-from src.main.user.settings import settings
 
 
 def assert_is_jwt_email_same_as_provided_email(provided_email: str, request: Request):
@@ -44,4 +43,5 @@ def send_successful_registration_email(email: str):
         "recipients": [email],
         "content_topic": "success_register"
     })
-    channel.basic_publish(exchange='', routing_key=settings.RABBITMQ_EMAIL_QUEUE, body=body)
+    channel.basic_publish(exchange='successful_registration',
+                          routing_key='', body=body)
