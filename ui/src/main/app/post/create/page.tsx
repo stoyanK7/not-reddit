@@ -8,6 +8,7 @@ import buildJSONHeaders from "@/app/buildJSONHeaders";
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import TextTab from "@/app/post/create/TextTab";
 import ImageTab from "@/app/post/create/ImageTab";
+import buildAuthorizationHeader from "@/app/buildAuthorizationHeader";
 
 export default function PostCreatePage({searchParams}: { searchParams: { type: string } }) {
     const [title, setTitle] = useState("");
@@ -28,9 +29,16 @@ export default function PostCreatePage({searchParams}: { searchParams: { type: s
             return;
         }
 
+        let headers = buildJSONHeaders(accessToken);
+
+        // Image should not have content-type header.
+        if (type === "image") {
+            headers = buildAuthorizationHeader(accessToken);
+        }
+
         const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/post/`, {
             method: 'POST',
-            headers: buildJSONHeaders(accessToken),
+            headers: headers,
             body: JSON.stringify({title, body}),
         });
 
@@ -49,11 +57,13 @@ export default function PostCreatePage({searchParams}: { searchParams: { type: s
                 border-reddit-postline">
                 <TabList className="flex justify-around">
                     <Tab className="py-2 px-4 rounded-sm text-2xl hover:bg-reddit-gray-hover
-                            grow-0">
+                            grow-0"
+                         onClick={() => setType("text")}>
                         Text
                     </Tab>
                     <Tab className="py-2 px-4 rounded-sm text-2xl hover:bg-reddit-gray-hover
-                            grow-0">
+                            grow-0"
+                         onClick={() => setType("image")}>
                         Image
                     </Tab>
                 </TabList>
@@ -69,7 +79,7 @@ export default function PostCreatePage({searchParams}: { searchParams: { type: s
                     <TextTab setBody={setBody} success={success}/>
                 </TabPanel>
                 <TabPanel className="flex-grow">
-                    <ImageTab/>
+                    <ImageTab setBody={setBody} success={success}/>
                 </TabPanel>
                 <button className="p-2 rounded-sm bg-reddit-orange text-white w-full"
                         onClick={createPost}

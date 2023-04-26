@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import Image from "next/image";
 
-export default function ImageTab() {
+export default function ImageTab({setBody, success}) {
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     return (
         <div>
@@ -17,7 +17,8 @@ export default function ImageTab() {
                     />
                     <br/>
                     <button className="py-2 px-4 rounded-sm bg-red-600 text-white w-full"
-                        onClick={() => setSelectedImage(null)}>Remove</button>
+                            onClick={() => setSelectedImage(null)}>Remove
+                    </button>
                 </div>
             )}
             <input
@@ -26,8 +27,10 @@ export default function ImageTab() {
                 onChange={(event) => {
                     if (event.target.files) {
                         setSelectedImage(event.target.files[0]);
+                        setBody(event.target.files[0]);
                     }
                 }}
+                disabled={success}
             />
         </div>
     )
