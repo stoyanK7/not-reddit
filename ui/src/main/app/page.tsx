@@ -10,6 +10,7 @@ export default function Home() {
             <AuthenticatedTemplate>
                 <CreatePost/>
             </AuthenticatedTemplate>
+            {/* @ts-ignore */}
             <PostList/>
         </main>
     )

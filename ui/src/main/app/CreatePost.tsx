@@ -14,19 +14,15 @@ export default function CreatePost() {
                         fill />
                 </a>
             </Link>
-            <Link className="flex-grow" href="/post/create">
+            <Link className="flex-grow" href="/post/create?type=text">
                 <input className="rounded-sm px-4 py-2 border-2 border-transparent bg-[#F6F7F8]
                 hover:border-blue w-full"
                 type="text"
                 placeholder="Create Post" />
             </Link>
-            <Link href="/post/create?image" className="p-2 rounded-sm text-2xl
+            <Link href="/post/create?type=image" className="p-2 rounded-sm text-2xl
                 hover:bg-reddit-gray-hover grow-0">
                 <span>Image</span>
-            </Link>
-            <Link href="/post/create?link" className="p-2 rounded-sm text-2xl
-                hover:bg-reddit-gray-hover grow-0">
-                <span>Link</span>
             </Link>
         </div>
     )
