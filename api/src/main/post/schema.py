@@ -7,15 +7,14 @@ class Post(BaseModel):
     posted_at: datetime
     title: str
     body: str
-    # user_id: int
-    # subreddit_id: int
+    username: str
+    votes: int
 
     class Config:
         orm_mode = True
 
 
-class PostCreate(BaseModel):
+class TextPostCreate(BaseModel):
     title: str
     body: str
-    # user_id: int
-    # subreddit_id: int
+    username: str

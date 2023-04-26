@@ -5,7 +5,7 @@ from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from src.main.database import get_db, engine
 from src.main.post import crud
 from src.main.post.model import Base
-from src.main.post.schema import PostCreate
+from src.main.post.schema import TextPostCreate
 from src.main.post.util import upload_file
 
 Base.metadata.create_all(bind=engine)
@@ -24,13 +24,15 @@ def get_post_by_id(post_id: int, db: Session = Depends(get_db)):
     return crud.get_post_by_id(db=db, post_id=post_id)
 
 
-@app.post("/", status_code=HTTP_201_CREATED)
-def create_post(post: PostCreate, db: Session = Depends(get_db)):
+@app.post("/text", status_code=HTTP_201_CREATED)
+def create_text_post(post: TextPostCreate, db: Session = Depends(get_db)):
+    post.username = "test"
+    # TODO: get username from token
     return crud.create_post(db=db, post=post)
 
 
-@app.post("/upload")
-async def create_upload_file(file: UploadFile):
+@app.post("/image")
+async def create_image_post(file: UploadFile):
     # TODO: make one with create_post and make file optional
     # TODO: check for file type
     # TODO: assert is valid media file
