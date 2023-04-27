@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from src.main.database import get_db, engine
+from src.main.database.main import get_db, engine
 from src.main.comment import crud, model
 from src.main.comment.schema import Comment as CommentSchema, CommentCreate as CommentCreateSchema
 

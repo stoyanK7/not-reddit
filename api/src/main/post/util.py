@@ -4,7 +4,7 @@ from aio_pika.abc import AbstractIncomingMessage
 from fastapi import UploadFile
 from azure.storage.blob import BlobServiceClient
 
-from src.main.database import get_db
+from src.main.database.main import get_db
 from src.main.post import crud
 from src.main.post.settings import settings
 from src.main.amqp.amqp_util import decode_body_and_convert_to_dict

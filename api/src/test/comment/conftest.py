@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 
 from src.main.comment.main import app
 from src.main.comment.model import Comment as CommentModel
-from src.main.database import get_db, Base
+from src.main.database.main import get_db, Base
 from src.test.database import engine
 
 # Set up the database once.

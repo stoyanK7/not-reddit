@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Request
 from starlette.status import HTTP_201_CREATED, HTTP_200_OK
 from sqlalchemy.orm import Session
 
-from src.main.database import get_db
+from src.main.database.main import get_db
 from src.main.user.settings import settings
 from src.main.user.util import assert_is_jwt_email_same_as_provided_email, \
     assert_is_username_and_email_not_taken, assert_is_user_exists, \

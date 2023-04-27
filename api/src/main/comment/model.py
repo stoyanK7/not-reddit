@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.sql import func
 
-from src.main.database import Base
+from src.main.database.main import Base
 
 
 class Comment(Base):
