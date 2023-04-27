@@ -14,7 +14,7 @@ def construct_content(content_topic: str, recipients: list[str]):
     template = jinja2_env.get_template(f"{content_topic}.html")
     content = None
     match content_topic:
-        case "success_register":
+        case "successful_registration":
             content = {
                 "subject": "This is the subject",
                 "plainText": "This is the body",
