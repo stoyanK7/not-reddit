@@ -8,7 +8,7 @@ export default function CreateComment({ postId }: { postId: string }) {
     const [commentBody, setCommentBody] = useState("");
 
     async function publishComment() {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/comment`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/api/comment`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -6,7 +6,7 @@ import CommentList from "@/app/CommentList";
 import CreateComment from "@/app/CreateComment";
 
 async function getPost(id: string) {
-    const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/post/${id}`);
+    const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/api/post/${id}`);
     return res.json();
 }
 

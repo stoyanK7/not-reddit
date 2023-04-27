@@ -36,7 +36,7 @@ export default function PostCreatePage({searchParams}: { searchParams: { type: s
             headers = buildAuthorizationHeader(accessToken);
         }
 
-        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/post/`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/api/post`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify({title, body}),

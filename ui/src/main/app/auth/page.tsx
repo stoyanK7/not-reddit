@@ -1,17 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useIsAuthenticated, useMsal } from "@azure/msal-react";
-import { useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toast';
+import {useIsAuthenticated, useMsal} from "@azure/msal-react";
+import {useEffect, useState} from "react";
+import {ToastContainer, toast} from 'react-toast';
 import IsNotSignedIn from "@/app/auth/IsNotSignedIn";
 import IsSignedIn from "@/app/auth/IsSignedIn";
 import getAccessToken from "@/app/getAccessToken";
 import buildJSONHeaders from "@/app/buildJSONHeaders";
-import { msalInstance } from "../authConfig";
+import {msalInstance} from "../authConfig";
+import useAsyncEffect from "use-async-effect";
 
 export default function AuthPage() {
-    const { accounts, inProgress } = useMsal();
+    const {accounts, inProgress} = useMsal();
     const isAuthenticated = useIsAuthenticated();
     const [hydrated, setHydrated] = useState(false);
 
@@ -19,11 +20,12 @@ export default function AuthPage() {
         setHydrated(true);
     }, []);
 
-    useEffect(() => {
-        if (isAuthenticated && !isUserRegistered()) {
+    useAsyncEffect(async () => {
+        const isRegistered = await isUserRegistered();
+        if (isAuthenticated && !isRegistered) {
             const email: string | undefined = msalInstance.getActiveAccount()?.username;
             if (email) {
-                registerUser(email);
+                await registerUser(email);
             }
         }
     }, [isAuthenticated]);
@@ -34,11 +36,10 @@ export default function AuthPage() {
             return;
         }
         const options = {
-            method: "POST",
+            method: "GET",
             headers: buildJSONHeaders(accessToken),
-            body: JSON.stringify({ email: accounts[0].username })
         };
-        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/user/registered`, options);
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/api/user/registered`, options);
         const data = await res.json();
         return data.isRegistered;
     }
@@ -49,10 +50,9 @@ export default function AuthPage() {
             toast.error("Failed to get your access token.");
             return;
         }
-        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/user/`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/api/user`, {
             method: 'POST',
             headers: buildJSONHeaders(accessToken),
-            body: JSON.stringify({ email }),
         });
 
         if (res.ok) {
@@ -72,7 +72,7 @@ export default function AuthPage() {
                 gap-2 shadow-reddit border border-reddit-postline">
                 <div className="relative overflow-visible w-1/2 h-10">
                     <Image
-                        style={{ objectFit: 'contain' }}
+                        style={{objectFit: 'contain'}}
                         src="/logo-full.png"
                         alt="Application logo"
                         fill
@@ -81,7 +81,7 @@ export default function AuthPage() {
                         33vw"/>
                 </div>
                 <h1>Welcome to <b>not-reddit</b>!</h1>
-                {isAuthenticated ? <IsSignedIn /> : <IsNotSignedIn />}
+                {isAuthenticated ? <IsSignedIn/> : <IsNotSignedIn/>}
                 {inProgress === "login" && (<span>Logging in...</span>)}
             </div>
         </main>
