@@ -2,7 +2,7 @@
 
 import pytest
 
-from src.test.database import session
+from src.test.shared.database.main import session
 
 
 @pytest.fixture

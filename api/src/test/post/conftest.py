@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from src.main.post.model import Post as PostModel
 from src.main.post.main import app
 from src.main.shared.database.main import get_db, Base
-from src.test.database import engine
+from src.test.shared.database.main import engine
 
 # Set up the database once.
 Base.metadata.drop_all(bind=engine)
