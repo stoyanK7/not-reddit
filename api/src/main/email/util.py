@@ -1,5 +1,3 @@
-import json
-
 from jinja2 import Environment, select_autoescape, PackageLoader
 
 from src.main.email.settings import settings
@@ -37,7 +35,3 @@ def construct_message(content_topic: str, recipients: list[str]):
         "recipients": construct_recipients(recipients=recipients),
         "senderAddress": settings.EMAIL_SENDER_ADDRESS
     }
-
-
-def decode_and_convert_to_dict(body: bytes):
-    return json.loads(body.decode('utf-8'))

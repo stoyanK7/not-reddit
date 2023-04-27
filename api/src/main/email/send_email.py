@@ -2,7 +2,8 @@ from azure.communication.email import EmailClient
 from aio_pika.abc import AbstractIncomingMessage
 
 from src.main.email.settings import settings
-from src.main.email.util import decode_and_convert_to_dict, construct_message
+from src.main.email.util import construct_message
+from src.main.rabbitmq_util import decode_body_and_convert_to_dict
 from src.main.logger import logger
 
 email_client = EmailClient.from_connection_string(settings.EMAIL_CONNECTION_STRING)
@@ -10,7 +11,7 @@ email_client = EmailClient.from_connection_string(settings.EMAIL_CONNECTION_STRI
 
 async def send_email(message: AbstractIncomingMessage) -> None:
     async with message.process():
-        body = decode_and_convert_to_dict(message.body)
+        body = decode_body_and_convert_to_dict(message.body)
         recipients = body['recipients']
         content_topic = body['content_topic']
 
