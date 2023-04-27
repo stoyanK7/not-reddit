@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String
 
-from src.main.database.main import Base
+from src.main.shared.database.main import Base
 
 
 class User(Base):

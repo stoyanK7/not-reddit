@@ -1,4 +1,4 @@
-from src.main.amqp.settings import AmqpSettings
+from src.main.shared.amqp.settings import AmqpSettings
 
 
 class UserServiceSettings(AmqpSettings):

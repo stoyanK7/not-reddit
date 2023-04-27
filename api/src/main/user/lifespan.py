@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi.applications import AppType
 from starlette.types import Lifespan
 
-from src.main.database.main import engine, Base
+from src.main.shared.database.main import engine, Base
 from src.main.user.service import UserService
 
 

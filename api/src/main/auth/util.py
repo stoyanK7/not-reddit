@@ -3,7 +3,7 @@ from fastapi_azure_auth import MultiTenantAzureAuthorizationCodeBearer
 from starlette.middleware.cors import CORSMiddleware
 
 from src.main.auth.settings import settings
-from src.main.logger import logger
+from src.main.shared.logger import logger
 
 
 def configure_cors(app: FastAPI) -> None:

@@ -1,7 +1,7 @@
 from typing import Union
 from pydantic import AnyHttpUrl, BaseSettings
 
-from src.main.env import get_env
+from src.main.shared.env import get_env
 
 
 class AuthSettings(BaseSettings):

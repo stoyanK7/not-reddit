@@ -5,8 +5,8 @@ from sqlalchemy.exc import ArgumentError
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import StaticPool
 
-from src.main.logger import logger
-from src.main.database.settings import settings
+from src.main.shared.logger import logger
+from src.main.shared.database.settings import settings
 
 
 def create_db_engine():

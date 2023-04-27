@@ -4,7 +4,7 @@ from fastapi import HTTPException, Request
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
 
-from src.main.jwt_util import get_jwt_token
+from src.main.shared.jwt_util import get_jwt_token
 from src.main.user.crud import get_user_by_username_or_email
 
 

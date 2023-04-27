@@ -1,6 +1,6 @@
 from pydantic import BaseSettings
 
-from src.main.env import get_env
+from src.main.shared.env import get_env
 
 
 class EmailSettings(BaseSettings):

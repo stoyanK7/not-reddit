@@ -3,8 +3,8 @@ from aio_pika.abc import AbstractIncomingMessage
 
 from src.main.email.settings import settings
 from src.main.email.util import construct_message
-from src.main.amqp.amqp_util import decode_body_and_convert_to_dict
-from src.main.logger import logger
+from src.main.shared.amqp.amqp_util import decode_body_and_convert_to_dict
+from src.main.shared.logger import logger
 
 email_client = EmailClient.from_connection_string(settings.EMAIL_CONNECTION_STRING)
 

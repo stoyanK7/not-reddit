@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
-from src.main.database.main import get_db, engine
+from src.main.shared.database.main import get_db, engine
 from src.main.vote import crud, model
 from src.main.vote.schema import VoteCreate as VoteCreateSchema
 

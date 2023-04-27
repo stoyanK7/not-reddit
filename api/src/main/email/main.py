@@ -7,7 +7,7 @@ from aio_pika.abc import ExchangeType
 
 from src.main.email.send_email import send_email
 from src.main.email.settings import settings
-from src.main.logger import logger
+from src.main.shared.logger import logger
 
 
 async def consume_messages():

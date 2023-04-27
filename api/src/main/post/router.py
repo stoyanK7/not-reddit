@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, Depends
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 
-from src.main.database.main import get_db
+from src.main.shared.database.main import get_db
 from src.main.post import crud
 from src.main.post.schema import TextPostCreate
 from src.main.post.settings import settings

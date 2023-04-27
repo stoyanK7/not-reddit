@@ -1,7 +1,7 @@
 from aio_pika import connect_robust
 from aio_pika.abc import ExchangeType, AbstractIncomingMessage
 
-from src.main.logger import logger
+from src.main.shared.logger import logger
 
 
 class AmqpConsumer:
