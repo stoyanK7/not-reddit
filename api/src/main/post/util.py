@@ -43,10 +43,9 @@ async def upload_file_to_local_storage(file: UploadFile):
         file_object.write(file.file.read())
 
 
-async def on_successful_registration(message: AbstractIncomingMessage) -> None:
-    async with message.process():
-        body = decode_body_and_convert_to_dict(message.body)
-        username = body['username']
-        oid = body['oid']
-        db = next(get_db())
-        crud.insert_user(db=db, username=username, oid=oid)
+def handle_successful_registration(message: AbstractIncomingMessage) -> None:
+    body = decode_body_and_convert_to_dict(message.body)
+    username = body['username']
+    oid = body['oid']
+    db = next(get_db())
+    crud.insert_user(db=db, username=username, oid=oid)
