@@ -38,10 +38,10 @@ def assert_is_user_exists(user):
         )
 
 
-def send_successful_registration_email(email: str):
+def emit_successful_registration_event(email: str):
     body = json.dumps({
         "recipients": [email],
-        "content_topic": "success_register"
+        "content_topic": "successful_registration"
     })
     channel.basic_publish(exchange='successful_registration',
                           routing_key='', body=body)

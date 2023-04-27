@@ -10,7 +10,7 @@ from src.main.user.schema import UserCreate
 from src.main.user.schema import UserCheckIfRegistered
 from src.main.user.util import assert_is_jwt_email_same_as_provided_email, \
     assert_is_username_and_email_not_taken, assert_is_user_exists, \
-    send_successful_registration_email
+    emit_successful_registration_event
 from random_username.generate import generate_username
 
 Base.metadata.create_all(bind=engine)
@@ -34,7 +34,7 @@ def create_user(request: Request, body: UserCreate, db: Session = Depends(get_db
 
     crud.create_user(db=db, username=new_username, email=body.email)
     # TODO: notify post service about new user
-    send_successful_registration_email(email=body.email)
+    emit_successful_registration_event(email=body.email)
     return
 
 
