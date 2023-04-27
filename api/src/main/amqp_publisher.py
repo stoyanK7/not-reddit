@@ -29,6 +29,8 @@ class AmqpPublisher:
         return connection
 
     async def send_message(self, body: str):
+        if not self.exchange:
+            return
         message = Message(
             str.encode(body),
             delivery_mode=DeliveryMode.PERSISTENT,
