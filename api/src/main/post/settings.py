@@ -1,5 +1,5 @@
 from src.main.env import get_env
-from src.main.settings import AmqpSettings
+from src.main.amqp.settings import AmqpSettings
 
 
 class PostServiceSettings(AmqpSettings):
