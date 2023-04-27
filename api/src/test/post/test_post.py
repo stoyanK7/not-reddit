@@ -28,7 +28,7 @@ def test_get_post(client, session, insert_mock_text_posts):
     response = client.get(f"/api/post/{post.id}")
 
     assert response.status_code == status.HTTP_200_OK
-    assert {"id", "title", "body", "posted_at"} == set(response.json().keys())
+    assert {"id", "title", "body", "posted_at", "votes", "username"} == set(response.json().keys())
 
 
 def test_create_text_post(client, remove_json_fields):
@@ -41,12 +41,13 @@ def test_create_text_post(client, remove_json_fields):
     response = client.post("/api/post/text", json=body)
 
     assert response.status_code == status.HTTP_201_CREATED
-    assert {"id", "title", "body", "posted_at"} == set(response.json().keys())
+    assert {"id", "title", "body", "posted_at", "votes", "username"} == set(response.json().keys())
     # posted_at is a timestamp which the test cannot predict, so we remove it.
-    assert remove_json_fields(response.json(), "posted_at") == {
+    assert remove_json_fields(response.json(), "posted_at", "username") == {
         "id": 1,
         "title": "Test post",
-        "body": "Test body"
+        "body": "Test body",
+        "votes": 0
     }
 
 
