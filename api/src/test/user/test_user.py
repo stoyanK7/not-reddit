@@ -82,13 +82,13 @@ def test_get_user_by_username_with_non_existing_user(client, session, mock_user_
 
 def test_check_if_registered(client, session, mock_user_with_username):
     """Assert that user is registered."""
-    body = mock_user_with_username
-    jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
-    session.add(UserModel(**body))
+    user = mock_user_with_username
+    jwt_token = jwt.encode({"preferred_username": user["email"]}, "secret", algorithm="HS256")
+    session.add(UserModel(**user))
     session.commit()
 
-    response = client.post("/api/user/registered", json=body,
-                           headers={"Authorization": f"Bearer {jwt_token}"})
+    response = client.get("/api/user/registered",
+                          headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_200_OK
     assert response.json() == {"registered": True}
@@ -96,23 +96,11 @@ def test_check_if_registered(client, session, mock_user_with_username):
 
 def test_check_if_registered_not_registered(client, session, mock_user):
     """Assert that user is not registered."""
-    body = mock_user
-    jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
+    user = mock_user
+    jwt_token = jwt.encode({"preferred_username": user["email"]}, "secret", algorithm="HS256")
 
-    response = client.post("/api/user/registered", json=body,
-                           headers={"Authorization": f"Bearer {jwt_token}"})
+    response = client.get("/api/user/registered",
+                          headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_200_OK
     assert response.json() == {"registered": False}
-
-
-def test_check_if_registered_with_different_jwt_email_and_body_email(client, session, mock_user):
-    """Assert that user is not registered when jwt email and body email are different."""
-    body = mock_user
-    jwt_token = jwt.encode({"preferred_username": "different_email"}, "secret", algorithm="HS256")
-
-    response = client.post("/api/user/registered", json=body,
-                           headers={"Authorization": f"Bearer {jwt_token}"})
-
-    assert response.status_code == HTTP_401_UNAUTHORIZED
-    assert response.json() == {"detail": "Unauthorized"}

@@ -6,13 +6,20 @@ from src.main.shared.database.main import get_db
 from src.main.user.settings import settings
 from src.main.user.util import assert_is_jwt_email_same_as_provided_email, \
     assert_is_username_and_email_not_taken, assert_is_user_exists, \
-    emit_successful_registration_event, get_access_token_oid
+    emit_successful_registration_event, get_access_token_oid, get_access_token_preferred_username
 from random_username.generate import generate_username
 from src.main.user import crud
 from src.main.user.schema import UserCreate
-from src.main.user.schema import UserCheckIfRegistered
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
+
+
+@router.get("/registered", status_code=HTTP_200_OK)
+def check_if_registered(request: Request, db: Session = Depends(get_db)):
+    email = get_access_token_preferred_username(request)
+    registered = crud.get_user_by_email(db=db, email=email) is not None
+
+    return {"registered": registered}
 
 
 @router.get("/{username}", status_code=HTTP_200_OK)
@@ -35,12 +42,3 @@ async def create_user(request: Request, body: UserCreate, db: Session = Depends(
     await emit_successful_registration_event(request=request, email=body.email, oid=oid,
                                              username=new_username)
     return
-
-
-@router.post("/registered", status_code=HTTP_200_OK)
-def check_if_registered(request: Request, body: UserCheckIfRegistered,
-                        db: Session = Depends(get_db)):
-    assert_is_jwt_email_same_as_provided_email(body.email, request=request)
-
-    registered = crud.get_user_by_email(db=db, email=body.email) is not None
-    return {"registered": registered}

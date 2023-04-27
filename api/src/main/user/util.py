@@ -50,3 +50,8 @@ async def emit_successful_registration_event(request: Request, email: str, oid: 
 def get_access_token_oid(request: Request) -> str:
     token = get_jwt_token(request)
     return token.get('oid')
+
+
+def get_access_token_preferred_username(request: Request) -> str:
+    token = get_jwt_token(request)
+    return token.get('preferred_username')

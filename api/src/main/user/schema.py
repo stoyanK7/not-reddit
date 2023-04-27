@@ -15,7 +15,3 @@ class User(UserBase):
 
 class UserCreate(BaseModel):
     email: str
-
-
-class UserCheckIfRegistered(BaseModel):
-    email: str
