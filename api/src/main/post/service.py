@@ -16,6 +16,6 @@ class PostService(FastAPI):
     def initialize_amqp_consumers(self):
         self.successful_registration_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
-            exchange_name=settings.SUCCESSFUL_REGISTRATION_EXCHANGE_NAME,
+            exchange_name=settings.AMQP_SUCCESSFUL_REGISTRATION_EXCHANGE_NAME,
             incoming_message_handler=handle_successful_registration,
         )
