@@ -1,8 +1,8 @@
-from src.main.env import get_env
+from src.main.settings import AmqpSettings
 
 
-class UserServiceSettings:
-    RABBITMQ_HOST: str = get_env("RABBITMQ_HOST")
+class UserServiceSettings(AmqpSettings):
+    SERVICE_PREFIX: str = "/api/user"
 
 
 settings = UserServiceSettings()
