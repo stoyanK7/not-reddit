@@ -6,7 +6,6 @@ from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND, HTTP_409
 
 from src.main.jwt_util import get_jwt_token
 from src.main.user.crud import get_user_by_username_or_email
-from src.main.user.rabbitmq import channel
 
 
 def assert_is_jwt_email_same_as_provided_email(provided_email: str, request: Request):
@@ -38,15 +37,14 @@ def assert_is_user_exists(user):
         )
 
 
-def emit_successful_registration_event(email: str, oid: str, username: str):
+async def emit_successful_registration_event(request: Request, email: str, oid: str, username: str):
     body = json.dumps({
         "recipients": [email],
         "content_topic": "successful_registration",
         "oid": oid,
         "username": username
     })
-    channel.basic_publish(exchange='successful_registration',
-                          routing_key='', body=body)
+    await request.app.successful_registration_amqp_publisher.send_message(str(body))
 
 
 def get_access_token_oid(request: Request) -> str:
