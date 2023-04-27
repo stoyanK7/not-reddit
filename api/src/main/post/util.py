@@ -6,7 +6,7 @@ from azure.storage.blob import BlobServiceClient
 
 from src.main.database import get_db
 from src.main.post import crud
-from src.main.post.storage import settings
+from src.main.post.settings import settings
 from src.main.rabbitmq_util import decode_body_and_convert_to_dict
 
 current_dir = os.getcwd()
