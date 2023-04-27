@@ -1,10 +1,11 @@
 import asyncio
 
 from aio_pika import connect_robust
-from aio_pika.abc import AbstractIncomingMessage, ExchangeType
+from aio_pika.abc import ExchangeType
 
 from src.main.logger import logger
 from src.main.post.settings import settings
+from src.main.post.util import on_successful_registration
 
 __all__ = [
     'consume_messages'
@@ -34,12 +35,7 @@ async def consume_messages(loop):
         await queue.bind(exchange)
         logger.info(f"Bound queue '{queue.name}' to exchange '{exchange_name}'.")
 
-        await queue.consume(on_message)
+        await queue.consume(on_successful_registration)
         logger.info(f"Consuming messages from queue '{queue.name}'.")
 
         await asyncio.Future()
-
-
-async def on_message(message: AbstractIncomingMessage) -> None:
-    async with message.process():
-        print(f"[x] {message.body!r}")
