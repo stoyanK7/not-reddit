@@ -34,6 +34,13 @@ def get_user_by_username(username: str, db: Session = Depends(get_db)):
 async def create_user(request: Request, body: UserCreate, db: Session = Depends(get_db)):
     assert_is_jwt_email_same_as_provided_email(body.email, request=request)
     new_username = generate_username(1)[0]
+
+    # It might happen that the randomly generated username is already taken.
+    is_username_taken = crud.get_user_by_username(db=db, username=new_username) is not None
+    while is_username_taken:
+        new_username = generate_username(1)[0]
+        is_username_taken = crud.get_user_by_username(db=db, username=new_username) is not None
+
     assert_is_username_and_email_not_taken(username=new_username, email=body.email, db=db)
 
     crud.create_user(db=db, username=new_username, email=body.email)
