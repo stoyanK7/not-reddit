@@ -1,12 +1,6 @@
-from fastapi import FastAPI, Depends
-from starlette.status import HTTP_202_ACCEPTED
+from src.main.auth.lifespan import lifespan
+from src.main.auth.router import router
+from src.main.auth.service import AuthService
 
-from src.main.auth.util import configure_cors, azure_scheme
-
-app = FastAPI()
-configure_cors(app)
-
-
-@app.get("/auth", status_code=HTTP_202_ACCEPTED, dependencies=[Depends(azure_scheme)])
-def authenticate():
-    return None
+app = AuthService(lifespan=lifespan)
+app.include_router(router)
