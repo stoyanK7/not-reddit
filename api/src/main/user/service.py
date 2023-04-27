@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from src.main.amqp_publisher import AmqpPublisher
+from src.main.amqp.amqp_publisher import AmqpPublisher
 from src.main.user.settings import settings
 
 

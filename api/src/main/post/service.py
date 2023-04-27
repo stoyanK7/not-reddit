@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from src.main.amqp_consumer import AmqpConsumer
+from src.main.amqp.amqp_consumer import AmqpConsumer
 from src.main.post.settings import settings
 from src.main.post.util import handle_successful_registration
 
