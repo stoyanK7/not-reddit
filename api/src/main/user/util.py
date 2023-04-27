@@ -2,21 +2,10 @@ import json
 
 from fastapi import HTTPException, Request
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
+from starlette.status import HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
 
 from src.main.shared.jwt_util import get_jwt_token
 from src.main.user.crud import get_user_by_username_or_email
-
-
-def assert_is_jwt_email_same_as_provided_email(provided_email: str, request: Request):
-    token = get_jwt_token(request)
-    is_jwt_email_same_as_body_email = token['preferred_username'] == provided_email
-
-    if not is_jwt_email_same_as_body_email:
-        raise HTTPException(
-            status_code=HTTP_401_UNAUTHORIZED,
-            detail="Unauthorized"
-        )
 
 
 def assert_is_username_and_email_not_taken(username: str, email: str, db: Session):

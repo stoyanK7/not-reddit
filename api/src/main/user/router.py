@@ -4,12 +4,10 @@ from sqlalchemy.orm import Session
 
 from src.main.shared.database.main import get_db
 from src.main.user.settings import settings
-from src.main.user.util import assert_is_jwt_email_same_as_provided_email, \
-    assert_is_username_and_email_not_taken, assert_is_user_exists, \
+from src.main.user.util import assert_is_username_and_email_not_taken, assert_is_user_exists, \
     emit_successful_registration_event, get_access_token_oid, get_access_token_preferred_username
 from random_username.generate import generate_username
 from src.main.user import crud
-from src.main.user.schema import UserCreate
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
@@ -31,8 +29,8 @@ def get_user_by_username(username: str, db: Session = Depends(get_db)):
 
 
 @router.post("", status_code=HTTP_201_CREATED)
-async def create_user(request: Request, body: UserCreate, db: Session = Depends(get_db)):
-    assert_is_jwt_email_same_as_provided_email(body.email, request=request)
+async def create_user(request: Request, db: Session = Depends(get_db)):
+    email = get_access_token_preferred_username(request)
     new_username = generate_username(1)[0]
 
     # It might happen that the randomly generated username is already taken.
@@ -41,11 +39,11 @@ async def create_user(request: Request, body: UserCreate, db: Session = Depends(
         new_username = generate_username(1)[0]
         is_username_taken = crud.get_user_by_username(db=db, username=new_username) is not None
 
-    assert_is_username_and_email_not_taken(username=new_username, email=body.email, db=db)
+    assert_is_username_and_email_not_taken(username=new_username, email=email, db=db)
 
-    crud.create_user(db=db, username=new_username, email=body.email)
+    crud.create_user(db=db, username=new_username, email=email)
 
     oid = get_access_token_oid(request)
-    await emit_successful_registration_event(request=request, email=body.email, oid=oid,
+    await emit_successful_registration_event(request=request, email=email, oid=oid,
                                              username=new_username)
     return
