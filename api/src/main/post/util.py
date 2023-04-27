@@ -4,6 +4,8 @@ from aio_pika.abc import AbstractIncomingMessage
 from fastapi import UploadFile
 from azure.storage.blob import BlobServiceClient
 
+from src.main.database import get_db
+from src.main.post import crud
 from src.main.post.storage import settings
 from src.main.rabbitmq_util import decode_body_and_convert_to_dict
 
@@ -44,4 +46,7 @@ async def upload_file_to_local_storage(file: UploadFile):
 async def on_successful_registration(message: AbstractIncomingMessage) -> None:
     async with message.process():
         body = decode_body_and_convert_to_dict(message.body)
-        print(body)
+        username = body['username']
+        oid = body['oid']
+        db = next(get_db())
+        crud.insert_user(db=db, username=username, oid=oid)
