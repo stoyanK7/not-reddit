@@ -17,4 +17,3 @@ class Post(BaseModel):
 class TextPostCreate(BaseModel):
     title: str
     body: str
-    username: str

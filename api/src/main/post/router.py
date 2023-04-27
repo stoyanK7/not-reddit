@@ -24,7 +24,8 @@ def get_post_by_id(post_id: int, db: Session = Depends(get_db)):
 
 @router.post("/text", status_code=HTTP_201_CREATED)
 def create_text_post(post: TextPostCreate, db: Session = Depends(get_db)):
-    post.username = "test"
+    post = post.dict()
+    post["username"] = "asd"
     # TODO: get username from token
     return crud.create_post(db=db, post=post)
 

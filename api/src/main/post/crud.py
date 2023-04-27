@@ -15,8 +15,8 @@ def get_post_by_id(db: Session, post_id: int):
     return db.query(PostModel).filter(PostModel.id == post_id).first()
 
 
-def create_post(db: Session, post: TextPostCreate):
-    db_post = PostModel(**post.dict())
+def create_post(db: Session, post: dict):
+    db_post = PostModel(**post)
     db.add(db_post)
     db.commit()
     db.refresh(db_post)
