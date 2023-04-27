@@ -38,10 +38,17 @@ def assert_is_user_exists(user):
         )
 
 
-def emit_successful_registration_event(email: str):
+def emit_successful_registration_event(email: str, oid: str, username: str):
     body = json.dumps({
         "recipients": [email],
-        "content_topic": "successful_registration"
+        "content_topic": "successful_registration",
+        "oid": oid,
+        "username": username
     })
     channel.basic_publish(exchange='successful_registration',
                           routing_key='', body=body)
+
+
+def get_access_token_oid(request: Request) -> str:
+    token = get_jwt_token(request)
+    return token.get('oid')

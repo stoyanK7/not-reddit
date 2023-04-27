@@ -10,7 +10,7 @@ from src.main.user.schema import UserCreate
 from src.main.user.schema import UserCheckIfRegistered
 from src.main.user.util import assert_is_jwt_email_same_as_provided_email, \
     assert_is_username_and_email_not_taken, assert_is_user_exists, \
-    emit_successful_registration_event
+    emit_successful_registration_event, get_access_token_oid
 from random_username.generate import generate_username
 
 Base.metadata.create_all(bind=engine)
@@ -28,13 +28,14 @@ def get_user_by_username(username: str, db: Session = Depends(get_db)):
 
 @app.post("/", status_code=HTTP_201_CREATED)
 def create_user(request: Request, body: UserCreate, db: Session = Depends(get_db)):
-    # assert_is_jwt_email_same_as_provided_email(body.email, request=request)
+    assert_is_jwt_email_same_as_provided_email(body.email, request=request)
     new_username = generate_username(1)[0]
-    # assert_is_username_and_email_not_taken(username=new_username, email=body.email, db=db)
+    assert_is_username_and_email_not_taken(username=new_username, email=body.email, db=db)
 
     crud.create_user(db=db, username=new_username, email=body.email)
-    # TODO: notify post service about new user
-    emit_successful_registration_event(email=body.email)
+
+    oid = get_access_token_oid(request)
+    emit_successful_registration_event(email=body.email, oid=oid, username=new_username)
     return
 
 
