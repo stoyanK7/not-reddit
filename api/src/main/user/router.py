@@ -33,7 +33,7 @@ async def create_user(request: Request, body: UserCreate, db: Session = Depends(
 
     oid = get_access_token_oid(request)
     await emit_successful_registration_event(request=request, email=body.email, oid=oid,
-                                       username=new_username)
+                                             username=new_username)
     return
 
 

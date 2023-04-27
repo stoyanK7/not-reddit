@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 
-from src.main.post.schema import TextPostCreate
 from src.main.post.model import Post as PostModel
 from src.main.post.model import User as UserModel
 
