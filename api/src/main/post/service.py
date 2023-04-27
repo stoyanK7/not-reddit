@@ -6,7 +6,6 @@ from src.main.post.util import handle_successful_registration
 
 
 class PostService(FastAPI):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

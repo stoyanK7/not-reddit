@@ -5,7 +5,6 @@ from src.main.user.settings import settings
 
 
 class UserService(FastAPI):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
