@@ -5,6 +5,7 @@ from src.main.env import get_env
 
 
 class AuthSettings(BaseSettings):
+    SERVICE_PREFIX: str = "/api/auth"
     # Auth
     APP_CLIENT_ID = get_env("APP_CLIENT_ID")
     OPENAPI_CLIENT_ID = get_env("OPENAPI_CLIENT_ID")
