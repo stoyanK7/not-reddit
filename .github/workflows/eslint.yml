@@ -24,7 +24,7 @@ jobs:
           cache-dependency-path: "ui/src/main/package-lock.json"
 
       - name: Install dependencies
-        run: npm --prefix ui/ ci
+        run: npm --prefix ui/src/main ci
 
       - name: Run ESLint
         run: ./.ci/eslint.sh
