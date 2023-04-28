@@ -14,8 +14,8 @@ def construct_content(content_topic: str, recipients: list[str]):
     match content_topic:
         case "successful_registration":
             content = {
-                "subject": "This is the subject",
-                "plainText": "This is the body",
+                "subject": "Welcome to not-reddit!",
+                "plainText": "",
                 "html": template.render(recipients=recipients)
             }
 
