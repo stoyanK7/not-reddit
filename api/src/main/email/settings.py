@@ -1,5 +1,3 @@
-from pydantic import BaseSettings
-
 from src.main.shared.amqp.settings import AmqpSettings
 from src.main.shared.env import get_env
 
