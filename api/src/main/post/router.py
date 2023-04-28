@@ -11,7 +11,7 @@ from src.main.post.util import upload_file
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
 
-@router.get("/", status_code=HTTP_200_OK)
+@router.get("", status_code=HTTP_200_OK)
 def get_10_posts(page: int = 0, db: Session = Depends(get_db)):
     # TODO: Probably should be latest posts
     return crud.get_10_posts(db=db, page=page)
