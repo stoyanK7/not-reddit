@@ -15,26 +15,15 @@ def test_create_user(client, session, mock_user):
     assert response.status_code == HTTP_201_CREATED
 
 
-def test_create_user_with_different_jwt_email_and_body_email(client, session, mock_user):
-    """Assert that user is not created when jwt email and body email are different."""
-    body = mock_user
-    jwt_token = jwt.encode({"preferred_username": "different_email"}, "secret", algorithm="HS256")
-
-    response = client.post("/api/user", json=body, headers={"Authorization": f"Bearer {jwt_token}"})
-
-    assert response.status_code == HTTP_401_UNAUTHORIZED
-    assert response.json() == {"detail": "Unauthorized"}
-
-
 def test_create_user_with_taken_username(client, session, mock_user_with_username):
     """Assert that user is not created when username is taken."""
-    body = mock_user_with_username
-    body["username"] = "taken_username"
-    jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
-    session.add(UserModel(**body))
+    user = mock_user_with_username
+    user["username"] = "taken_username"
+    jwt_token = jwt.encode({"preferred_username": user["email"]}, "secret", algorithm="HS256")
+    session.add(UserModel(**user))
     session.commit()
 
-    response = client.post("/api/user", json=body, headers={"Authorization": f"Bearer {jwt_token}"})
+    response = client.post("/api/user", headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_409_CONFLICT
     assert response.json() == {"detail": "Username or email already taken"}
@@ -42,13 +31,13 @@ def test_create_user_with_taken_username(client, session, mock_user_with_usernam
 
 def test_create_user_with_taken_email(client, session, mock_user_with_username):
     """Assert that user is not created when email is taken."""
-    body = mock_user_with_username
-    body["email"] = "taken_email"
-    jwt_token = jwt.encode({"preferred_username": body["email"]}, "secret", algorithm="HS256")
-    session.add(UserModel(**body))
+    user = mock_user_with_username
+    user["email"] = "taken_email"
+    jwt_token = jwt.encode({"preferred_username": user["email"]}, "secret", algorithm="HS256")
+    session.add(UserModel(**user))
     session.commit()
 
-    response = client.post("/api/user", json=body, headers={"Authorization": f"Bearer {jwt_token}"})
+    response = client.post("/api/user", headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_409_CONFLICT
     assert response.json() == {"detail": "Username or email already taken"}
