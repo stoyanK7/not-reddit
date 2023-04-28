@@ -1,5 +1,4 @@
-from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_401_UNAUTHORIZED, \
-    HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
+from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
 import jwt
 
 from src.main.user.model import User as UserModel
