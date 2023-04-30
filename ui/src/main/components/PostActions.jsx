@@ -45,6 +45,13 @@ export default function PostActions({ id, votes, username, mutate }) {
         await handleToast(res, `Post with id ${id} deleted successfully`);
     }
 
+    async function sharePost(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        await navigator.clipboard.writeText(`${window.location.origin}/post/${id}`);
+        toast.success("Copied post link to clipboard");
+    }
+
     return (
         <div
             className="flex gap-2 text-reddit-gray hover:cursor-pointer">
@@ -75,6 +82,7 @@ export default function PostActions({ id, votes, username, mutate }) {
                 Award
             </div>
             <div
+                onClick={sharePost}
                 className="p-2 rounded-sm hover:bg-reddit-gray-hover">
                 Share
             </div>
