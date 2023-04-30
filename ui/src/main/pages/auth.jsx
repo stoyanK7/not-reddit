@@ -1,6 +1,6 @@
 import {
     AuthenticatedTemplate,
-    UnauthenticatedTemplate, useIsAuthenticated,
+    UnauthenticatedTemplate,
     useMsal
 } from "@azure/msal-react";
 import Image from "next/image";
