@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from src.main.post.model import Post as PostModel
+from src.main.post.model import Post as PostModel, User as UserModel
 from src.main.post.main import app
 from src.main.shared.database.main import get_db, Base
 from src.test.shared.database.main import engine
@@ -46,3 +46,29 @@ def insert_mock_text_posts():
         return posts
 
     yield _insert_mock_posts
+
+
+@pytest.fixture
+def insert_post():
+    """Insert a post into the database."""
+
+    def _insert_post(post, session) -> PostModel:
+        model = PostModel(**post)
+        session.add(model)
+        session.commit()
+        return model
+
+    yield _insert_post
+
+
+@pytest.fixture
+def insert_user():
+    """Insert a user into the database."""
+
+    def _insert_user(user, session) -> UserModel:
+        model = UserModel(**user)
+        session.add(model)
+        session.commit()
+        return model
+
+    yield _insert_user
