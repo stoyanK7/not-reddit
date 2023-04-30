@@ -1,35 +1,36 @@
+import { useRouter } from "next/router";
 import { toast } from "react-toast";
+import useSWR from "swr";
 
-import CommentList from "@/components/CommentList";
-import CreateComment from "@/components/CreateComment";
 import PostItem from "@/components/PostItem";
+import fetcher from "@/utils/fetcher";
+import fromApi from "@/utils/fromApi";
 
-async function getPost(id) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/api/post/${id}`);
-    return res.json();
-}
+export default function PostPage() {
+    const router = useRouter();
+    const { id } = router.query;
 
-async function getComments(postId) {
-    // const res: Response = await fetch(`${process.
-    // env.NEXT_PUBLIC_API_SERVICE_URL}/comment/${postId}`);
-    // return res.json();
-}
+    const { data: post, error: postError, isLoading: postIsLoading, mutate: postMutate } = useSWR(
+        [fromApi(`/api/post/${id}`), null], fetcher
+    );
 
-export default async function PostPage({ params }) {
-    const postData = getPost(params.id);
-    const commentsData = getComments(params.id);
-
-    const [post, comments] = await Promise.all([postData, commentsData]);
+    if (postError) {
+        toast.error("Failed to load post");
+    }
 
     return (
         <main
             className="flex w-screen h-screen justify-center items-center">
             <div
                 className="flex flex-col p-2 gap-2">
-                <PostItem
-                    post={post} />
-                <CreateComment
-                    postId={post.id} />
+                {postIsLoading && <p>Loading post...</p>}
+                {post &&
+                    <PostItem
+                        post={post}
+                        mutate={postMutate} />
+                }
+                {/*<CreateComment*/}
+                {/*    postId={post.id} />*/}
                 {/* <CommentList comments={comments} /> */}
             </div>
         </main>
