@@ -13,10 +13,10 @@ current_dir = os.getcwd()
 
 
 async def upload_file(file: UploadFile):
-    if settings.BLOB_STORAGE_CONNECTION_STRING:
-        await upload_file_to_blob_storage(file)
-    else:
-        await upload_file_to_local_storage(file)
+    # if settings.BLOB_STORAGE_CONNECTION_STRING:
+    #     await upload_file_to_blob_storage(file)
+    # else:
+    await upload_file_to_local_storage(file)
 
 
 async def upload_file_to_blob_storage(file: UploadFile):

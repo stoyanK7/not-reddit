@@ -1,4 +1,5 @@
-from fastapi import APIRouter, UploadFile, Depends
+from typing import Annotated
+from fastapi import APIRouter, UploadFile, Depends, Form
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 
@@ -31,7 +32,7 @@ def create_text_post(post: TextPostCreate, db: Session = Depends(get_db)):
 
 
 @router.post("/image")
-async def create_image_post(file: UploadFile):
+async def create_image_post(title: Annotated[str, Form()], file: UploadFile):
     # TODO: make one with create_post and make file optional
     # TODO: check for file type
     # TODO: assert is valid media file
