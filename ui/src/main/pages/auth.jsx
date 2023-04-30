@@ -1,6 +1,6 @@
 import {
     AuthenticatedTemplate,
-    UnauthenticatedTemplate,
+    UnauthenticatedTemplate, useIsAuthenticated,
     useMsal
 } from "@azure/msal-react";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import { toast } from "react-toast";
 
 import LogoutButton from "@/components/LogoutButton";
 import { loginRequest, msalInstance } from "@/utils/authConfig";
-import buildJSONHeaders from "@/utils/buildJSONHeaders";
+import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
 import fromApi from "@/utils/fromApi";
 import getAccessToken from "@/utils/getAccessToken";
 
@@ -22,6 +22,7 @@ export default function Auth() {
 
     useEffect(() => {
         async function checkRegistrationStatus() {
+            console.log("in");
             const isRegistered = await isUserRegistered();
             if (isAuthenticated && !isRegistered) {
                 const email = msalInstance.getActiveAccount()?.username;
@@ -31,8 +32,8 @@ export default function Auth() {
             }
 
             if (isAuthenticated && isRegistered) {
-                // TODO: make request
-                // sessionStorage.setItem("username", "asd");
+                const username = await getUsername();
+                sessionStorage.setItem("username", username);
             }
         }
 
@@ -49,7 +50,7 @@ export default function Auth() {
         }
         const res = await fetch(fromApi("/api/user/registered"), {
             method: "GET",
-            headers: buildJSONHeaders(accessToken),
+            headers: buildAuthorizationHeader(accessToken),
         });
         const data = await res.json();
         return data.registered;
@@ -63,12 +64,32 @@ export default function Auth() {
         }
         const res = await fetch(fromApi("/api/user"), {
             method: "POST",
-            headers: buildJSONHeaders(accessToken),
+            headers: buildAuthorizationHeader(accessToken),
         });
 
         if (res.ok) {
             toast.success("Registered successfully.");
         }
+    }
+
+    async function getUsername() {
+        const accessToken = await getAccessToken();
+        if (accessToken === null) {
+            toast.error("Failed to get your access token");
+            return;
+        }
+
+        const res = await fetch(fromApi("/api/user/username"), {
+            method: "GET",
+            headers: buildAuthorizationHeader(accessToken),
+        });
+
+        if (!res.ok) {
+            toast.error("Failed getting your username");
+            return;
+        }
+        const data = await res.json();
+        return data.username;
     }
 
     return (
