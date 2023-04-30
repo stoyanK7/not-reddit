@@ -21,13 +21,13 @@ def check_if_registered(request: Request, db: Session = Depends(get_db)):
     return {"registered": registered}
 
 
-# @router.get("/username", status_code=HTTP_200_OK)
-# def get_username(request: Request, db: Session = Depends(get_db)):
-#     email = get_access_token_preferred_username(request)
-#     user = crud.get_user_by_email(db=db, email=email)
-#     assert_is_user_exists(user)
-#
-#     return {"username": user.username}
+@router.get("/username", status_code=HTTP_200_OK)
+def get_username(request: Request, db: Session = Depends(get_db)):
+    email = get_access_token_preferred_username(request)
+    user = crud.get_user_by_email(db=db, email=email)
+    assert_is_user_exists(user)
+
+    return {"username": user.username}
 
 
 @router.post("", status_code=HTTP_201_CREATED)
