@@ -2,5 +2,5 @@
 
 set -e
 
-cd ui || exit
+cd ui/src/main || exit
 npm run lint
