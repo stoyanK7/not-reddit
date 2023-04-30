@@ -7,7 +7,8 @@ from src.main.shared.database.main import get_db
 from src.main.post import crud
 from src.main.post.schema import TextPostCreate
 from src.main.post.settings import settings
-from src.main.post.util import upload_file, assert_user_is_owner_of_post
+from src.main.post.util import upload_file, assert_user_is_owner_of_post, \
+    get_username_from_access_token
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
@@ -24,11 +25,11 @@ def get_post_by_id(post_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/text", status_code=HTTP_201_CREATED)
-def create_text_post(post: TextPostCreate, db: Session = Depends(get_db)):
+def create_text_post(request: Request, post: TextPostCreate, db: Session = Depends(get_db)):
     post = post.dict()
-    post["username"] = "asd"
     post["type"] = "text"
-    # TODO: get username from tokena
+    post["username"] = get_username_from_access_token(db=db, request=request)
+
     return crud.create_post(db=db, post=post)
 
 

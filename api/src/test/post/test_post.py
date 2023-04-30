@@ -32,17 +32,26 @@ def test_get_post(client, session, insert_mock_text_posts):
     assert "title" in response.json().keys()
 
 
-def test_create_text_post(client, remove_json_fields):
-    """Assert that post is created."""
+def test_create_text_post(client, session, remove_json_fields, insert_user):
+    """Assert that a text post is created."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
     body = {
         "title": "Test post",
         "body": "Test body",
     }
 
-    response = client.post("/api/post/text", json=body)
+    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    response = client.post("/api/post/text", json=body,
+                           headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == status.HTTP_201_CREATED
     assert "id" in response.json().keys()
+    assert response.json()["username"] == user.username
+    assert response.json()["votes"] == 0
 
 
 @pytest.mark.skip(reason="Not implemented")
@@ -54,7 +63,7 @@ def test_delete_post(client, session, insert_user, insert_post):
     """Assert that post is deleted."""
     # Insert user
     user = insert_user({
-        "username": "user1@mail.test",
+        "username": "puzzledUser2",
         "oid": "user 1 oid"
     }, session=session)
 
@@ -76,11 +85,11 @@ def test_delete_post(client, session, insert_user, insert_post):
 def test_delete_post_not_owner_of_post(client, session, insert_post, insert_user):
     # Insert users
     user_1 = insert_user({
-        "username": "user1@mail.test",
+        "username": "puzzledUser2",
         "oid": "user 1 oid"
     }, session=session)
     user_2 = insert_user({
-        "username": "user2@mail.test",
+        "username": "amazedPotato6",
         "oid": "user 2 oid"
     }, session=session)
 

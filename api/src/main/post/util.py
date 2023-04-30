@@ -65,3 +65,8 @@ def assert_user_is_owner_of_post(db: Session, request: Request, post_id: int):
             status_code=HTTP_401_UNAUTHORIZED,
             detail="You are not the owner of this post"
         )
+
+
+def get_username_from_access_token(db: Session, request: Request) -> str:
+    oid = get_access_token_oid(request=request)
+    return crud.get_username_by_oid(db=db, oid=oid)
