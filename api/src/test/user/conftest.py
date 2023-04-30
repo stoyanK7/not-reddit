@@ -2,6 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.main.user.main import app
+from src.main.user.model import User as UserModel
 from src.main.shared.database.main import get_db, Base
 from src.test.shared.database.main import engine
 
@@ -40,3 +41,16 @@ def mock_user_with_username():
         "email": "testemail",
         "username": "testusername",
     }
+
+
+@pytest.fixture
+def insert_user():
+    """Insert a user into the database."""
+
+    def _insert_user(user, session) -> UserModel:
+        model = UserModel(**user)
+        session.add(model)
+        session.commit()
+        return model
+
+    yield _insert_user
