@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { toast } from "react-toast";
 
 import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
@@ -8,7 +7,7 @@ import getAccessToken from "@/utils/getAccessToken";
 import handleToast from "@/utils/handleToast";
 
 export default function PostActions({ id, votes, username, mutate }) {
-    const router = useRouter();
+    const isUserOwnerOfPost = username === sessionStorage.getItem("username");
 
     function upvote() {
         // TODO: implement call
@@ -21,9 +20,19 @@ export default function PostActions({ id, votes, username, mutate }) {
     }
 
     async function deletePost() {
+        if (!isUserOwnerOfPost) {
+            toast.error("You can only delete your own posts");
+            return;
+        }
+
+        if (!confirm("Are you sure you want to delete this post?")) {
+            toast.info("Post deletion cancelled");
+            return;
+        }
+
         const accessToken = await getAccessToken();
         if (accessToken === null) {
-            toast.error("Failed to get your access token.");
+            toast.error("Failed to get your access token");
             return;
         }
 
@@ -33,7 +42,7 @@ export default function PostActions({ id, votes, username, mutate }) {
         });
 
         mutate();
-        await handleToast(res, "Post deleted successfully.");
+        await handleToast(res, `Post with id ${id} deleted successfully`);
     }
 
     return (
@@ -71,11 +80,13 @@ export default function PostActions({ id, votes, username, mutate }) {
                 className="p-2 rounded-sm hover:bg-reddit-gray-hover">
                 Share
             </div>
-            <div
-                className="p-2 rounded-sm text-red-600 hover:bg-red-300"
-                onClick={deletePost}>
-                Delete
-            </div>
+            {isUserOwnerOfPost &&
+                <div
+                    className="p-2 rounded-sm text-red-600 hover:bg-red-300"
+                    onClick={deletePost}>
+                    Delete
+                </div>
+            }
         </div>
     );
 }
