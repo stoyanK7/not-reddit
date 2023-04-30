@@ -14,7 +14,9 @@ module.exports = {
             },
             colors: {
                 "reddit-orange": "#FF5700",
+                "reddit-orange-light": "#ffb763",
                 "reddit-blue": "#9494FF",
+                "reddit-blue-light": "#bebeff",
                 "reddit-gray": "#939698",
                 "reddit-postline": "#CCCCCC",
                 "reddit-gray-hover": "#E7E7E7",

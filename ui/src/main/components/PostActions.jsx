@@ -51,16 +51,14 @@ export default function PostActions({ id, votes, username, mutate }) {
             <div
                 className="flex items-center">
                 <span
-                    className="p-2 mr-1 rounded-sm hover:bg-reddit-gray-hover
-                    hover:text-reddit-orange"
+                    className="p-2 mr-1 rounded-sm hover:bg-reddit-orange-light text-reddit-orange"
                     onClick={upvote}>
                     Up
                 </span>
                 <span
                     className="font-bold text-reddit-black">{votes}</span>
                 <span
-                    className="p-2 ml-1 rounded-sm hover:bg-reddit-gray-hover
-                    hover:text-reddit-blue"
+                    className="p-2 ml-1 rounded-sm hover:bg-reddit-blue-light text-reddit-blue"
                     onClick={downvote}>
                     Down
                 </span>
