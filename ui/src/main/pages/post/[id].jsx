@@ -1,4 +1,4 @@
-import { toast,ToastContainer } from "react-toast";
+import { toast } from "react-toast";
 
 import CommentList from "@/components/CommentList";
 import CreateComment from "@/components/CreateComment";
@@ -26,8 +26,6 @@ export default async function PostPage({ params }) {
             className="flex w-screen h-screen justify-center items-center">
             <div
                 className="flex flex-col p-2 gap-2">
-                <ToastContainer
-                    delay={8000} />
                 <PostItem
                     post={post} />
                 <CreateComment

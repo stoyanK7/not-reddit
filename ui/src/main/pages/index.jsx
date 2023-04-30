@@ -1,5 +1,5 @@
 import { AuthenticatedTemplate } from "@azure/msal-react";
-import { toast, ToastContainer } from "react-toast";
+import { toast } from "react-toast";
 import useSWR from "swr";
 
 import CreatePost from "@/components/CreatePost";
@@ -20,8 +20,6 @@ export default function Home() {
     return (
         <main
             className="w-1/2 mx-auto min-w-fit my-2 mt-24">
-            <ToastContainer
-                delay={8000} />
             <AuthenticatedTemplate>
                 <CreatePost />
             </AuthenticatedTemplate>

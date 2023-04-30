@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import { toast, ToastContainer } from "react-toast";
+import { toast } from "react-toast";
 
 import ImageTab from "@/components/ImageTab";
 import TextTab from "@/components/TextTab";
@@ -76,8 +76,6 @@ export default function PostCreatePage() {
     return (
         <main
             className="flex w-screen h-screen justify-center items-center">
-            <ToastContainer
-                delay={8000} />
             <Tabs
                 className="flex w-1/2 flex-col p-2 gap-2 shadow-reddit border bg-white
                 border-reddit-postline"

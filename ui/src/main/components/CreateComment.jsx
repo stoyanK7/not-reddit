@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast,ToastContainer } from "react-toast";
+import { toast } from "react-toast";
 
 
 export default function CreateComment({ postId }) {
@@ -22,8 +22,6 @@ export default function CreateComment({ postId }) {
     return (
         <div
             className="flex flex-col gap-2">
-            <ToastContainer
-                delay={8000} />
             <span>Comment on the post</span>
             <textarea
                 rows={10}

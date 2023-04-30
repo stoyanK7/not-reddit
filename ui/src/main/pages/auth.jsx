@@ -6,7 +6,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { toast, ToastContainer } from "react-toast";
+import { toast } from "react-toast";
 
 import LogoutButton from "@/components/LogoutButton";
 import { loginRequest, msalInstance } from "@/utils/authConfig";
@@ -69,8 +69,6 @@ export default function Auth() {
     return (
         <main
             className="flex flex-col w-screen h-screen justify-center items-center">
-            <ToastContainer
-                delay={8000} />
             <div
                 className="rounded-sm bg-white p-4 m-2 flex flex-col justify-center items-center
                 gap-2 shadow-reddit border border-reddit-postline">
