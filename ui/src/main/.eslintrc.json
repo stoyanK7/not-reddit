@@ -1,0 +1,22 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": ["react", "simple-import-sort"],
+  "rules": {
+    "eol-last": "error",
+    "semi": ["error", "always"],
+    "quotes": ["error", "double"],
+    "indent": ["error", 4],
+    "no-unused-vars": "warn", // TODO: move to error later
+    "max-len": ["error", { "code": 100 }],
+    "object-curly-spacing": ["error", "always"],
+    "no-multiple-empty-lines": "error",
+    "simple-import-sort/imports": "error",
+    "react/jsx-first-prop-new-line": ["error", "always"],
+    "react/jsx-tag-spacing": ["error", {
+      "closingSlash": "never",
+      "beforeSelfClosing": "always",
+      "afterOpening": "never",
+      "beforeClosing": "allow"
+    }]
+  }
+}

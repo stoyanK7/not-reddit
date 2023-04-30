@@ -1,0 +1,29 @@
+{
+  "name": "ui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint --dir .",
+    "lint:fix": "next lint --fix --dir ."
+  },
+  "dependencies": {
+    "@azure/msal-browser": "^2.36.0",
+    "@azure/msal-react": "^1.5.6",
+    "autoprefixer": "10.4.14",
+    "eslint": "^8.39.0",
+    "eslint-config-next": "13.3.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "next": "13.3.1",
+    "postcss": "8.4.23",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-tabs": "^6.0.1",
+    "react-toast": "^1.0.3",
+    "swr": "^2.1.5",
+    "tailwindcss": "3.3.2"
+  }
+}
