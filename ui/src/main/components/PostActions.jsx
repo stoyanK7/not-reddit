@@ -66,12 +66,12 @@ export default function PostActions({ id, votes, username, mutate }) {
             <Link
                 href={`/post/${id}`}>
                 <div
-                    className="p-2 rounded-sm hover:bg-reddit-gray-hover">
+                    className="p-2 rounded-sm text-blue-600 hover:bg-blue-300">
                     Comments
                 </div>
             </Link>
             <div
-                className="p-2 rounded-sm hover:bg-reddit-gray-hover">
+                className="p-2 rounded-sm text-yellow-600 hover:bg-yellow-300">
                 Award
             </div>
             <div
