@@ -1,7 +1,7 @@
 import {
     AuthenticatedTemplate,
     UnauthenticatedTemplate,
-    useIsAuthenticated
+    useMsal
 } from "@azure/msal-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +16,8 @@ import getAccessToken from "@/utils/getAccessToken";
 
 
 export default function Auth() {
-    const isAuthenticated = useIsAuthenticated();
+    const { accounts } = useMsal();
+    const isAuthenticated = accounts.length > 0;
     const hasFetchedData = useRef(false);
 
     useEffect(() => {
@@ -28,6 +29,11 @@ export default function Auth() {
                     await registerUser(email);
                 }
             }
+
+            if (isAuthenticated && isRegistered) {
+                // TODO: make request
+                // sessionStorage.setItem("username", "asd");
+            }
         }
 
         if (hasFetchedData.current === false) {
@@ -35,7 +41,6 @@ export default function Auth() {
             hasFetchedData.current = true;
         }
     }, [isAuthenticated]);
-
 
     async function isUserRegistered() {
         const accessToken = await getAccessToken();
@@ -46,8 +51,8 @@ export default function Auth() {
             method: "GET",
             headers: buildJSONHeaders(accessToken),
         });
-        const data = res.json();
-        return data.isRegistered;
+        const data = await res.json();
+        return data.registered;
     }
 
     async function registerUser() {
