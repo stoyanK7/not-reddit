@@ -2,8 +2,8 @@ name: "ESLint"
 on:
   push:
     paths:
-      - "ui/**.tsx"
-      - "ui/**.ts"
+      - "ui/src/main/**.js"
+      - "ui/src/main/**.jsx"
 
 concurrency:
   group: ${{ github.workflow }}
