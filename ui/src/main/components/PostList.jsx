@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import PostItem from "@/components/PostItem";
 
 export default function PostList({ posts, mutate }) {
@@ -5,10 +7,13 @@ export default function PostList({ posts, mutate }) {
         <div
             className="flex flex-col gap-2">
             {posts.map((post) => (
-                <PostItem
+                <Link
                     key={post.id}
-                    post={post}
-                    mutate={mutate} />
+                    href={`/post/${post.id}`}>
+                    <PostItem
+                        post={post}
+                        mutate={mutate} />
+                </Link>
             ))}
         </div>
     );
