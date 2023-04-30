@@ -34,6 +34,10 @@ export default function Navbar() {
                     </Link>
                 </UnauthenticatedTemplate>
                 <AuthenticatedTemplate>
+                    <span
+                        className="mr-2 font-bold">
+                        {typeof window !== "undefined" && sessionStorage.getItem("username")}
+                    </span>
                     <LogoutButton />
                 </AuthenticatedTemplate>
             </div>
