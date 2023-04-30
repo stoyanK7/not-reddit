@@ -72,10 +72,6 @@ export default function PostActions({ id, votes, username, mutate }) {
                 Share
             </div>
             <div
-                className="p-2 rounded-sm hover:bg-reddit-gray-hover">
-                Save
-            </div>
-            <div
                 className="p-2 rounded-sm text-red-600 hover:bg-red-300"
                 onClick={deletePost}>
                 Delete
