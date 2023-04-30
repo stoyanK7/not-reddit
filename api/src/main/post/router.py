@@ -1,5 +1,5 @@
 from typing import Annotated
-from fastapi import APIRouter, UploadFile, Depends, Form
+from fastapi import APIRouter, UploadFile, Depends, Form, Request
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 
@@ -7,7 +7,7 @@ from src.main.shared.database.main import get_db
 from src.main.post import crud
 from src.main.post.schema import TextPostCreate
 from src.main.post.settings import settings
-from src.main.post.util import upload_file
+from src.main.post.util import upload_file, assert_user_is_owner_of_post
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
@@ -41,6 +41,8 @@ async def create_image_post(title: Annotated[str, Form()], file: UploadFile):
 
 
 @router.delete("/{post_id}", status_code=HTTP_204_NO_CONTENT)
-def delete_post_by_id(post_id: int, db: Session = Depends(get_db)):
-    # TODO: ensure user is owner of post
-    return crud.delete_post_by_id(db=db, post_id=post_id)
+def delete_post_by_id(request: Request, post_id: int, db: Session = Depends(get_db)):
+    assert_user_is_owner_of_post(db=db, request=request, post_id=post_id)
+
+    crud.delete_post_by_id(db=db, post_id=post_id)
+    return

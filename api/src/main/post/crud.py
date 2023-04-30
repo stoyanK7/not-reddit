@@ -34,3 +34,7 @@ def insert_user(db: Session, username: str, oid: str):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def get_username_by_oid(db: Session, oid: str):
+    return db.query(UserModel).filter(UserModel.oid == oid).first().username
