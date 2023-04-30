@@ -1,6 +1,15 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { toast } from "react-toast";
 
-export default function PostActions({ id, votes }) {
+import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
+import fromApi from "@/utils/fromApi";
+import getAccessToken from "@/utils/getAccessToken";
+import handleToast from "@/utils/handleToast";
+
+export default function PostActions({ id, votes, username, mutate }) {
+    const router = useRouter();
+
     function upvote() {
         // TODO: implement call
         // TODO: give visual feedback
@@ -10,6 +19,23 @@ export default function PostActions({ id, votes }) {
         // TODO: implement call
         // TODO: give visual feedback
     }
+
+    async function deletePost() {
+        const accessToken = await getAccessToken();
+        if (accessToken === null) {
+            toast.error("Failed to get your access token.");
+            return;
+        }
+
+        const res = await fetch(fromApi(`/api/post/${id}`), {
+            method: "DELETE",
+            headers: buildAuthorizationHeader(accessToken)
+        });
+
+        mutate();
+        await handleToast(res, "Post deleted successfully.");
+    }
+
     return (
         <div
             className="flex gap-2 text-reddit-gray hover:cursor-pointer">
@@ -48,6 +74,11 @@ export default function PostActions({ id, votes }) {
             <div
                 className="p-2 rounded-sm hover:bg-reddit-gray-hover">
                 Save
+            </div>
+            <div
+                className="p-2 rounded-sm text-red-600 hover:bg-red-300"
+                onClick={deletePost}>
+                Delete
             </div>
         </div>
     );

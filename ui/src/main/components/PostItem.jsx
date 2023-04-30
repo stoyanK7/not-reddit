@@ -3,7 +3,7 @@ import PostBody from "./PostBody";
 import PostInfo from "./PostInfo";
 import PostTitle from "./PostTitle";
 
-export default function PostItem({ post }) {
+export default function PostItem({ post, mutate }) {
     return (
         <div
             className="grid grid-rows-[auto_auto_1fr_auto] grid-cols-1 gap-2 bg-white
@@ -17,7 +17,9 @@ export default function PostItem({ post }) {
                 body={post.body} />
             <PostActions
                 id={post.id}
-                votes={post.votes}  />
+                votes={post.votes}
+                username={post.username}
+                mutate={mutate} />
         </div>
     );
 }

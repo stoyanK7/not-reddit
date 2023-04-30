@@ -9,7 +9,8 @@ import fromApi from "@/utils/fromApi";
 
 
 export default function Home() {
-    const { data: posts, error, isLoading } = useSWR([fromApi("/api/post"), null], fetcher);
+    const { data: posts, error, isLoading, mutate } = useSWR([fromApi("/api/post"), null],
+        fetcher);
 
     if (error) {
         toast.error("Failed to load latest posts");
@@ -26,6 +27,7 @@ export default function Home() {
             </AuthenticatedTemplate>
             {posts &&
                 <PostList
+                    mutate={mutate}
                     posts={posts} />
             }
         </main>
