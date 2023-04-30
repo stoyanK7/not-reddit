@@ -10,7 +10,7 @@ from src.main.shared.database.main import get_db
 from src.main.post import crud
 from src.main.post.settings import settings
 from src.main.shared.amqp.amqp_util import decode_body_and_convert_to_dict
-from src.main.shared.jwt_util import get_jwt_token
+from src.main.shared.jwt_util import get_access_token_oid
 
 current_dir = os.getcwd()
 
@@ -56,8 +56,7 @@ def handle_successful_registration(message: AbstractIncomingMessage) -> None:
 
 
 def assert_user_is_owner_of_post(db: Session, request: Request, post_id: int):
-    token = get_jwt_token(request)
-    oid = token['oid']
+    oid = get_access_token_oid(request=request)
     username = crud.get_username_by_oid(db=db, oid=oid)
 
     post = crud.get_post_by_id(db=db, post_id=post_id)

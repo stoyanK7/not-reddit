@@ -3,9 +3,10 @@ from starlette.status import HTTP_201_CREATED, HTTP_200_OK
 from sqlalchemy.orm import Session
 
 from src.main.shared.database.main import get_db
+from src.main.shared.jwt_util import get_access_token_preferred_username, get_access_token_oid
 from src.main.user.settings import settings
 from src.main.user.util import assert_is_username_and_email_not_taken, assert_is_user_exists, \
-    emit_successful_registration_event, get_access_token_oid, get_access_token_preferred_username
+    emit_successful_registration_event
 from random_username.generate import generate_username
 from src.main.user import crud
 
@@ -20,12 +21,13 @@ def check_if_registered(request: Request, db: Session = Depends(get_db)):
     return {"registered": registered}
 
 
-@router.get("/{username}", status_code=HTTP_200_OK)
-def get_user_by_username(username: str, db: Session = Depends(get_db)):
-    user = crud.get_user_by_username(db=db, username=username)
-    assert_is_user_exists(user)
-
-    return user
+# @router.get("/username", status_code=HTTP_200_OK)
+# def get_username(request: Request, db: Session = Depends(get_db)):
+#     email = get_access_token_preferred_username(request)
+#     user = crud.get_user_by_email(db=db, email=email)
+#     assert_is_user_exists(user)
+#
+#     return {"username": user.username}
 
 
 @router.post("", status_code=HTTP_201_CREATED)
