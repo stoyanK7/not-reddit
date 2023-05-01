@@ -10,6 +10,7 @@ import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
 import buildJSONHeaders from "@/utils/buildJSONHeaders";
 import fromApi from "@/utils/fromApi";
 import getAccessToken from "@/utils/getAccessToken";
+import handleToast from "@/utils/handleToast";
 
 export default function PostCreatePage() {
     const router = useRouter();
@@ -46,7 +47,11 @@ export default function PostCreatePage() {
             headers: buildJSONHeaders(accessToken),
             body: JSON.stringify({ title, body }),
         });
-        await handleResponse(res);
+        await handleToast(res);
+
+        if (res.ok) {
+            setSuccess(true);
+        }
     }
 
     async function createMediaPost(accessToken) {
@@ -59,17 +64,10 @@ export default function PostCreatePage() {
             headers: buildAuthorizationHeader(accessToken),
             body: formData,
         });
-        await handleResponse(res);
-    }
+        await handleToast(res);
 
-    async function handleResponse(res) {
         if (res.ok) {
-            const data = await res.json();
-            toast.success("Post created successfully.");
             setSuccess(true);
-            setId(data.id);
-        } else {
-            toast.error("Something went wrong");
         }
     }
 
