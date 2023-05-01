@@ -9,6 +9,7 @@ from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST
 from src.main.shared.database.main import get_db
 from src.main.post import crud
 from src.main.post.settings import settings
+from src.main.post.model import Post as PostModel
 from src.main.shared.amqp.amqp_util import decode_body_and_convert_to_dict
 from src.main.shared.jwt_util import get_access_token_oid
 
@@ -49,6 +50,20 @@ async def upload_file_to_local_storage(file: UploadFile) -> str:
         file_object.write(file.file.read())
 
     return f"http://localhost:8080/api/post/file/{file.filename}"
+
+
+def delete_file_from_post(post: PostModel):
+    # if settings.BLOB_STORAGE_CONNECTION_STRING:
+    #     delete_file_from_blob_storage(post=post)
+    # else:
+    delete_file_from_local_storage(post=post)
+
+
+def delete_file_from_local_storage(post: PostModel):
+    """Delete file from local storage. First remove the file:// prefix from the media url."""
+    file_location = post.body[7:]
+    if os.path.exists(file_location):
+        os.remove(file_location)
 
 
 def handle_successful_registration(message: AbstractIncomingMessage) -> None:

@@ -8,7 +8,8 @@ from src.main.post import crud
 from src.main.post.schema import TextPostCreate
 from src.main.post.settings import settings
 from src.main.post.util import upload_file, assert_user_is_owner_of_post, \
-    get_username_from_access_token, assert_file_type_is_allowed, determine_media_url
+    get_username_from_access_token, assert_file_type_is_allowed, determine_media_url, \
+    delete_file_from_post
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
@@ -38,6 +39,8 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
                             background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     assert_file_type_is_allowed(file)
 
+    # TODO: change file name to postId
+    # TODO: think about making a separate service for file compression
     background_tasks.add_task(upload_file, file=file)
 
     media_url = determine_media_url(file=file)
@@ -56,5 +59,8 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
 def delete_post_by_id(request: Request, post_id: int, db: Session = Depends(get_db)):
     assert_user_is_owner_of_post(db=db, request=request, post_id=post_id)
 
+    post = crud.get_post_by_id(db=db, post_id=post_id)
     crud.delete_post_by_id(db=db, post_id=post_id)
+    delete_file_from_post(post=post)
+
     return

@@ -1,4 +1,6 @@
 import os
+import shutil
+
 import pytest
 import jwt
 from starlette.status import HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED, HTTP_201_CREATED, \
@@ -77,9 +79,9 @@ def test_create_media_post(client, session, insert_user, test_file_name):
         "title": "Test post",
     }
 
-    test_image_path = os.path.join(resource_directory, test_file_name)
+    test_media_path = os.path.join(resource_directory, test_file_name)
     files = [
-        ("file", open(test_image_path, "rb"))
+        ("file", open(test_media_path, "rb"))
     ]
 
     jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
@@ -92,13 +94,13 @@ def test_create_media_post(client, session, insert_user, test_file_name):
     assert test_file_name in response.json()["body"]
     assert response.json()["username"] == user.username
 
-    uploaded_image_path = f"{files_directory}/{test_file_name}"
-    assert os.path.exists(uploaded_image_path)
-    os.remove(uploaded_image_path)
-    assert not os.path.exists(uploaded_image_path)
+    uploaded_media_path = f"{files_directory}/{test_file_name}"
+    assert os.path.exists(uploaded_media_path)
+    os.remove(uploaded_media_path)
+    assert not os.path.exists(uploaded_media_path)
 
 
-def test_delete_post(client, session, insert_user, insert_post):
+def test_delete_text_post(client, session, insert_user, insert_post):
     """Assert that post is deleted."""
     user = insert_user({
         "username": "puzzledUser2",
@@ -118,7 +120,8 @@ def test_delete_post(client, session, insert_user, insert_post):
     assert response.status_code == HTTP_204_NO_CONTENT
 
 
-def test_delete_post_not_owner_of_post(client, session, insert_post, insert_user):
+def test_delete_text_post_not_owner_of_post(client, session, insert_post, insert_user):
+    """Assert that post is not deleted if user is not the owner of the post."""
     user_1 = insert_user({
         "username": "puzzledUser2",
         "oid": "user 1 oid"
@@ -140,3 +143,31 @@ def test_delete_post_not_owner_of_post(client, session, insert_post, insert_user
 
     assert response.status_code == HTTP_401_UNAUTHORIZED
     assert response.json() == {"detail": "You are not the owner of this post"}
+
+
+@pytest.mark.parametrize("test_file_name",
+                         ["test_image.png", "test_image.jpg", "test_video.mp4", "test_video.webm"])
+def test_delete_media_post(client, session, insert_post, insert_user, test_file_name):
+    """Assert that media post is deleted."""
+    test_media_path = os.path.join(resource_directory, test_file_name)
+    uploaded_media_path = f"{files_directory}/{test_file_name}"
+    shutil.copy(test_media_path, uploaded_media_path)
+    assert os.path.exists(uploaded_media_path)
+
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    post = insert_post({
+        "title": "Test post",
+        "body": f"file://{uploaded_media_path}",
+        "username": user.username,
+    }, session=session)
+
+    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    response = client.delete(f"/api/post/{post.id}",
+                             headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_204_NO_CONTENT
+    assert not os.path.exists(uploaded_media_path)
