@@ -1,5 +1,5 @@
 import os
-
+import pytest
 import jwt
 from starlette.status import HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED, HTTP_201_CREATED, \
     HTTP_200_OK
@@ -64,8 +64,10 @@ def test_create_text_post(client, session, remove_json_fields, insert_user):
     assert response.json()["votes"] == 0
 
 
-def test_create_media_post_image(client, session, insert_user, monkeypatch):
-    """Assert that an image post is created."""
+@pytest.mark.parametrize("test_file_name",
+                         ["test_image.png", "test_image.jpg", "test_video.mp4", "test_video.webm"])
+def test_create_media_post(client, session, insert_user, test_file_name):
+    """Assert that a media post is created."""
     user = insert_user({
         "username": "puzzledUser2",
         "oid": "user 1 oid"
@@ -75,8 +77,7 @@ def test_create_media_post_image(client, session, insert_user, monkeypatch):
         "title": "Test post",
     }
 
-    test_image_name = "test_image.jpg"
-    test_image_path = os.path.join(resource_directory, test_image_name)
+    test_image_path = os.path.join(resource_directory, test_file_name)
     files = [
         ("file", open(test_image_path, "rb"))
     ]
@@ -88,10 +89,10 @@ def test_create_media_post_image(client, session, insert_user, monkeypatch):
     assert response.status_code == HTTP_201_CREATED
     assert "id" in response.json().keys()
     assert response.json()["title"] == data["title"]
-    assert test_image_name in response.json()["body"]
+    assert test_file_name in response.json()["body"]
     assert response.json()["username"] == user.username
 
-    uploaded_image_path = f"{files_directory}/{test_image_name}"
+    uploaded_image_path = f"{files_directory}/{test_file_name}"
     assert os.path.exists(uploaded_image_path)
     os.remove(uploaded_image_path)
     assert not os.path.exists(uploaded_image_path)
