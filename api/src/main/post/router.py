@@ -33,13 +33,23 @@ def create_text_post(request: Request, post: TextPostCreate, db: Session = Depen
     return crud.create_post(db=db, post=post)
 
 
-@router.post("/image")
-async def create_image_post(title: Annotated[str, Form()], file: UploadFile):
-    # TODO: make one with create_post and make file optional
+@router.post("/media", status_code=HTTP_201_CREATED)
+async def create_media_post(request: Request, title: Annotated[str, Form()], file: UploadFile,
+                            db: Session = Depends(get_db)):
+    media_url = await upload_file(file)
+    username = get_username_from_access_token(db=db, request=request)
+    post = {
+        "title": title,
+        "body": media_url,
+        "type": "media",
+        "username": username
+    }
     # TODO: check for file type
     # TODO: assert is valid media file
-    await upload_file(file)
-    return {"info": f"file '{file.filename}' saved."}
+    # TODO: scale down media
+    # TODO: separate in video and media
+    # TODO: https://notredditstorageaccount.blob.core.windows.net/images/310_daf.jpg
+    return crud.create_post(db=db, post=post)
 
 
 @router.delete("/{post_id}", status_code=HTTP_204_NO_CONTENT)

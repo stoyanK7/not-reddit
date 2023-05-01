@@ -1,6 +1,13 @@
+import os
+
 import jwt
-import pytest as pytest
-from fastapi import status
+from starlette.status import HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED, HTTP_201_CREATED, \
+    HTTP_200_OK
+
+current_file_path = os.path.abspath(__file__)
+parent_directory = os.path.dirname(current_file_path)
+resource_directory = f"{parent_directory}/resource"
+files_directory = f"{os.path.dirname(os.path.dirname(parent_directory))}/main/post/files"
 
 
 def test_get_posts_length(client, session, insert_mock_text_posts):
@@ -9,7 +16,7 @@ def test_get_posts_length(client, session, insert_mock_text_posts):
 
     response = client.get("/api/post")
 
-    assert response.status_code == status.HTTP_200_OK
+    assert response.status_code == HTTP_200_OK
     assert len(response.json()) == 10
 
 
@@ -19,7 +26,7 @@ def test_get_posts_pagination(client, session, insert_mock_text_posts):
 
     response = client.get("/api/post?page=2")
 
-    assert response.status_code == status.HTTP_200_OK
+    assert response.status_code == HTTP_200_OK
     assert len(response.json()) == 3
 
 
@@ -28,8 +35,9 @@ def test_get_post(client, session, insert_mock_text_posts):
     post = insert_mock_text_posts(1, session=session)[0]
     response = client.get(f"/api/post/{post.id}")
 
-    assert response.status_code == status.HTTP_200_OK
+    assert response.status_code == HTTP_200_OK
     assert "title" in response.json().keys()
+    assert "body" in response.json().keys()
 
 
 def test_create_text_post(client, session, remove_json_fields, insert_user):
@@ -48,42 +56,68 @@ def test_create_text_post(client, session, remove_json_fields, insert_user):
     response = client.post("/api/post/text", json=body,
                            headers={"Authorization": f"Bearer {jwt_token}"})
 
-    assert response.status_code == status.HTTP_201_CREATED
+    assert response.status_code == HTTP_201_CREATED
     assert "id" in response.json().keys()
+    assert response.json()["title"] == body["title"]
+    assert response.json()["body"] == body["body"]
     assert response.json()["username"] == user.username
     assert response.json()["votes"] == 0
 
 
-@pytest.mark.skip(reason="Not implemented")
-def test_create_image_post(client):
-    pass
-
-
-def test_delete_post(client, session, insert_user, insert_post):
-    """Assert that post is deleted."""
-    # Insert user
+def test_create_media_post_image(client, session, insert_user, monkeypatch):
+    """Assert that an image post is created."""
     user = insert_user({
         "username": "puzzledUser2",
         "oid": "user 1 oid"
     }, session=session)
 
-    # Insert post
+    data = {
+        "title": "Test post",
+    }
+
+    test_image_name = "test_image.jpg"
+    test_image_path = os.path.join(resource_directory, test_image_name)
+    files = [
+        ("file", open(test_image_path, "rb"))
+    ]
+
+    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    response = client.post("/api/post/media", data=data, files=files,
+                           headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_201_CREATED
+    assert "id" in response.json().keys()
+    assert response.json()["title"] == data["title"]
+    assert test_image_name in response.json()["body"]
+    assert response.json()["username"] == user.username
+
+    uploaded_image_path = f"{files_directory}/{test_image_name}"
+    assert os.path.exists(uploaded_image_path)
+    os.remove(uploaded_image_path)
+    assert not os.path.exists(uploaded_image_path)
+
+
+def test_delete_post(client, session, insert_user, insert_post):
+    """Assert that post is deleted."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
     post = insert_post({
         "title": "Title",
         "body": "Body",
         "username": user.username,
     }, session=session)
 
-    # Delete post
     jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
     response = client.delete(f"/api/post/{post.id}",
                              headers={"Authorization": f"Bearer {jwt_token}"})
 
-    assert response.status_code == status.HTTP_204_NO_CONTENT
+    assert response.status_code == HTTP_204_NO_CONTENT
 
 
 def test_delete_post_not_owner_of_post(client, session, insert_post, insert_user):
-    # Insert users
     user_1 = insert_user({
         "username": "puzzledUser2",
         "oid": "user 1 oid"
@@ -93,17 +127,15 @@ def test_delete_post_not_owner_of_post(client, session, insert_post, insert_user
         "oid": "user 2 oid"
     }, session=session)
 
-    # Insert post under different name
     post = insert_post({
         "title": "Title",
         "body": "Body",
         "username": user_1.username,
     }, session=session)
 
-    # Try to delete post
     jwt_token = jwt.encode({"oid": user_2.oid}, "secret", algorithm="HS256")
     response = client.delete(f"/api/post/{post.id}",
                              headers={"Authorization": f"Bearer {jwt_token}"})
 
-    assert response.status_code == status.HTTP_401_UNAUTHORIZED
+    assert response.status_code == HTTP_401_UNAUTHORIZED
     assert response.json() == {"detail": "You are not the owner of this post"}
