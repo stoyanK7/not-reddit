@@ -77,12 +77,26 @@ def get_username_from_access_token(db: Session, request: Request) -> str:
 
 
 def assert_file_type_is_allowed(file: UploadFile):
-    allowed_image_types = ["image/jpeg", "image/png"]
-    allowed_video_types = ["video/mp4", "video/mpeg", "video/webm"]
-    allowed_file_types = allowed_image_types + allowed_video_types
-
-    if file.content_type not in allowed_file_types:
+    if file.content_type not in settings.ALLOWED_FILE_TYPES:
         raise HTTPException(
             status_code=HTTP_400_BAD_REQUEST,
             detail="File type not allowed"
         )
+
+
+def determine_media_url(file: UploadFile) -> str:
+    if settings.BLOB_STORAGE_CONNECTION_STRING:
+        container = determine_storage_container_name(file=file)
+        return (
+            f"https://{settings.BLOB_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/"
+            f"{container}/{file.filename}"
+        )
+    else:
+        return f"file://{parent_directory}/files/{file.filename}"
+
+
+def determine_storage_container_name(file: UploadFile) -> str:
+    if file.content_type in settings.ALLOWED_IMAGE_TYPES:
+        return settings.BLOB_STORAGE_IMAGES_CONTAINER_NAME
+    elif file.content_type in settings.ALLOWED_VIDEO_TYPES:
+        return settings.BLOB_STORAGE_VIDEOS_CONTAINER_NAME
