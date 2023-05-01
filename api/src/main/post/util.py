@@ -2,6 +2,7 @@ import os
 
 from aio_pika.abc import AbstractIncomingMessage
 from fastapi import UploadFile, Request, HTTPException
+from fastapi.responses import FileResponse
 from azure.storage.blob import BlobServiceClient
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST
@@ -18,13 +19,13 @@ parent_directory = os.path.dirname(current_file)
 files_directory = f"{parent_directory}/files"
 
 
-async def upload_file(file: UploadFile, post_id: int) -> str:
+async def upload_file(file: UploadFile, post_id: int):
     file = rename_file(file=file, post_id=post_id)
     # TODO: Remove back to normal
     # if settings.BLOB_STORAGE_CONNECTION_STRING:
     #     await upload_file_to_blob_storage(file)
     # else:
-    return await upload_file_to_local_storage(file)
+    await upload_file_to_local_storage(file)
 
 
 def rename_file(file: UploadFile, post_id: int) -> UploadFile:
@@ -51,8 +52,8 @@ async def upload_file_to_blob_storage(file: UploadFile):
         print(ex)
 
 
-async def upload_file_to_local_storage(file: UploadFile) -> str:
-    file_location = f"{parent_directory}/files/{file.filename}"
+async def upload_file_to_local_storage(file: UploadFile):
+    file_location = f"{files_directory}/{file.filename}"
 
     with open(file_location, "wb+") as file_object:
         file_object.write(file.file.read())
@@ -114,7 +115,7 @@ def determine_media_url(file: UploadFile) -> str:
     #     )
     # else:
     # TODO: Put in settings for production
-    return f"http://localhost:8000/api/post/media/{file.filename}"
+    return f"http://localhost:8080/api/post/media/{file.filename}"
 
 
 def determine_storage_container_name(file: UploadFile) -> str:
@@ -122,3 +123,7 @@ def determine_storage_container_name(file: UploadFile) -> str:
         return settings.BLOB_STORAGE_IMAGES_CONTAINER_NAME
     elif file.content_type in settings.ALLOWED_VIDEO_TYPES:
         return settings.BLOB_STORAGE_VIDEOS_CONTAINER_NAME
+
+
+def construct_file_response(name: str) -> FileResponse:
+    return FileResponse(f"{files_directory}/{name}")
