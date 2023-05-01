@@ -8,7 +8,7 @@ from src.main.post import crud
 from src.main.post.schema import TextPostCreate
 from src.main.post.settings import settings
 from src.main.post.util import upload_file, assert_user_is_owner_of_post, \
-    get_username_from_access_token
+    get_username_from_access_token, assert_file_type_is_allowed
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
@@ -36,6 +36,8 @@ def create_text_post(request: Request, post: TextPostCreate, db: Session = Depen
 @router.post("/media", status_code=HTTP_201_CREATED)
 async def create_media_post(request: Request, title: Annotated[str, Form()], file: UploadFile,
                             db: Session = Depends(get_db)):
+    assert_file_type_is_allowed(file)
+
     media_url = await upload_file(file)
     username = get_username_from_access_token(db=db, request=request)
     post = {
@@ -44,8 +46,6 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
         "type": "media",
         "username": username
     }
-    # TODO: check for file type
-    # TODO: assert is valid media file
     # TODO: scale down media
     # TODO: separate in video and media
     # TODO: https://notredditstorageaccount.blob.core.windows.net/images/310_daf.jpg
