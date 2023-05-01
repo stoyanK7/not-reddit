@@ -12,15 +12,16 @@ from src.main.post.settings import settings
 from src.main.shared.amqp.amqp_util import decode_body_and_convert_to_dict
 from src.main.shared.jwt_util import get_access_token_oid
 
-current_dir = os.getcwd()
+current_file = os.path.abspath(__file__)
+parent_directory = os.path.dirname(current_file)
 
 
-async def upload_file(file: UploadFile):
+async def upload_file(file: UploadFile) -> str:
     # TODO: Remove back to normal
     # if settings.BLOB_STORAGE_CONNECTION_STRING:
     #     await upload_file_to_blob_storage(file)
     # else:
-    await upload_file_to_local_storage(file)
+    return await upload_file_to_local_storage(file)
 
 
 async def upload_file_to_blob_storage(file: UploadFile):
@@ -41,10 +42,13 @@ async def upload_file_to_blob_storage(file: UploadFile):
         print(ex)
 
 
-async def upload_file_to_local_storage(file: UploadFile):
-    file_location = f"{current_dir}/src/main/post/files/{file.filename}"
+async def upload_file_to_local_storage(file: UploadFile) -> str:
+    file_location = f"{parent_directory}/files/{file.filename}"
+
     with open(file_location, "wb+") as file_object:
         file_object.write(file.file.read())
+
+    return f"http://localhost:8080/api/post/file/{file.filename}"
 
 
 def handle_successful_registration(message: AbstractIncomingMessage) -> None:
