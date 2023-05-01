@@ -8,6 +8,7 @@ from src.main.shared.database.main import Base
 
 class PostType(enum.Enum):
     text = 1
+    media = 2
 
 
 class Post(Base):
