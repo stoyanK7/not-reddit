@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-export default function ImageTab({ setBody, success }) {
+export default function MediaTab({ setBody, success }) {
     const [selectedImage, setSelectedImage] = useState(null);
     return (
         <div>

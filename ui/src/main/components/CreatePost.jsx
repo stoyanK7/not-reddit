@@ -23,9 +23,9 @@ export default function CreatePost() {
                     placeholder="Create Post" />
             </Link>
             <Link
-                href="/post/create?type=image" className="p-2 rounded-sm text-2xl
+                href="/post/create?type=media" className="p-2 rounded-sm text-2xl
                 hover:bg-reddit-gray-hover grow-0">
-                <span>Image</span>
+                <span>Media</span>
             </Link>
         </div>
     );

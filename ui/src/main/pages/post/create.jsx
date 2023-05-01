@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { toast } from "react-toast";
 
-import ImageTab from "@/components/ImageTab";
+import MediaTab from "@/components/MediaTab";
 import TextTab from "@/components/TextTab";
 import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
 import buildJSONHeaders from "@/utils/buildJSONHeaders";
@@ -31,8 +31,8 @@ export default function PostCreatePage() {
             return;
         }
 
-        if (type === "image") {
-            await createImagePost(accessToken);
+        if (type === "media") {
+            await createMediaPost(accessToken);
         }
 
         if (type === "text") {
@@ -49,13 +49,13 @@ export default function PostCreatePage() {
         await handleResponse(res);
     }
 
-    async function createImagePost(accessToken) {
+    async function createMediaPost(accessToken) {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("file", body);
-        const res = await fetch(fromApi("/api/post/image"), {
+        const res = await fetch(fromApi("/api/post/media"), {
             method: "POST",
-            // Image requests should't have content type explicitly set.
+            // Media requests shouldn't have content type explicitly set.
             headers: buildAuthorizationHeader(accessToken),
             body: formData,
         });
@@ -91,8 +91,8 @@ export default function PostCreatePage() {
                     <Tab
                         className="py-2 px-4 rounded-sm text-2xl hover:bg-reddit-gray-hover
                             grow-0"
-                        onClick={() => setType("image")}>
-                        Image
+                        onClick={() => setType("media")}>
+                        Media
                     </Tab>
                 </TabList>
                 <h1
@@ -111,7 +111,7 @@ export default function PostCreatePage() {
                 </TabPanel>
                 <TabPanel
                     className="flex-grow">
-                    <ImageTab
+                    <MediaTab
                         setBody={setBody} success={success} />
                 </TabPanel>
                 <button
