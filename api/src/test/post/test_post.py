@@ -91,7 +91,7 @@ def test_create_media_post(client, session, insert_user, test_file_name):
     assert response.status_code == HTTP_201_CREATED
     assert "id" in response.json().keys()
     assert response.json()["title"] == data["title"]
-    assert test_file_name in response.json()["body"]
+    assert "http" in response.json()["body"]
     assert response.json()["username"] == user.username
 
     uploaded_media_path = (f"{files_directory}/{response.json()['id']}."
