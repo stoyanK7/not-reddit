@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ["styles.redditmedia.com"]
+        domains: ["styles.redditmedia.com", "localhost"]
     },
 };
 
