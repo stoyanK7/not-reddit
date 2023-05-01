@@ -19,7 +19,10 @@ export default function PostActions({ id, votes, username, mutate }) {
         // TODO: give visual feedback
     }
 
-    async function deletePost() {
+    async function deletePost(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
         if (!isUserOwnerOfPost) {
             toast.error("You can only delete your own posts");
             return;
