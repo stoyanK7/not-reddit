@@ -4,7 +4,7 @@ import shutil
 import pytest
 import jwt
 from starlette.status import HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED, HTTP_201_CREATED, \
-    HTTP_200_OK
+    HTTP_200_OK, HTTP_400_BAD_REQUEST
 
 current_file_path = os.path.abspath(__file__)
 parent_directory = os.path.dirname(current_file_path)
@@ -98,6 +98,29 @@ def test_create_media_post(client, session, insert_user, test_file_name):
     assert os.path.exists(uploaded_media_path)
     os.remove(uploaded_media_path)
     assert not os.path.exists(uploaded_media_path)
+
+
+def test_create_media_post_invalid_media_type(client, session, insert_user):
+    """Assert that a media post is not created if the media type is invalid."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    data = {
+        "title": "Test post",
+    }
+
+    test_media_path = os.path.join(parent_directory, __file__)
+    files = [
+        ("file", open(test_media_path, "rb"))
+    ]
+
+    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    response = client.post("/api/post/media", data=data, files=files,
+                           headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
 
 
 def test_delete_text_post(client, session, insert_user, insert_post):
