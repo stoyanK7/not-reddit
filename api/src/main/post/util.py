@@ -20,7 +20,6 @@ files_directory = f"{parent_directory}/files"
 
 
 async def upload_file(file: UploadFile, post_id: int):
-    file = rename_file(file=file, post_id=post_id)
     # TODO: Remove back to normal
     # if settings.BLOB_STORAGE_CONNECTION_STRING:
     #     await upload_file_to_blob_storage(file)

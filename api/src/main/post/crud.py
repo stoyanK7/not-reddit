@@ -22,6 +22,14 @@ def create_post(db: Session, post: dict):
     return db_post
 
 
+def update_post_body(db: Session, post_id: int, body: str):
+    db_post = db.query(PostModel).filter(PostModel.id == post_id).first()
+    db_post.body = body
+    db.commit()
+    db.refresh(db_post)
+    return db_post
+
+
 def delete_post_by_id(db: Session, post_id: int):
     db.query(PostModel).filter(PostModel.id == post_id).delete()
     db.commit()

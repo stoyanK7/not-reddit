@@ -9,7 +9,7 @@ from src.main.post.schema import TextPostCreate
 from src.main.post.settings import settings
 from src.main.post.util import upload_file, assert_user_is_owner_of_post, \
     get_username_from_access_token, assert_file_type_is_allowed, determine_media_url, \
-    delete_file_from_post, construct_file_response
+    delete_file_from_post, construct_file_response, rename_file
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
@@ -39,15 +39,17 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
                             background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     assert_file_type_is_allowed(file)
 
-    media_url = determine_media_url(file=file)
     username = get_username_from_access_token(db=db, request=request)
     post = {
         "title": title,
-        "body": media_url,
         "post_type": "media",
         "username": username
     }
     created_post = crud.create_post(db=db, post=post)
+
+    file = rename_file(file=file, post_id=created_post.id)
+    media_url = determine_media_url(file=file)
+    crud.update_post_body(db=db, post_id=created_post.id, body=media_url)
 
     # TODO: think about making a separate service for file compression
     background_tasks.add_task(upload_file, file=file, post_id=created_post.id)
@@ -58,6 +60,7 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
 @router.get("/media/{name}", status_code=HTTP_200_OK)
 def get_media(name: str):
     # TODO: ensure request is valid - filetype
+    # TODO: test endpoint
     return construct_file_response(name=name)
 
 
