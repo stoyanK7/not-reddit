@@ -28,7 +28,7 @@ def get_post_by_id(post_id: int, db: Session = Depends(get_db)):
 @router.post("/text", status_code=HTTP_201_CREATED)
 def create_text_post(request: Request, post: TextPostCreate, db: Session = Depends(get_db)):
     post = post.dict()
-    post["type"] = "text"
+    post["post_type"] = "text"
     post["username"] = get_username_from_access_token(db=db, request=request)
 
     return crud.create_post(db=db, post=post)
@@ -48,7 +48,7 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
     post = {
         "title": title,
         "body": media_url,
-        "type": "media",
+        "post_type": "media",
         "username": username
     }
 
