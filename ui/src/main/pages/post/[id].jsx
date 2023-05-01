@@ -22,7 +22,7 @@ export default function PostPage() {
         <main
             className="flex w-screen h-screen justify-center items-center">
             <div
-                className="flex flex-col p-2 gap-2">
+                className="flex flex-col p-2 gap-2 w-1/2">
                 {postIsLoading && <p>Loading post...</p>}
                 {post &&
                     <PostItem
