@@ -39,10 +39,6 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
                             background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     assert_file_type_is_allowed(file)
 
-    # TODO: change file name to postId
-    # TODO: think about making a separate service for file compression
-    background_tasks.add_task(upload_file, file=file)
-
     media_url = determine_media_url(file=file)
     username = get_username_from_access_token(db=db, request=request)
     post = {
@@ -51,8 +47,12 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
         "post_type": "media",
         "username": username
     }
+    created_post = crud.create_post(db=db, post=post)
 
-    return crud.create_post(db=db, post=post)
+    # TODO: think about making a separate service for file compression
+    background_tasks.add_task(upload_file, file=file, post_id=created_post.id)
+
+    return created_post
 
 
 @router.delete("/{post_id}", status_code=HTTP_204_NO_CONTENT)

@@ -94,7 +94,8 @@ def test_create_media_post(client, session, insert_user, test_file_name):
     assert test_file_name in response.json()["body"]
     assert response.json()["username"] == user.username
 
-    uploaded_media_path = f"{files_directory}/{test_file_name}"
+    uploaded_media_path = (f"{files_directory}/{response.json()['id']}."
+                           f"{test_file_name.split('.')[-1]}")
     assert os.path.exists(uploaded_media_path)
     os.remove(uploaded_media_path)
     assert not os.path.exists(uploaded_media_path)
@@ -173,7 +174,7 @@ def test_delete_text_post_not_owner_of_post(client, session, insert_post, insert
 def test_delete_media_post(client, session, insert_post, insert_user, test_file_name):
     """Assert that media post is deleted."""
     test_media_path = os.path.join(resource_directory, test_file_name)
-    uploaded_media_path = f"{files_directory}/{test_file_name}"
+    uploaded_media_path = f"{files_directory}/1.{test_file_name.split('.')[-1]}"
     shutil.copy(test_media_path, uploaded_media_path)
     assert os.path.exists(uploaded_media_path)
 

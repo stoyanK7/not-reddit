@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, DateTime, Enum
+from sqlalchemy import Column, String, Integer, DateTime
 from sqlalchemy.sql import func
 
 from src.main.shared.database.main import Base
