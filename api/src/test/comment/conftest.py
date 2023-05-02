@@ -2,7 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.main.comment.main import app
-from src.main.comment.model import Comment as CommentModel
+from src.main.comment.model import Comment as CommentModel, User as UserModel
 from src.main.shared.database.main import get_db, Base
 from src.test.shared.database.main import engine
 
@@ -37,7 +37,6 @@ def insert_mock_comments():
         for x in range(0, amount):
             comment = {
                 "body": f"Test comment {x}",
-                "user_id": x,
                 "post_id": x,
             }
             model = CommentModel(**comment)
@@ -47,3 +46,16 @@ def insert_mock_comments():
         return comments
 
     yield _insert_mock_comments
+
+
+@pytest.fixture
+def insert_user():
+    """Insert a user into the database."""
+
+    def _insert_user(user, session) -> UserModel:
+        model = UserModel(**user)
+        session.add(model)
+        session.commit()
+        return model
+
+    yield _insert_user
