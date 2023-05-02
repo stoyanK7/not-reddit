@@ -73,6 +73,8 @@ Rel(post_microservice, success_registration_queue, "Consumes", "AMQP")
 
 Rel(vote, vote_db, "Reads/Writes", "SQLAlchemy")
 
+Rel(comment_microservice, success_registration_queue, "Consumes", "AMQP")
+
 Rel_U(email_microservice, success_registration_queue, "Consumes", "AMQP")
 Rel(email_microservice, email_communication_service, "Sends", "SMTP")
 
