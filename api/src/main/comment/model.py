@@ -9,7 +9,7 @@ class Comment(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     body = Column(String)
-    user_id = Column(Integer)
+    username = Column(String)
     post_id = Column(Integer)
     commented_at = Column(DateTime(timezone=True), server_default=func.now())
 

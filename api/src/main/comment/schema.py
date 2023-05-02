@@ -4,12 +4,12 @@ from pydantic import BaseModel
 
 class CommentBase(BaseModel):
     body: str
-    user_id: int
     post_id: int
 
 
 class Comment(CommentBase):
     id: int
+    username: str
     commented_at: datetime
 
     class Config:
