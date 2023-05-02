@@ -2,3 +2,4 @@ fastapi==0.95.1
 SQLAlchemy==2.0.9
 uvicorn==0.21.1
 psycopg2-binary==2.9.6
+aio-pika==9.0.5
