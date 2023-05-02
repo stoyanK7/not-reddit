@@ -1,22 +1,34 @@
 import { useState } from "react";
 import { toast } from "react-toast";
 
+import buildJSONHeaders from "@/utils/buildJSONHeaders";
+import fromApi from "@/utils/fromApi";
+import getAccessToken from "@/utils/getAccessToken";
+import handleToast from "@/utils/handleToast";
+
 
 export default function CreateComment({ postId }) {
     const [commentBody, setCommentBody] = useState("");
 
     async function publishComment() {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/api/comment`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ commentBody, "post_id": postId, "user_id": 1 }),
-        });
-        if (res.ok) {
-            const data = await res.json();
-            toast.success("Post created successfully.");
+        if (!commentBody) {
+            toast.error("Comment cannot be empty");
+            return;
         }
+
+        const accessToken = await getAccessToken();
+        if (accessToken === null) {
+            toast.error("Failed to get your access token.");
+            return;
+        }
+
+        const res = await fetch(fromApi("/api/comment"), {
+            method: "POST",
+            headers: buildJSONHeaders(accessToken),
+            body: JSON.stringify({ "body": commentBody, "post_id": postId }),
+        });
+
+        await handleToast(res, "Comment created successfully");
     }
 
     return (
