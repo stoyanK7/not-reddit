@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Request, BackgroundTasks
 from starlette.status import HTTP_201_CREATED, HTTP_200_OK
 from sqlalchemy.orm import Session
 
@@ -31,7 +31,8 @@ def get_username(request: Request, db: Session = Depends(get_db)):
 
 
 @router.post("", status_code=HTTP_201_CREATED)
-async def create_user(request: Request, db: Session = Depends(get_db)):
+async def create_user(request: Request, background_tasks: BackgroundTasks,
+                      db: Session = Depends(get_db)):
     email = get_access_token_preferred_username(request)
     new_username = generate_username(1)[0]
 
@@ -46,7 +47,7 @@ async def create_user(request: Request, db: Session = Depends(get_db)):
     crud.create_user(db=db, username=new_username, email=email)
 
     oid = get_access_token_oid(request)
-    # TODO: add to background tasks
-    await emit_user_registration_event(request=request, email=email, oid=oid,
-                                       username=new_username)
+    background_tasks.add_task(emit_user_registration_event, request=request, email=email, oid=oid,
+                              username=new_username)
+
     return
