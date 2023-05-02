@@ -3,21 +3,29 @@ from starlette.status import HTTP_204_NO_CONTENT, HTTP_201_CREATED, HTTP_200_OK,
 from src.main.comment.model import Comment as CommentModel
 
 
-def test_get_comments_length(client, session, insert_mock_comments):
+def test_get_comments_length(client, session, insert_post, insert_mock_comments):
     """Assert that comments length is 10."""
-    insert_mock_comments(12, session=session)
+    post = insert_post({
+        "post_id": 1
+    }, session=session)
 
-    response = client.get("/api/comment")
+    insert_mock_comments(amount=12, post_id=post.post_id, session=session)
+
+    response = client.get(f"/api/comment?page=0&post_id={post.post_id}")
 
     assert response.status_code == HTTP_200_OK
     assert len(response.json()) == 10
 
 
-def test_get_comments_pagination(client, session, insert_mock_comments):
+def test_get_comments_pagination(client, session, insert_post, insert_mock_comments):
     """Assert that pagination works."""
-    insert_mock_comments(23, session=session)
+    post = insert_post({
+        "post_id": 1
+    }, session=session)
 
-    response = client.get("/api/comment?page=2")
+    insert_mock_comments(amount=23, post_id=post.post_id, session=session)
+
+    response = client.get(f"/api/comment?page=2&post_id={post.post_id}")
 
     assert response.status_code == HTTP_200_OK
     assert len(response.json()) == 3
@@ -73,7 +81,7 @@ def test_create_comment_non_existing_post(client, session, remove_json_fields, i
 
 def test_delete_comment(client, session, insert_mock_comments):
     """Assert that comment is deleted."""
-    comment = insert_mock_comments(1, session=session)[0]
+    comment = insert_mock_comments(amount=1, post_id=1, session=session)[0]
     response = client.delete(f"/api/comment/{comment.id}")
 
     assert response.status_code == HTTP_204_NO_CONTENT

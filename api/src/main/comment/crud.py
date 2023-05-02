@@ -3,10 +3,14 @@ from sqlalchemy.orm import Session
 from src.main.comment.model import Comment as CommentModel, User as UserModel, Post as PostModel
 
 
-def get_10_comments(db: Session, page: int = 0):
+def get_10_comments_for_post(db: Session, post_id: int, page: int = 0):
     comment_limit = 10
     offset = page * comment_limit
-    return db.query(CommentModel).offset(offset).limit(comment_limit).all()
+    return db.query(CommentModel) \
+        .filter(CommentModel.post_id == post_id) \
+        .offset(offset) \
+        .limit(comment_limit) \
+        .all()
 
 
 def create_comment(db: Session, comment: dict):

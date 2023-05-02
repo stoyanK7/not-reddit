@@ -12,9 +12,9 @@ router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
 
 @router.get("/", status_code=HTTP_200_OK)
-def get_10_comments(page: int = 0, db: Session = Depends(get_db)):
+def get_10_comments_for_post(post_id: int, page: int = 0, db: Session = Depends(get_db)):
     # TODO: Probably should be latest or most-upvoted comments
-    return crud.get_10_comments(db=db, page=page)
+    return crud.get_10_comments_for_post(db=db, page=page, post_id=post_id)
 
 
 @router.post("/", status_code=HTTP_201_CREATED)

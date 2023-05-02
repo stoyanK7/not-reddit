@@ -32,12 +32,12 @@ def client(session):
 def insert_mock_comments():
     """Insert mock comments into the database."""
 
-    def _insert_mock_comments(amount, session) -> list[CommentModel]:
+    def _insert_mock_comments(amount, post_id, session) -> list[CommentModel]:
         comments: list[CommentModel] = []
         for x in range(0, amount):
             comment = {
                 "body": f"Test comment {x}",
-                "post_id": x,
+                "post_id": post_id,
             }
             model = CommentModel(**comment)
             comments.append(model)
