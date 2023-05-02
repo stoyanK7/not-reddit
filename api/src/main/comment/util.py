@@ -8,7 +8,7 @@ from src.main.shared.database.main import get_db
 from src.main.shared.jwt_util import get_access_token_oid
 
 
-def handle_user_registration(message: AbstractIncomingMessage) -> None:
+def handle_user_registration(message: AbstractIncomingMessage):
     body = decode_body_and_convert_to_dict(message.body)
     username = body['username']
     oid = body['oid']
@@ -19,3 +19,9 @@ def handle_user_registration(message: AbstractIncomingMessage) -> None:
 def get_username_from_access_token(db: Session, request: Request) -> str:
     oid = get_access_token_oid(request=request)
     return crud.get_username_by_oid(db=db, oid=oid)
+
+
+def handle_post_creation(message: AbstractIncomingMessage):
+    body = decode_body_and_convert_to_dict(message.body)
+    db = next(get_db())
+    crud.insert_post(db=db, post=body)

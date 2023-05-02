@@ -15,6 +15,8 @@ async def lifespan(app: CommentService) -> Lifespan[AppType]:
     loop = asyncio.get_running_loop()
     task = loop.create_task(app.user_registration_amqp_consumer.consume(loop))
     await task
+    task = loop.create_task(app.post_creation_amqp_consumer.consume(loop))
+    await task
     yield
 
 

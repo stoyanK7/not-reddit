@@ -19,3 +19,9 @@ class User(Base):
 
     oid = Column(String, primary_key=True, unique=True, index=True)
     username = Column(String, unique=True, index=True)
+
+
+class Post(Base):
+    __tablename__ = "comment_posts"
+
+    post_id = Column(Integer, primary_key=True, unique=True, index=True)

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from src.main.comment.model import Comment as CommentModel, User as UserModel
+from src.main.comment.model import Comment as CommentModel, User as UserModel, Post as PostModel
 
 
 def get_10_comments(db: Session, page: int = 0):
@@ -33,3 +33,11 @@ def insert_user(db: Session, username: str, oid: str):
 
 def get_username_by_oid(db: Session, oid: str):
     return db.query(UserModel).filter(UserModel.oid == oid).first().username
+
+
+def insert_post(db: Session, post: dict):
+    db_post = PostModel(post_id=post["id"])
+    db.add(db_post)
+    db.commit()
+    db.refresh(db_post)
+    return db_post
