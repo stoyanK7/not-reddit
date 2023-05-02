@@ -17,7 +17,7 @@ class Post(Base):
 
 
 class User(Base):
-    __tablename__ = "users_oid"
+    __tablename__ = "post_users_oid"
 
     oid = Column(String, primary_key=True, unique=True, index=True)
     username = Column(String, unique=True, index=True)
