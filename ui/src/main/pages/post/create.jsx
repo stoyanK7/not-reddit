@@ -47,11 +47,8 @@ export default function PostCreatePage() {
             headers: buildJSONHeaders(accessToken),
             body: JSON.stringify({ title, body }),
         });
-        await handleToast(res);
-
-        if (res.ok) {
-            setSuccess(true);
-        }
+        await handleToast(res, "Post created successfully");
+        await handleResponse(res);
     }
 
     async function createMediaPost(accessToken) {
@@ -64,10 +61,15 @@ export default function PostCreatePage() {
             headers: buildAuthorizationHeader(accessToken),
             body: formData,
         });
-        await handleToast(res);
+        await handleToast(res, "Post created successfully");
+        await handleResponse(res);
+    }
 
+    async function handleResponse(res) {
         if (res.ok) {
             setSuccess(true);
+            const data = await res.json();
+            setId(data.id);
         }
     }
 
