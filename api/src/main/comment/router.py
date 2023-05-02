@@ -11,13 +11,13 @@ from src.main.shared.database.main import get_db
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
 
-@router.get("/", status_code=HTTP_200_OK)
+@router.get("", status_code=HTTP_200_OK)
 def get_10_comments_for_post(post_id: int, page: int = 0, db: Session = Depends(get_db)):
     # TODO: Probably should be latest or most-upvoted comments
     return crud.get_10_comments_for_post(db=db, page=page, post_id=post_id)
 
 
-@router.post("/", status_code=HTTP_201_CREATED)
+@router.post("", status_code=HTTP_201_CREATED)
 def create_comment(request: Request, comment: CommentCreate, db: Session = Depends(get_db)):
     assert_post_exists(db=db, post_id=comment.post_id)
 
