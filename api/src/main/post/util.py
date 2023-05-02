@@ -1,3 +1,4 @@
+import json
 import os
 
 from aio_pika.abc import AbstractIncomingMessage
@@ -126,3 +127,9 @@ def determine_storage_container_name(file: UploadFile) -> str:
 
 def construct_file_response(name: str) -> FileResponse:
     return FileResponse(f"{files_directory}/{name}")
+
+
+async def emit_post_creation_event(request: Request, post: dict):
+    body = json.dumps(post)
+    # TODO: move conversion of string and json.dumps to amql_util function
+    await request.app.post_creation_amqp_publisher.send_message(str(body))

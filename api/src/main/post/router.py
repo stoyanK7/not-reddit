@@ -9,7 +9,7 @@ from src.main.post.schema import TextPostCreate
 from src.main.post.settings import settings
 from src.main.post.util import upload_file, assert_user_is_owner_of_post, \
     get_username_from_access_token, assert_file_type_is_allowed, determine_media_url, \
-    delete_file_from_post, construct_file_response, rename_file
+    delete_file_from_post, construct_file_response, rename_file, emit_post_creation_event
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
@@ -26,12 +26,17 @@ def get_post_by_id(post_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/text", status_code=HTTP_201_CREATED)
-def create_text_post(request: Request, post: TextPostCreate, db: Session = Depends(get_db)):
+def create_text_post(request: Request, post: TextPostCreate, background_tasks: BackgroundTasks,
+                     db: Session = Depends(get_db)):
     post = post.dict()
     post["post_type"] = "text"
     post["username"] = get_username_from_access_token(db=db, request=request)
 
-    return crud.create_post(db=db, post=post)
+    created_post = crud.create_post(db=db, post=post)
+
+    background_tasks.add_task(emit_post_creation_event, request=request, post=created_post)
+
+    return created_post
 
 
 @router.post("/media", status_code=HTTP_201_CREATED)
@@ -53,6 +58,7 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
 
     # TODO: think about making a separate service for file compression
     background_tasks.add_task(upload_file, file=file, post_id=created_post.id)
+    background_tasks.add_task(emit_post_creation_event, request=request, post=created_post)
 
     return created_post
 
