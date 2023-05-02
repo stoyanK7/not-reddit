@@ -1,4 +1,3 @@
-import jwt
 from starlette.status import HTTP_204_NO_CONTENT, HTTP_201_CREATED, HTTP_200_OK
 
 from src.main.comment.model import Comment as CommentModel
@@ -24,7 +23,7 @@ def test_get_comments_pagination(client, session, insert_mock_comments):
     assert len(response.json()) == 3
 
 
-def test_create_comment(client, session, remove_json_fields, insert_user):
+def test_create_comment(client, session, remove_json_fields, insert_user, generate_jwt):
     """Assert that comment is created."""
     user = insert_user({
         "username": "puzzledUser2",
@@ -36,8 +35,7 @@ def test_create_comment(client, session, remove_json_fields, insert_user):
         "post_id": 1
     }
 
-    # TODO: move creation of jwt to a fixture
-    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    jwt_token = generate_jwt({"oid": user.oid})
     response = client.post("/api/comment", json=body,
                            headers={"Authorization": f"Bearer {jwt_token}"})
 

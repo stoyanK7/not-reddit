@@ -2,7 +2,6 @@ import os
 import shutil
 
 import pytest
-import jwt
 from starlette.status import HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED, HTTP_201_CREATED, \
     HTTP_200_OK, HTTP_400_BAD_REQUEST
 
@@ -42,7 +41,7 @@ def test_get_post(client, session, insert_mock_text_posts):
     assert "body" in response.json().keys()
 
 
-def test_create_text_post(client, session, remove_json_fields, insert_user):
+def test_create_text_post(client, session, remove_json_fields, insert_user, generate_jwt):
     """Assert that a text post is created."""
     user = insert_user({
         "username": "puzzledUser2",
@@ -54,7 +53,7 @@ def test_create_text_post(client, session, remove_json_fields, insert_user):
         "body": "Test body",
     }
 
-    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    jwt_token = generate_jwt({"oid": user.oid})
     response = client.post("/api/post/text", json=body,
                            headers={"Authorization": f"Bearer {jwt_token}"})
 
@@ -68,7 +67,7 @@ def test_create_text_post(client, session, remove_json_fields, insert_user):
 
 @pytest.mark.parametrize("test_file_name",
                          ["test_image.png", "test_image.jpg", "test_video.mp4", "test_video.webm"])
-def test_create_media_post(client, session, insert_user, test_file_name):
+def test_create_media_post(client, session, insert_user, test_file_name, generate_jwt):
     """Assert that a media post is created."""
     user = insert_user({
         "username": "puzzledUser2",
@@ -84,7 +83,7 @@ def test_create_media_post(client, session, insert_user, test_file_name):
         ("file", open(test_media_path, "rb"))
     ]
 
-    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    jwt_token = generate_jwt({"oid": user.oid})
     response = client.post("/api/post/media", data=data, files=files,
                            headers={"Authorization": f"Bearer {jwt_token}"})
 
@@ -101,7 +100,7 @@ def test_create_media_post(client, session, insert_user, test_file_name):
     assert not os.path.exists(uploaded_media_path)
 
 
-def test_create_media_post_invalid_media_type(client, session, insert_user):
+def test_create_media_post_invalid_media_type(client, session, insert_user, generate_jwt):
     """Assert that a media post is not created if the media type is invalid."""
     user = insert_user({
         "username": "puzzledUser2",
@@ -117,14 +116,14 @@ def test_create_media_post_invalid_media_type(client, session, insert_user):
         ("file", open(test_media_path, "rb"))
     ]
 
-    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    jwt_token = generate_jwt({"oid": user.oid})
     response = client.post("/api/post/media", data=data, files=files,
                            headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_400_BAD_REQUEST
 
 
-def test_delete_text_post(client, session, insert_user, insert_post):
+def test_delete_text_post(client, session, insert_user, insert_post, generate_jwt):
     """Assert that post is deleted."""
     user = insert_user({
         "username": "puzzledUser2",
@@ -137,14 +136,15 @@ def test_delete_text_post(client, session, insert_user, insert_post):
         "username": user.username,
     }, session=session)
 
-    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    jwt_token = generate_jwt({"oid": user.oid})
     response = client.delete(f"/api/post/{post.id}",
                              headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_204_NO_CONTENT
 
 
-def test_delete_text_post_not_owner_of_post(client, session, insert_post, insert_user):
+def test_delete_text_post_not_owner_of_post(client, session, insert_post, insert_user,
+                                            generate_jwt):
     """Assert that post is not deleted if user is not the owner of the post."""
     user_1 = insert_user({
         "username": "puzzledUser2",
@@ -161,7 +161,7 @@ def test_delete_text_post_not_owner_of_post(client, session, insert_post, insert
         "username": user_1.username,
     }, session=session)
 
-    jwt_token = jwt.encode({"oid": user_2.oid}, "secret", algorithm="HS256")
+    jwt_token = generate_jwt({"oid": user_2.oid})
     response = client.delete(f"/api/post/{post.id}",
                              headers={"Authorization": f"Bearer {jwt_token}"})
 
@@ -171,7 +171,7 @@ def test_delete_text_post_not_owner_of_post(client, session, insert_post, insert
 
 @pytest.mark.parametrize("test_file_name",
                          ["test_image.png", "test_image.jpg", "test_video.mp4", "test_video.webm"])
-def test_delete_media_post(client, session, insert_post, insert_user, test_file_name):
+def test_delete_media_post(client, session, insert_post, insert_user, test_file_name, generate_jwt):
     """Assert that media post is deleted."""
     test_media_path = os.path.join(resource_directory, test_file_name)
     uploaded_media_path = f"{files_directory}/1.{test_file_name.split('.')[-1]}"
@@ -189,7 +189,7 @@ def test_delete_media_post(client, session, insert_post, insert_user, test_file_
         "username": user.username,
     }, session=session)
 
-    jwt_token = jwt.encode({"oid": user.oid}, "secret", algorithm="HS256")
+    jwt_token = generate_jwt({"oid": user.oid})
     response = client.delete(f"/api/post/{post.id}",
                              headers={"Authorization": f"Bearer {jwt_token}"})
 
