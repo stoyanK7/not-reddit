@@ -59,7 +59,8 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
 
     # TODO: think about making a separate service for file compression
     background_tasks.add_task(upload_file, file=file, post_id=created_post.id)
-    background_tasks.add_task(emit_post_creation_event, request=request, post=created_post)
+    background_tasks.add_task(emit_post_creation_event, request=request,
+                              post={"id": created_post.id})
 
     return created_post
 
