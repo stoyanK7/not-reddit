@@ -34,7 +34,8 @@ def create_text_post(request: Request, post: TextPostCreate, background_tasks: B
 
     created_post = crud.create_post(db=db, post=post)
 
-    background_tasks.add_task(emit_post_creation_event, request=request, post=created_post)
+    background_tasks.add_task(emit_post_creation_event, request=request,
+                              post={"id": created_post.id})
 
     return created_post
 
