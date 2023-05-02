@@ -46,6 +46,7 @@ async def create_user(request: Request, db: Session = Depends(get_db)):
     crud.create_user(db=db, username=new_username, email=email)
 
     oid = get_access_token_oid(request)
+    # TODO: rename to user_registration event and add to background tasks
     await emit_successful_registration_event(request=request, email=email, oid=oid,
                                              username=new_username)
     return
