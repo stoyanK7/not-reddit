@@ -8,7 +8,7 @@ from src.main.shared.database.main import get_db
 from src.main.shared.jwt_util import get_access_token_oid
 
 
-def handle_successful_registration(message: AbstractIncomingMessage) -> None:
+def handle_user_registration(message: AbstractIncomingMessage) -> None:
     body = decode_body_and_convert_to_dict(message.body)
     username = body['username']
     oid = body['oid']

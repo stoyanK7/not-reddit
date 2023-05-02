@@ -12,7 +12,7 @@ from src.main.user.service import UserService
 async def lifespan(app: UserService) -> Lifespan[AppType]:
     create_database_tables()
     loop = asyncio.get_running_loop()
-    task = loop.create_task(app.successful_registration_amqp_publisher.prepare_connection(loop))
+    task = loop.create_task(app.user_registration_amqp_publisher.prepare_connection(loop))
     await task
     yield
 

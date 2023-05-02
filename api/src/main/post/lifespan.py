@@ -13,7 +13,7 @@ from src.main.post.model import Base
 async def lifespan(app: PostService) -> Lifespan[AppType]:
     create_database_tables()
     loop = asyncio.get_running_loop()
-    task = loop.create_task(app.successful_registration_amqp_consumer.consume(loop))
+    task = loop.create_task(app.user_registration_amqp_consumer.consume(loop))
     await task
     task = loop.create_task(app.post_creation_amqp_publisher.prepare_connection(loop))
     await task

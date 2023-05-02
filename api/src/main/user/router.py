@@ -6,7 +6,7 @@ from src.main.shared.database.main import get_db
 from src.main.shared.jwt_util import get_access_token_preferred_username, get_access_token_oid
 from src.main.user.settings import settings
 from src.main.user.util import assert_is_username_and_email_not_taken, assert_is_user_exists, \
-    emit_successful_registration_event
+    emit_user_registration_event
 from random_username.generate import generate_username
 from src.main.user import crud
 
@@ -46,7 +46,7 @@ async def create_user(request: Request, db: Session = Depends(get_db)):
     crud.create_user(db=db, username=new_username, email=email)
 
     oid = get_access_token_oid(request)
-    # TODO: rename to user_registration event and add to background tasks
-    await emit_successful_registration_event(request=request, email=email, oid=oid,
-                                             username=new_username)
+    # TODO: add to background tasks
+    await emit_user_registration_event(request=request, email=email, oid=oid,
+                                       username=new_username)
     return

@@ -8,11 +8,11 @@ class UserService(FastAPI):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.successful_registration_amqp_publisher = None
+        self.user_registration_amqp_publisher = None
         self.initialize_amqp_publishers()
 
     def initialize_amqp_publishers(self):
-        self.successful_registration_amqp_publisher = AmqpPublisher(
+        self.user_registration_amqp_publisher = AmqpPublisher(
             settings.AMQP_URL,
-            exchange_name=settings.AMQP_SUCCESSFUL_REGISTRATION_EXCHANGE_NAME,
+            exchange_name=settings.AMQP_USER_REGISTRATION_EXCHANGE_NAME,
         )

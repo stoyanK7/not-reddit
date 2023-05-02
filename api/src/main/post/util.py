@@ -72,7 +72,7 @@ def delete_file_from_local_storage(post: PostModel):
         os.remove(file_location)
 
 
-def handle_successful_registration(message: AbstractIncomingMessage) -> None:
+def handle_user_registration(message: AbstractIncomingMessage) -> None:
     body = decode_body_and_convert_to_dict(message.body)
     username = body['username']
     oid = body['oid']

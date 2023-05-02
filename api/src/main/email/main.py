@@ -9,7 +9,7 @@ app = EmailService()
 
 try:
     loop = asyncio.get_event_loop()
-    connection = loop.run_until_complete(app.successful_registration_amqp_consumer.consume(loop))
+    connection = loop.run_until_complete(app.user_registration_amqp_consumer.consume(loop))
     loop.run_forever()
     loop.run_until_complete(connection.close())
 except KeyboardInterrupt:
