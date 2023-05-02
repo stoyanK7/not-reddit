@@ -2,7 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.main.comment.main import app
-from src.main.comment.model import Comment as CommentModel, User as UserModel
+from src.main.comment.model import Comment as CommentModel, User as UserModel, Post as PostModel
 from src.main.shared.database.main import get_db, Base
 from src.test.shared.database.main import engine
 
@@ -59,3 +59,16 @@ def insert_user():
         return model
 
     yield _insert_user
+
+
+@pytest.fixture
+def insert_post():
+    """Insert a post into the database."""
+
+    def _insert_post(post, session) -> PostModel:
+        model = PostModel(**post)
+        session.add(model)
+        session.commit()
+        return model
+
+    yield _insert_post

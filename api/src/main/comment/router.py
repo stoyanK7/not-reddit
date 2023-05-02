@@ -5,7 +5,7 @@ from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from src.main.comment import crud
 from src.main.comment.schema import CommentCreate
 from src.main.comment.settings import settings
-from src.main.comment.util import get_username_from_access_token
+from src.main.comment.util import get_username_from_access_token, assert_post_exists
 from src.main.shared.database.main import get_db
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
@@ -19,7 +19,8 @@ def get_10_comments(page: int = 0, db: Session = Depends(get_db)):
 
 @router.post("/", status_code=HTTP_201_CREATED)
 def create_comment(request: Request, comment: CommentCreate, db: Session = Depends(get_db)):
-    # TODO: Assert that post exists
+    assert_post_exists(db=db, post_id=comment.post_id)
+
     comment = comment.dict()
     comment["username"] = get_username_from_access_token(db=db, request=request)
 

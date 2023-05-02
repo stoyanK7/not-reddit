@@ -41,3 +41,7 @@ def insert_post(db: Session, post: dict):
     db.commit()
     db.refresh(db_post)
     return db_post
+
+
+def get_post_by_id(db: Session, post_id: int):
+    return db.query(PostModel).filter(PostModel.post_id == post_id).first()

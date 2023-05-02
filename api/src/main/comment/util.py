@@ -1,6 +1,7 @@
-from fastapi import Request
+from fastapi import Request, HTTPException
 from aio_pika.abc import AbstractIncomingMessage
 from sqlalchemy.orm import Session
+from starlette.status import HTTP_404_NOT_FOUND
 
 from src.main.comment import crud
 from src.main.shared.amqp.amqp_util import decode_body_and_convert_to_dict
@@ -25,3 +26,12 @@ def handle_post_creation(message: AbstractIncomingMessage):
     body = decode_body_and_convert_to_dict(message.body)
     db = next(get_db())
     crud.insert_post(db=db, post=body)
+
+
+def assert_post_exists(db: Session, post_id: int):
+    post_exists = crud.get_post_by_id(db=db, post_id=post_id)
+    if not post_exists:
+        raise HTTPException(
+            status_code=HTTP_404_NOT_FOUND,
+            detail="Post not found"
+        )
