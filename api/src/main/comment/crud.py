@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 
-from src.main.comment.schema import CommentCreate
 from src.main.comment.model import Comment as CommentModel, User as UserModel
 
 
@@ -10,8 +9,8 @@ def get_10_comments(db: Session, page: int = 0):
     return db.query(CommentModel).offset(offset).limit(comment_limit).all()
 
 
-def create_comment(db: Session, comment: CommentCreate):
-    db_comment = CommentModel(**comment.dict())
+def create_comment(db: Session, comment: dict):
+    db_comment = CommentModel(**comment)
     db.add(db_comment)
     db.commit()
     db.refresh(db_comment)
@@ -30,3 +29,7 @@ def insert_user(db: Session, username: str, oid: str):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def get_username_by_oid(db: Session, oid: str):
+    return db.query(UserModel).filter(UserModel.oid == oid).first().username
