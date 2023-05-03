@@ -34,3 +34,7 @@ def insert_comment(db: Session, comment: dict):
     db.commit()
     db.refresh(db_comment)
     return db_comment
+
+
+def get_username_by_oid(db: Session, oid: str):
+    return db.query(UserModel).filter(UserModel.oid == oid).first().username

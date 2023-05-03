@@ -1,9 +1,11 @@
-from fastapi import HTTPException
+from fastapi import HTTPException, Request
+from sqlalchemy.orm import Session
 from starlette.status import HTTP_400_BAD_REQUEST
 from aio_pika.abc import AbstractIncomingMessage
 
 from src.main.shared.amqp.amqp_util import decode_body_and_convert_to_dict
 from src.main.shared.database.main import get_db
+from src.main.shared.jwt_util import get_access_token_oid
 from src.main.vote import crud
 
 
@@ -14,6 +16,11 @@ def assert_is_upvote_or_downvote(vote_type: str):
             status_code=HTTP_400_BAD_REQUEST,
             detail="vote_type must be either 'up' or 'down'",
         )
+
+
+def get_username_from_access_token(db: Session, request: Request) -> str:
+    oid = get_access_token_oid(request=request)
+    return crud.get_username_by_oid(db=db, oid=oid)
 
 
 def handle_user_registration(message: AbstractIncomingMessage):
