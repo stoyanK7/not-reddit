@@ -2,6 +2,10 @@ from fastapi import HTTPException
 from starlette.status import HTTP_400_BAD_REQUEST
 from aio_pika.abc import AbstractIncomingMessage
 
+from src.main.shared.amqp.amqp_util import decode_body_and_convert_to_dict
+from src.main.shared.database.main import get_db
+from src.main.vote import crud
+
 
 def assert_is_upvote_or_downvote(vote_type: str):
     is_upvote_or_downvote = vote_type in ["up", "down"]
@@ -13,12 +17,20 @@ def assert_is_upvote_or_downvote(vote_type: str):
 
 
 def handle_user_registration(message: AbstractIncomingMessage):
-    pass
+    body = decode_body_and_convert_to_dict(message.body)
+    username = body['username']
+    oid = body['oid']
+    db = next(get_db())
+    crud.insert_user(db=db, username=username, oid=oid)
 
 
 def handle_post_creation(message: AbstractIncomingMessage):
-    pass
+    body = decode_body_and_convert_to_dict(message.body)
+    db = next(get_db())
+    crud.insert_post(db=db, post=body)
 
 
 def handle_comment_creation(message: AbstractIncomingMessage):
-    pass
+    body = decode_body_and_convert_to_dict(message.body)
+    db = next(get_db())
+    crud.insert_comment(db=db, comment=body)
