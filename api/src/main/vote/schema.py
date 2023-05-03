@@ -1,12 +1,11 @@
 from datetime import datetime
 from pydantic import BaseModel
-from src.main.vote.model import TargetType, VoteType
 
 
 class VoteBase(BaseModel):
     target_id: int
-    target_type: TargetType
-    vote_type: VoteType
+    # TODO: Try enum here
+    vote_type: str
 
 
 class Vote(VoteBase):
