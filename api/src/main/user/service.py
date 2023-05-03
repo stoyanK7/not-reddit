@@ -14,5 +14,5 @@ class UserService(FastAPI):
     def initialize_amqp_publishers(self):
         self.user_registration_amqp_publisher = AmqpPublisher(
             settings.AMQP_URL,
-            exchange_name=settings.AMQP_USER_REGISTRATION_EXCHANGE_NAME,
+            exchange_name=settings.AMQP_USER_REGISTERED_EXCHANGE_NAME,
         )

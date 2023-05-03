@@ -11,6 +11,6 @@ class EmailService:
     def initialize_amqp_consumers(self):
         self.user_registration_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
-            exchange_name=settings.AMQP_USER_REGISTRATION_EXCHANGE_NAME,
+            exchange_name=settings.AMQP_USER_REGISTERED_EXCHANGE_NAME,
             incoming_message_handler=send_email,
         )
