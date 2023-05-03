@@ -24,7 +24,7 @@ class VoteService(FastAPI):
         )
         self.post_creation_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
-            exchange_name=settings.AMQP_POST_CREATION_EXCHANGE_NAME,
+            exchange_name=settings.AMQP_POST_CREATED_EXCHANGE_NAME,
             incoming_message_handler=handle_post_creation
         )
         self.comment_creation_amqp_consumer = AmqpConsumer(

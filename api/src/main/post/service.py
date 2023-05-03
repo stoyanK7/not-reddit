@@ -26,5 +26,5 @@ class PostService(FastAPI):
     def initialize_amqp_publishers(self):
         self.post_creation_amqp_publisher = AmqpPublisher(
             settings.AMQP_URL,
-            exchange_name=settings.AMQP_POST_CREATION_EXCHANGE_NAME,
+            exchange_name=settings.AMQP_POST_CREATED_EXCHANGE_NAME,
         )
