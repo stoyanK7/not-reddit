@@ -16,7 +16,8 @@ System_Boundary(c1, "Reddit system") {
     }
 
     Boundary(rabbitmq, "RabbitMQ Message broker") {
-        Component(success_registration_queue, "Successful registration queue")
+        Component(user_registration_event, "User registration event")
+        Component(post_creation_event, "Post creation event")
     }
 
     Boundary(user_microservice, "User microservice") {
@@ -63,19 +64,21 @@ Rel_R(gateway, auth_microservice, "Routes to", "HTTPS")
 Rel_R(auth_microservice, azure_ad, "Authenticates with", "OAuth2.0")
 
 Rel(user, user_db, "Reads/Writes", "SQLAlchemy")
-Rel(user_microservice, success_registration_queue, "Sends", "AMQP")
+Rel(user_microservice, user_registration_event, "Publishes", "AMQP")
 
 Rel(comment, comment_db, "Reads/Writes", "SQLAlchemy")
 
 Rel(post, post_db, "Reads/Writes", "SQLAlchemy")
 Rel(post_microservice, blob_storage, "Reads/Writes", "HTTPS")
-Rel(post_microservice, success_registration_queue, "Consumes", "AMQP")
+Rel(post_microservice, user_registration_event, "Consumes", "AMQP")
+Rel(post_microservice, post_creation_event, "Publishes", "AMQP")
 
 Rel(vote, vote_db, "Reads/Writes", "SQLAlchemy")
 
-Rel(comment_microservice, success_registration_queue, "Consumes", "AMQP")
+Rel(comment_microservice, user_registration_event, "Consumes", "AMQP")
+Rel(comment_microservice, post_creation_event, "Consumes", "AMQP")
 
-Rel_U(email_microservice, success_registration_queue, "Consumes", "AMQP")
+Rel_U(email_microservice, user_registration_event, "Consumes", "AMQP")
 Rel(email_microservice, email_communication_service, "Sends", "SMTP")
 
 Lay_R(vote_microservice, comment_microservice)
