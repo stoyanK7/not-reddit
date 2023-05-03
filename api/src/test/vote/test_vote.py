@@ -1,4 +1,4 @@
-from starlette.status import HTTP_204_NO_CONTENT
+from starlette.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST
 
 
 def test_upvote_post(client, session):
@@ -47,3 +47,18 @@ def test_downvote_comment(client, session):
     response = client.post("/api/vote/comment", json=body)
 
     assert response.status_code == HTTP_204_NO_CONTENT
+
+
+def test_invalid_vote(client, session):
+    """Assert that an invalid vote_type is rejected."""
+    body = {
+        "target_id": 1,
+        "vote_type": "invalid"
+    }
+
+    response = client.post("/api/vote/post", json=body)
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert response.json() == {
+        "detail": "vote_type must be either 'up' or 'down'"
+    }
