@@ -117,3 +117,11 @@ docker rmi $(docker images | grep not-reddit | tr -s ' ' | cut -d ' ' -f 3)
 ```bash
 !file:*/__init__.py&&!file:.idea//*&&!file:*/.pytest_cache//*&&!file:*/.coverage&&!file:*/htmlcov//&&!file:*/.venv//
 ```
+
+## Structurizr
+
+### To run
+
+```bash
+docker run -it --rm -p 8070:8080 -v ~/univeristy/not-reddit/docs/structurizr:/usr/local/structurizr structurizr/lite
+```
