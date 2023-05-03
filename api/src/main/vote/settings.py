@@ -1,7 +1,7 @@
-from pydantic.env_settings import BaseSettings
+from src.main.shared.amqp.settings import AmqpSettings
 
 
-class VoteServiceSettings(BaseSettings):
+class VoteServiceSettings(AmqpSettings):
     SERVICE_PREFIX: str = "/api/vote"
 
 
