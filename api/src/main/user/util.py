@@ -32,4 +32,4 @@ async def emit_user_registration_event(request: Request, email: str, oid: str, u
         "oid": oid,
         "username": username
     })
-    await request.app.user_registration_amqp_publisher.send_message(str(body))
+    await request.app.user_registered_amqp_publisher.send_message(str(body))

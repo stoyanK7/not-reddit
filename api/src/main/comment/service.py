@@ -10,8 +10,8 @@ class CommentService(FastAPI):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.user_registration_amqp_consumer = None
-        self.post_creation_amqp_consumer = None
+        self.user_registered_amqp_consumer = None
+        self.post_created_amqp_consumer = None
         # TODO: create vote consumer
         self.initialize_amqp_consumers()
 
@@ -20,13 +20,13 @@ class CommentService(FastAPI):
 
     def initialize_amqp_consumers(self):
         # TODO: change name
-        self.user_registration_amqp_consumer = AmqpConsumer(
+        self.user_registered_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_USER_REGISTERED_EXCHANGE_NAME,
             incoming_message_handler=handle_user_registration,
         )
 
-        self.post_creation_amqp_consumer = AmqpConsumer(
+        self.post_created_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_POST_CREATED_EXCHANGE_NAME,
             incoming_message_handler=handle_post_creation,

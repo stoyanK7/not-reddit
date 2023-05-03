@@ -5,11 +5,11 @@ from src.main.shared.amqp.amqp_consumer import AmqpConsumer
 
 class EmailService:
     def __init__(self):
-        self.user_registration_amqp_consumer = None
+        self.user_registered_amqp_consumer = None
         self.initialize_amqp_consumers()
 
     def initialize_amqp_consumers(self):
-        self.user_registration_amqp_consumer = AmqpConsumer(
+        self.user_registered_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_USER_REGISTERED_EXCHANGE_NAME,
             incoming_message_handler=send_email,

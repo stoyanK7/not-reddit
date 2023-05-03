@@ -10,24 +10,24 @@ class VoteService(FastAPI):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.user_registration_amqp_consumer = None
-        self.post_creation_amqp_consumer = None
-        self.comment_creation_amqp_consumer = None
+        self.user_registered_amqp_consumer = None
+        self.post_created_amqp_consumer = None
+        self.comment_created_amqp_consumer = None
 
         self.initialize_amqp_consumers()
 
     def initialize_amqp_consumers(self):
-        self.user_registration_amqp_consumer = AmqpConsumer(
+        self.user_registered_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_USER_REGISTERED_EXCHANGE_NAME,
             incoming_message_handler=handle_user_registration
         )
-        self.post_creation_amqp_consumer = AmqpConsumer(
+        self.post_created_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_POST_CREATED_EXCHANGE_NAME,
             incoming_message_handler=handle_post_creation
         )
-        self.comment_creation_amqp_consumer = AmqpConsumer(
+        self.comment_created_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_COMMENT_CREATED_EXCHANGE_NAME,
             incoming_message_handler=handle_comment_creation

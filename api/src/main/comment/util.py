@@ -53,4 +53,4 @@ def assert_user_is_owner_of_comment(db: Session, request: Request, comment_id: i
 def emit_comment_created_event(request: Request, comment: dict):
     body = json.dumps(comment)
     # TODO: move conversion of string and json.dumps to amql_util function
-    await request.app.post_creation_amqp_publisher.send_message(str(body))
+    await request.app.comment_created_amqp_publisher.send_message(str(body))
