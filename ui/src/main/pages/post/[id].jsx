@@ -48,7 +48,8 @@ export default function PostPage() {
                 {commentsIsLoading && <p>Loading comments...</p>}
                 {comments &&
                      <CommentList
-                         comments={comments} />
+                         comments={comments}
+                         mutate={mutate} />
                 }
             </div>
         </main>

@@ -2,7 +2,7 @@ import CommentActions from "@/components/CommentActions";
 import CommentBody from "@/components/CommentBody";
 import CommentInfo from "@/components/CommentInfo";
 
-export default function CommentItem({ comment }) {
+export default function CommentItem({ comment, mutate }) {
     // TODO: add votes field in comment model
     comment.votes = 0;
     return (
@@ -15,6 +15,9 @@ export default function CommentItem({ comment }) {
             <CommentBody
                 body={comment.body} />
             <CommentActions
+                mutate={mutate}
+                comment_id={comment.id}
+                username={comment.username}
                 votes={comment.votes} />
         </div>
     );
