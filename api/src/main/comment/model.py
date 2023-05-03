@@ -12,6 +12,7 @@ class Comment(Base):
     username = Column(String)
     post_id = Column(Integer)
     commented_at = Column(DateTime(timezone=True), server_default=func.now())
+    votes = Column(Integer, server_default="0")
 
 
 class User(Base):

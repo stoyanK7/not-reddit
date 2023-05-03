@@ -57,6 +57,7 @@ def test_create_comment(client, session, remove_json_fields, insert_user, insert
     assert "id" in response.json().keys()
     assert response.json()["body"] == body["body"]
     assert response.json()["username"] == user.username
+    assert response.json()["votes"] == 0
 
 
 def test_create_comment_non_existing_post(client, session, remove_json_fields, insert_user,
