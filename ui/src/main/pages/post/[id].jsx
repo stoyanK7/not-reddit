@@ -16,8 +16,9 @@ export default function PostPage() {
         [fromApi(`/api/post/${id}`), null], fetcher
     );
 
-    const { data: comments, error: commentsError, isLoading: commentsIsLoading } = useSWR(
-        [fromApi(`/api/comment?post_id=${id}`), null], fetcher
+    const { data: comments, error: commentsError, isLoading: commentsIsLoading, mutate } = useSWR(
+        // TODO: Implement pagination
+        [fromApi(`/api/comment?post_id=${id}&page=0`), null], fetcher
     );
 
     if (postError) {
@@ -30,7 +31,7 @@ export default function PostPage() {
 
     return (
         <main
-            className="flex w-screen h-screen justify-center items-center">
+            className="flex w-screen min-h-screen justify-center items-center mt-24">
             <div
                 className="flex flex-col p-2 gap-2 w-1/2">
                 {postIsLoading && <p>Loading post...</p>}
@@ -40,7 +41,8 @@ export default function PostPage() {
                             post={post}
                             mutate={postMutate} />
                         <CreateComment
-                            postId={post.id} />
+                            postId={post.id}
+                            mutate={mutate} />
                     </>
                 }
                 {commentsIsLoading && <p>Loading comments...</p>}

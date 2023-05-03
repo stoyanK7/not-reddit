@@ -6,7 +6,8 @@ export default function CommentList({ comments }) {
             className="flex flex-col gap-2">
             {comments.map(comment => (
                 <CommentItem
-                    key={comment.id} comment={comment} />
+                    key={comment.id}
+                    comment={comment} />
             ))}
         </div>
     );
