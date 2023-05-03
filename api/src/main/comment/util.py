@@ -1,3 +1,5 @@
+import json
+
 from fastapi import Request, HTTPException
 from aio_pika.abc import AbstractIncomingMessage
 from sqlalchemy.orm import Session
@@ -46,3 +48,9 @@ def assert_user_is_owner_of_comment(db: Session, request: Request, comment_id: i
             status_code=HTTP_401_UNAUTHORIZED,
             detail="You are not the owner of this comment"
         )
+
+
+def emit_comment_created_event(request: Request, comment: dict):
+    body = json.dumps(comment)
+    # TODO: move conversion of string and json.dumps to amql_util function
+    await request.app.post_creation_amqp_publisher.send_message(str(body))
