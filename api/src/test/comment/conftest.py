@@ -72,3 +72,16 @@ def insert_post():
         return model
 
     yield _insert_post
+
+
+@pytest.fixture
+def insert_comment():
+    """Insert a comment into the database."""
+
+    def _insert_comment(comment, session) -> CommentModel:
+        model = CommentModel(**comment)
+        session.add(model)
+        session.commit()
+        return model
+
+    yield _insert_comment

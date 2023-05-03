@@ -1,7 +1,7 @@
 from fastapi import Request, HTTPException
 from aio_pika.abc import AbstractIncomingMessage
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_404_NOT_FOUND
+from starlette.status import HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 
 from src.main.comment import crud
 from src.main.shared.amqp.amqp_util import decode_body_and_convert_to_dict
@@ -34,4 +34,15 @@ def assert_post_exists(db: Session, post_id: int):
         raise HTTPException(
             status_code=HTTP_404_NOT_FOUND,
             detail="Post not found"
+        )
+
+
+def assert_user_is_owner_of_comment(db: Session, request: Request, comment_id: int):
+    username = get_username_from_access_token(db=db, request=request)
+    comment = crud.get_comment_by_id(db=db, comment_id=comment_id)
+
+    if comment.username != username:
+        raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED,
+            detail="You are not the owner of this comment"
         )

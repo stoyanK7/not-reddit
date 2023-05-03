@@ -13,6 +13,10 @@ def get_10_comments_for_post(db: Session, post_id: int, page: int = 0):
         .all()
 
 
+def get_comment_by_id(db: Session, comment_id: int):
+    return db.query(CommentModel).filter(CommentModel.id == comment_id).first()
+
+
 def create_comment(db: Session, comment: dict):
     db_comment = CommentModel(**comment)
     db.add(db_comment)

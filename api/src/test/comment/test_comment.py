@@ -1,4 +1,5 @@
-from starlette.status import HTTP_204_NO_CONTENT, HTTP_201_CREATED, HTTP_200_OK, HTTP_404_NOT_FOUND
+from starlette.status import HTTP_204_NO_CONTENT, HTTP_201_CREATED, HTTP_200_OK, \
+    HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 
 from src.main.comment.model import Comment as CommentModel
 
@@ -79,10 +80,53 @@ def test_create_comment_non_existing_post(client, session, remove_json_fields, i
     assert response.json()["detail"] == "Post not found"
 
 
-def test_delete_comment(client, session, insert_mock_comments):
+def test_delete_comment(client, session, insert_user, insert_post, insert_comment, generate_jwt):
     """Assert that comment is deleted."""
-    comment = insert_mock_comments(amount=1, post_id=1, session=session)[0]
-    response = client.delete(f"/api/comment/{comment.id}")
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    post = insert_post({
+        "post_id": 1
+    }, session=session)
+
+    comment = insert_comment({
+        "body": "Test body",
+        "post_id": post.post_id,
+        "username": user.username
+    }, session=session)
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.delete(f"/api/comment/{comment.id}",
+                             headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_204_NO_CONTENT
+    # TODO: Do this assertion in all other services
     assert session.query(CommentModel).filter_by(id=comment.id).first() is None
+
+
+def test_delete_comment__not_owner_of_comment(client, session, insert_user, insert_post,
+                                              insert_comment, generate_jwt):
+    """Assert that comment is deleted."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    post = insert_post({
+        "post_id": 1
+    }, session=session)
+
+    comment = insert_comment({
+        "body": "Test body",
+        "post_id": post.post_id,
+        "username": "not owner"
+    }, session=session)
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.delete(f"/api/comment/{comment.id}",
+                             headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_401_UNAUTHORIZED
+    assert response.json()["detail"] == "You are not the owner of this comment"
