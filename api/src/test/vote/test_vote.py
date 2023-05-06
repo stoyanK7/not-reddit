@@ -1,5 +1,7 @@
 from starlette.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST
 
+from src.main.vote.model import Vote as VoteModel
+
 
 def test_upvote_post(client, session, insert_user, insert_post, generate_jwt):
     """Assert that upvoting a post works."""
@@ -22,6 +24,7 @@ def test_upvote_post(client, session, insert_user, insert_post, generate_jwt):
                            headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_204_NO_CONTENT
+    assert session.query(VoteModel).filter_by(target_id=post.post_id).first() is not None
 
 
 def test_downvote_post(client, session, insert_user, insert_post, generate_jwt):
@@ -45,6 +48,7 @@ def test_downvote_post(client, session, insert_user, insert_post, generate_jwt):
                            headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_204_NO_CONTENT
+    assert session.query(VoteModel).filter_by(target_id=post.post_id).first() is not None
 
 
 def test_upvote_comment(client, session, insert_user, insert_comment, generate_jwt):
@@ -54,12 +58,12 @@ def test_upvote_comment(client, session, insert_user, insert_comment, generate_j
         "oid": "user 1 oid"
     }, session=session)
 
-    insert_comment({
+    comment = insert_comment({
         "comment_id": 1,
     }, session=session)
 
     body = {
-        "target_id": 1,
+        "target_id": comment.comment_id,
         "vote_type": "up"
     }
 
@@ -68,6 +72,8 @@ def test_upvote_comment(client, session, insert_user, insert_comment, generate_j
                            headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_204_NO_CONTENT
+    assert session.query(VoteModel).filter_by(target_id=comment.comment_id,
+                                              vote_type=body["vote_type"]).first() is not None
 
 
 def test_downvote_comment(client, session, insert_user, insert_comment, generate_jwt):
@@ -77,12 +83,12 @@ def test_downvote_comment(client, session, insert_user, insert_comment, generate
         "oid": "user 1 oid"
     }, session=session)
 
-    insert_comment({
+    comment = insert_comment({
         "comment_id": 1,
     }, session=session)
 
     body = {
-        "target_id": 1,
+        "target_id": comment.comment_id,
         "vote_type": "down"
     }
 
@@ -91,6 +97,8 @@ def test_downvote_comment(client, session, insert_user, insert_comment, generate
                            headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_204_NO_CONTENT
+    assert session.query(VoteModel).filter_by(target_id=comment.comment_id,
+                                              vote_type=body["vote_type"]).first() is not None
 
 
 def test_invalid_vote(client, session):
@@ -198,7 +206,7 @@ def test_upvote_post_already_upvoted(client, session, generate_jwt, insert_user,
         "post_id": 1
     }, session=session)
 
-    insert_vote({
+    vote = insert_vote({
         "target_id": post.post_id,
         "username": user.username,
         "vote_type": "up",
@@ -218,6 +226,9 @@ def test_upvote_post_already_upvoted(client, session, generate_jwt, insert_user,
     assert response.json() == {
         "detail": "Upvote already casted for this post"
     }
+    assert len(
+        session.query(VoteModel).filter_by(target_id=vote.target_id, vote_type=vote.vote_type,
+                                           target_type=vote.target_type).all()) == 1
 
 
 def test_downvote_post_already_downvoted(client, session, generate_jwt, insert_user, insert_vote,
@@ -232,7 +243,7 @@ def test_downvote_post_already_downvoted(client, session, generate_jwt, insert_u
         "post_id": 1
     }, session=session)
 
-    insert_vote({
+    vote = insert_vote({
         "target_id": post.post_id,
         "username": user.username,
         "vote_type": "down",
@@ -252,6 +263,9 @@ def test_downvote_post_already_downvoted(client, session, generate_jwt, insert_u
     assert response.json() == {
         "detail": "Downvote already casted for this post"
     }
+    assert len(
+        session.query(VoteModel).filter_by(target_id=vote.target_id, vote_type=vote.vote_type,
+                                           target_type=vote.target_type).all()) == 1
 
 
 def test_upvote_comment_already_upvoted(client, session, generate_jwt, insert_user, insert_vote,
@@ -266,7 +280,7 @@ def test_upvote_comment_already_upvoted(client, session, generate_jwt, insert_us
         "comment_id": 1
     }, session=session)
 
-    insert_vote({
+    vote = insert_vote({
         "target_id": comment.comment_id,
         "username": user.username,
         "vote_type": "up",
@@ -286,6 +300,9 @@ def test_upvote_comment_already_upvoted(client, session, generate_jwt, insert_us
     assert response.json() == {
         "detail": "Upvote already casted for this comment"
     }
+    assert len(
+        session.query(VoteModel).filter_by(target_id=vote.target_id, vote_type=vote.vote_type,
+                                           target_type=vote.target_type).all()) == 1
 
 
 def test_downvote_comment_already_downvoted(client, session, generate_jwt, insert_user, insert_vote,
@@ -300,7 +317,7 @@ def test_downvote_comment_already_downvoted(client, session, generate_jwt, inser
         "comment_id": 1
     }, session=session)
 
-    insert_vote({
+    vote = insert_vote({
         "target_id": comment.comment_id,
         "username": user.username,
         "vote_type": "up",
@@ -320,3 +337,6 @@ def test_downvote_comment_already_downvoted(client, session, generate_jwt, inser
     assert response.json() == {
         "detail": "Downvote already casted for this comment"
     }
+    assert len(
+        session.query(VoteModel).filter_by(target_id=vote.target_id, vote_type=vote.vote_type,
+                                           target_type=vote.target_type).all()) == 1

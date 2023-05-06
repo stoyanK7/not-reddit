@@ -12,6 +12,7 @@ def test_create_user(client, session, mock_user):
     response = client.post("/api/user", json=body, headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_201_CREATED
+    assert session.query(UserModel).filter_by(email=body["email"]).first() is not None
 
 
 def test_create_user_with_taken_username(client, session, mock_user_with_username, insert_user):
@@ -25,6 +26,7 @@ def test_create_user_with_taken_username(client, session, mock_user_with_usernam
 
     assert response.status_code == HTTP_409_CONFLICT
     assert response.json() == {"detail": "Username or email already taken"}
+    assert len(session.query(UserModel).filter_by(email=user["email"]).all()) == 1
 
 
 def test_create_user_with_taken_email(client, session, mock_user_with_username, insert_user):
@@ -38,6 +40,7 @@ def test_create_user_with_taken_email(client, session, mock_user_with_username, 
 
     assert response.status_code == HTTP_409_CONFLICT
     assert response.json() == {"detail": "Username or email already taken"}
+    assert len(session.query(UserModel).filter_by(email=user["email"]).all()) == 1
 
 
 def test_get_username(client, session, mock_user_with_username, insert_user):

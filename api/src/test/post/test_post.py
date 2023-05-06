@@ -6,6 +6,8 @@ import pytest
 from starlette.status import HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED, HTTP_201_CREATED, \
     HTTP_200_OK, HTTP_400_BAD_REQUEST
 
+from src.main.post.model import Post as PostModel
+
 current_file_path = os.path.abspath(__file__)
 parent_directory = os.path.dirname(current_file_path)
 resource_directory = f"{parent_directory}/resource"
@@ -113,6 +115,7 @@ def test_create_text_post(client, session, remove_json_fields, insert_user, gene
     assert response.json()["body"] == body["body"]
     assert response.json()["username"] == user.username
     assert response.json()["votes"] == 0
+    assert session.query(PostModel).filter_by(id=response.json()["id"]).first() is not None
 
 
 @pytest.mark.parametrize("test_file_name",
@@ -142,6 +145,7 @@ def test_create_media_post(client, session, insert_user, test_file_name, generat
     assert response.json()["title"] == data["title"]
     assert "http" in response.json()["body"]
     assert response.json()["username"] == user.username
+    assert session.query(PostModel).filter_by(id=response.json()["id"]).first() is not None
 
     uploaded_media_path = (f"{files_directory}/{response.json()['id']}."
                            f"{test_file_name.split('.')[-1]}")
@@ -171,6 +175,7 @@ def test_create_media_post_invalid_media_type(client, session, insert_user, gene
                            headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_400_BAD_REQUEST
+    assert session.query(PostModel).first() is None
 
 
 def test_delete_text_post(client, session, insert_user, insert_post, generate_jwt):
@@ -191,6 +196,7 @@ def test_delete_text_post(client, session, insert_user, insert_post, generate_jw
                              headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_204_NO_CONTENT
+    assert session.query(PostModel).filter_by(id=post.id).first() is None
 
 
 def test_delete_text_post_not_owner_of_post(client, session, insert_post, insert_user,
@@ -217,6 +223,7 @@ def test_delete_text_post_not_owner_of_post(client, session, insert_post, insert
 
     assert response.status_code == HTTP_401_UNAUTHORIZED
     assert response.json() == {"detail": "You are not the owner of this post"}
+    assert session.query(PostModel).filter_by(id=post.id).first() is not None
 
 
 @pytest.mark.parametrize("test_file_name",
@@ -244,4 +251,5 @@ def test_delete_media_post(client, session, insert_post, insert_user, test_file_
                              headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_204_NO_CONTENT
+    assert session.query(PostModel).filter_by(id=post.id).first() is None
     assert not os.path.exists(uploaded_media_path)

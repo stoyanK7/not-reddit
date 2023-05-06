@@ -58,6 +58,7 @@ def test_create_comment(client, session, remove_json_fields, insert_user, insert
     assert response.json()["body"] == body["body"]
     assert response.json()["username"] == user.username
     assert response.json()["votes"] == 0
+    assert session.query(CommentModel).filter_by(id=response.json()["id"]).first() is not None
 
 
 def test_create_comment_non_existing_post(client, session, remove_json_fields, insert_user,
@@ -79,6 +80,7 @@ def test_create_comment_non_existing_post(client, session, remove_json_fields, i
 
     assert response.status_code == HTTP_404_NOT_FOUND
     assert response.json()["detail"] == "Post not found"
+    assert session.query(CommentModel).first() is None
 
 
 def test_delete_comment(client, session, insert_user, insert_post, insert_comment, generate_jwt):
@@ -103,7 +105,6 @@ def test_delete_comment(client, session, insert_user, insert_post, insert_commen
                              headers={"Authorization": f"Bearer {jwt_token}"})
 
     assert response.status_code == HTTP_204_NO_CONTENT
-    # TODO: Do this assertion in all other services
     assert session.query(CommentModel).filter_by(id=comment.id).first() is None
 
 
@@ -131,3 +132,4 @@ def test_delete_comment__not_owner_of_comment(client, session, insert_user, inse
 
     assert response.status_code == HTTP_401_UNAUTHORIZED
     assert response.json()["detail"] == "You are not the owner of this comment"
+    assert session.query(CommentModel).filter_by(id=comment.id).first() is not None
