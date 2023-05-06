@@ -18,7 +18,7 @@ def cast_post_vote(request: Request, body: VoteCreate, background_tasks: Backgro
     assert_is_upvote_or_downvote(body.vote_type)
 
     vote = body.dict()
-    vote["vote_type"] = "post"
+    vote["target_type"] = "post"
     vote["username"] = get_username_from_access_token(db=db, request=request)
 
     background_tasks.add_task(emit_post_vote_casted_event, request=request,
@@ -34,7 +34,7 @@ def cast_comment_vote(request: Request, body: VoteCreate, background_tasks: Back
     assert_is_upvote_or_downvote(body.vote_type)
 
     vote = body.dict()
-    vote["vote_type"] = "comment"
+    vote["target_type"] = "comment"
     vote["username"] = get_username_from_access_token(db=db, request=request)
 
     background_tasks.add_task(emit_comment_vote_casted_event, request=request,
