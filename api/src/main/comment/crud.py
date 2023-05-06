@@ -25,6 +25,20 @@ def create_comment(db: Session, comment: dict):
     return db_comment
 
 
+def cast_upvote(db: Session, comment_id: int):
+    db_post = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
+    db_post.votes += 1
+    db.commit()
+    db.refresh(db_post)
+
+
+def cast_downvote(db: Session, comment_id: int):
+    db_post = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
+    db_post.votes -= 1
+    db.commit()
+    db.refresh(db_post)
+
+
 def delete_comment(db: Session, comment_id: int):
     db.query(CommentModel).filter(CommentModel.id == comment_id).delete()
     db.commit()

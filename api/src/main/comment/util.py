@@ -30,6 +30,15 @@ def handle_post_creation(message: AbstractIncomingMessage):
     crud.insert_post(db=db, post=body)
 
 
+def handle_vote_casted(message: AbstractIncomingMessage):
+    body = decode_body_and_convert_to_dict(message.body)
+    db = next(get_db())
+    if body["vote_type"] == "up":
+        crud.cast_upvote(db=db, comment_id=body["comment_id"])
+    elif body["vote_type"] == "down":
+        crud.cast_downvote(db=db, comment_id=body["comment_id"])
+
+
 def assert_post_exists(db: Session, post_id: int):
     post_exists = crud.get_post_by_id(db=db, post_id=post_id)
     if not post_exists:
