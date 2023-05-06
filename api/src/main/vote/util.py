@@ -2,7 +2,7 @@ import json
 
 from fastapi import HTTPException, Request
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_400_BAD_REQUEST
+from starlette.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from aio_pika.abc import AbstractIncomingMessage
 
 from src.main.shared.amqp.amqp_util import decode_body_and_convert_to_dict
@@ -55,3 +55,11 @@ async def emit_comment_vote_casted_event(request: Request, vote: dict):
     body = json.dumps(vote)
     # TODO: move conversion of string and json.dumps to amql_util function
     await request.app.comment_vote_casted_amqp_publisher.send_message(str(body))
+
+
+def assert_vote_exists(vote):
+    if vote is None:
+        raise HTTPException(
+            status_code=HTTP_404_NOT_FOUND,
+            detail="Vote not found",
+        )

@@ -4,6 +4,12 @@ from src.main.vote.model import Vote as VoteModel, User as UserModel, Post as Po
     Comment as CommentModel
 
 
+def get_vote(db: Session, target_id: int, target_type: str, username: str):
+    return db.query(VoteModel).filter(VoteModel.target_id == target_id,
+                                      VoteModel.target_type == target_type,
+                                      VoteModel.username == username).first()
+
+
 def cast_vote(db: Session, vote: dict):
     db_vote = VoteModel(**vote)
     db.add(db_vote)

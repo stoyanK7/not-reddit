@@ -2,7 +2,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 from src.main.vote.main import app
-from src.main.vote.model import Post as PostModel, Comment as CommentModel, User as UserModel
+from src.main.vote.model import Post as PostModel, Comment as CommentModel, User as UserModel, \
+    Vote as VoteModel
 from src.main.shared.database.main import get_db, Base
 from src.test.shared.database.main import engine
 
@@ -65,3 +66,16 @@ def insert_comment():
         return model
 
     yield _insert_comment
+
+
+@pytest.fixture
+def insert_vote():
+    """Insert a vote into the database."""
+
+    def _insert_vote(vote, session):
+        model = VoteModel(**vote)
+        session.add(model)
+        session.commit()
+        return model
+
+    yield _insert_vote

@@ -106,3 +106,81 @@ def test_invalid_vote(client, session):
     assert response.json() == {
         "detail": "vote_type must be either 'up' or 'down'"
     }
+
+
+def test_get_post_vote(client, session, generate_jwt, insert_user, insert_vote):
+    """Assert that getting a post vote works."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    insert_vote({
+        "target_id": 1,
+        "username": user.username,
+        "vote_type": "up",
+        "target_type": "post"
+    }, session=session)
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.get("/api/vote/post/1",
+                          headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == 200
+    assert "id" in response.json().keys()
+
+
+def test_get_post_vote_non_existing_vote(client, session, generate_jwt, insert_user):
+    """Assert that getting a post vote works."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.get("/api/vote/post/1",
+                          headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == 404
+    assert response.json() == {
+        "detail": "Vote not found"
+    }
+
+
+def test_get_comment_vote(client, session, generate_jwt, insert_user, insert_vote):
+    """Assert that getting a comment vote works."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    insert_vote({
+        "target_id": 1,
+        "username": user.username,
+        "vote_type": "up",
+        "target_type": "comment"
+    }, session=session)
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.get("/api/vote/comment/1",
+                          headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == 200
+    assert "id" in response.json().keys()
+
+
+def test_get_comment_vote_non_existing_vote(client, session, generate_jwt, insert_user):
+    """Assert that getting a comment vote works."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.get("/api/vote/comment/1",
+                          headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == 404
+    assert response.json() == {
+        "detail": "Vote not found"
+    }
