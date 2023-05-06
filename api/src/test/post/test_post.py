@@ -1,3 +1,4 @@
+import datetime
 import os
 import shutil
 
@@ -29,6 +30,55 @@ def test_get_posts_pagination(client, session, insert_mock_text_posts):
 
     assert response.status_code == HTTP_200_OK
     assert len(response.json()) == 3
+
+
+def test_get_latest_posts(client, session, insert_post):
+    """Assert that latest posts are returned."""
+    insert_post({
+        "title": "Should be second",
+        "posted_at": datetime.datetime(2023, 5, 4)
+    }, session=session)
+    insert_post({
+        "title": "Should be third",
+        "posted_at": datetime.datetime(2023, 5, 3)
+    }, session=session)
+    insert_post({
+        "title": "Should be first",
+        "posted_at": datetime.datetime(2023, 5, 6)
+    }, session=session)
+
+    response = client.get("/api/post?sort_by=latest")
+
+    assert response.status_code == HTTP_200_OK
+    assert response.json()[0]["title"] == "Should be first"
+    assert response.json()[1]["title"] == "Should be second"
+    assert response.json()[2]["title"] == "Should be third"
+
+
+def test_get_hot_posts(client, session, insert_post):
+    """Assert that hot posts are returned."""
+    insert_post({
+        "title": "Should be second",
+        "posted_at": datetime.datetime(2023, 5, 4),
+        "votes": 10
+    }, session=session)
+    insert_post({
+        "title": "Should be third",
+        "posted_at": datetime.datetime(2023, 5, 3),
+        "votes": 20
+    }, session=session)
+    insert_post({
+        "title": "Should be first",
+        "posted_at": datetime.datetime(2023, 5, 6),
+        "votes": 5
+    }, session=session)
+
+    response = client.get("/api/post?sort_by=hot")
+
+    assert response.status_code == HTTP_200_OK
+    assert response.json()[0]["title"] == "Should be third"
+    assert response.json()[1]["title"] == "Should be second"
+    assert response.json()[2]["title"] == "Should be first"
 
 
 def test_get_post(client, session, insert_mock_text_posts):

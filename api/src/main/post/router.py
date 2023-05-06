@@ -15,9 +15,11 @@ router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
 
 @router.get("", status_code=HTTP_200_OK)
-def get_10_posts(page: int = 0, db: Session = Depends(get_db)):
-    # TODO: Probably should be latest posts
-    return crud.get_10_posts(db=db, page=page)
+def get_10_posts(page: int = 0, sort_by: str = "latest", db: Session = Depends(get_db)):
+    if sort_by == "latest":
+        return crud.get_10_latest_posts(db=db, page=page)
+    elif sort_by == "hot":
+        return crud.get_10_hot_posts(db=db, page=page)
 
 
 @router.get("/{post_id}", status_code=HTTP_200_OK)

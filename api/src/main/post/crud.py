@@ -4,10 +4,24 @@ from src.main.post.model import Post as PostModel
 from src.main.post.model import User as UserModel
 
 
-def get_10_posts(db: Session, page: int = 0):
+def get_10_latest_posts(db: Session, page: int = 0):
     post_limit = 10
     offset = page * post_limit
-    return db.query(PostModel).offset(offset).limit(post_limit).all()
+    return db.query(PostModel) \
+        .order_by(PostModel.posted_at.desc()) \
+        .offset(offset) \
+        .limit(post_limit) \
+        .all()
+
+
+def get_10_hot_posts(db: Session, page: int = 0):
+    post_limit = 10
+    offset = page * post_limit
+    return db.query(PostModel) \
+        .order_by(PostModel.votes.desc()) \
+        .offset(offset) \
+        .limit(post_limit) \
+        .all()
 
 
 def get_post_by_id(db: Session, post_id: int):
