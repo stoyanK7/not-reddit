@@ -7,7 +7,8 @@ from src.main.vote.schema import VoteCreate
 from src.main.vote import crud
 from src.main.vote.settings import settings
 from src.main.vote.util import assert_is_upvote_or_downvote, get_username_from_access_token, \
-    emit_post_vote_casted_event, emit_comment_vote_casted_event, assert_vote_exists
+    emit_post_vote_casted_event, emit_comment_vote_casted_event, assert_vote_exists, \
+    assert_vote_not_already_casted
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
 
@@ -20,6 +21,8 @@ def cast_post_vote(request: Request, body: VoteCreate, background_tasks: Backgro
     vote = body.dict()
     vote["target_type"] = "post"
     vote["username"] = get_username_from_access_token(db=db, request=request)
+
+    assert_vote_not_already_casted(db=db, vote=vote)
 
     background_tasks.add_task(emit_post_vote_casted_event, request=request,
                               vote={"post_id": vote["target_id"], "vote_type": vote["vote_type"]})
@@ -36,6 +39,8 @@ def cast_comment_vote(request: Request, body: VoteCreate, background_tasks: Back
     vote = body.dict()
     vote["target_type"] = "comment"
     vote["username"] = get_username_from_access_token(db=db, request=request)
+
+    assert_vote_not_already_casted(db=db, vote=vote)
 
     background_tasks.add_task(emit_comment_vote_casted_event, request=request,
                               vote={"comment_id": vote["target_id"],

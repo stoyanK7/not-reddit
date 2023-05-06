@@ -184,3 +184,139 @@ def test_get_comment_vote_non_existing_vote(client, session, generate_jwt, inser
     assert response.json() == {
         "detail": "Vote not found"
     }
+
+
+def test_upvote_post_already_upvoted(client, session, generate_jwt, insert_user, insert_vote,
+                                     insert_post):
+    """Assert that upvoting a post already upvoted by the user throws an exception."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    post = insert_post({
+        "post_id": 1
+    }, session=session)
+
+    insert_vote({
+        "target_id": post.post_id,
+        "username": user.username,
+        "vote_type": "up",
+        "target_type": "post"
+    }, session=session)
+
+    body = {
+        "target_id": post.post_id,
+        "vote_type": "up"
+    }
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.post("/api/vote/post", json=body,
+                           headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert response.json() == {
+        "detail": "Upvote already casted for this post"
+    }
+
+
+def test_downvote_post_already_downvoted(client, session, generate_jwt, insert_user, insert_vote,
+                                         insert_post):
+    """Assert that downvoting a post already downvoted by the user throws an exception."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    post = insert_post({
+        "post_id": 1
+    }, session=session)
+
+    insert_vote({
+        "target_id": post.post_id,
+        "username": user.username,
+        "vote_type": "down",
+        "target_type": "post"
+    }, session=session)
+
+    body = {
+        "target_id": post.post_id,
+        "vote_type": "down"
+    }
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.post("/api/vote/post", json=body,
+                           headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert response.json() == {
+        "detail": "Downvote already casted for this post"
+    }
+
+
+def test_upvote_comment_already_upvoted(client, session, generate_jwt, insert_user, insert_vote,
+                                        insert_comment):
+    """Assert that upvoting a comment already upvoted by the user throws an exception."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    comment = insert_comment({
+        "comment_id": 1
+    }, session=session)
+
+    insert_vote({
+        "target_id": comment.comment_id,
+        "username": user.username,
+        "vote_type": "up",
+        "target_type": "comment"
+    }, session=session)
+
+    body = {
+        "target_id": comment.comment_id,
+        "vote_type": "up"
+    }
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.post("/api/vote/comment", json=body,
+                           headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert response.json() == {
+        "detail": "Upvote already casted for this comment"
+    }
+
+
+def test_downvote_comment_already_downvoted(client, session, generate_jwt, insert_user, insert_vote,
+                                            insert_comment):
+    """Assert that downvoting a comment already downvoted by the user throws an exception."""
+    user = insert_user({
+        "username": "puzzledUser2",
+        "oid": "user 1 oid"
+    }, session=session)
+
+    comment = insert_comment({
+        "comment_id": 1
+    }, session=session)
+
+    insert_vote({
+        "target_id": comment.comment_id,
+        "username": user.username,
+        "vote_type": "up",
+        "target_type": "comment"
+    }, session=session)
+
+    body = {
+        "target_id": comment.comment_id,
+        "vote_type": "down"
+    }
+
+    jwt_token = generate_jwt({"oid": user.oid})
+    response = client.post("/api/vote/comment", json=body,
+                           headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_400_BAD_REQUEST
+    assert response.json() == {
+        "detail": "Downvote already casted for this comment"
+    }
