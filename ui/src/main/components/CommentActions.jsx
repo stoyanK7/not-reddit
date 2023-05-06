@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { toast } from "react-toast";
 
 import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
@@ -7,9 +8,9 @@ import getAccessToken from "@/utils/getAccessToken";
 import handleToast from "@/utils/handleToast";
 
 export default function CommentActions({ comment_id, votes, username, mutate }) {
+    const [shownVotes, setShownVotes] = useState(votes);
     const isUserOwnerOfComment = username === sessionStorage.getItem("username");
 
-    // TODO: Mimick that the user has already voted on the post
     async function upvote() {
         const accessToken = await getAccessToken();
         if (accessToken === null) {
@@ -24,6 +25,10 @@ export default function CommentActions({ comment_id, votes, username, mutate }) 
         });
 
         await handleToast(res, "Upvoted comment successfully");
+
+        if (res.ok) {
+            setShownVotes(shownVotes + 1);
+        }
     }
 
     async function downvote() {
@@ -40,6 +45,10 @@ export default function CommentActions({ comment_id, votes, username, mutate }) 
         });
 
         await handleToast(res, "Downvoted comment successfully");
+
+        if (res.ok) {
+            setShownVotes(shownVotes - 1);
+        }
     }
 
     async function deleteComment(e) {
@@ -76,18 +85,22 @@ export default function CommentActions({ comment_id, votes, username, mutate }) 
             className="flex gap-2 text-reddit-gray hover:cursor-pointer">
             <div
                 className="flex items-center">
-                <span
-                    className="p-2 mr-1 rounded-sm hover:bg-reddit-orange-light text-reddit-orange"
-                    onClick={upvote}>
+                <button
+                    className={`p-2 mr-1 rounded-sm hover:bg-reddit-orange-light text-reddit-orange
+                    ${shownVotes > votes ? "bg-reddit-orange-light" : ""}`}
+                    onClick={upvote}
+                    disabled={shownVotes > votes}>
                     Up
-                </span>
+                </button>
                 <span
-                    className="font-bold text-reddit-black">{votes}</span>
-                <span
-                    className="p-2 ml-1 rounded-sm hover:bg-reddit-blue-light text-reddit-blue"
-                    onClick={downvote}>
+                    className="font-bold text-reddit-black">{shownVotes}</span>
+                <button
+                    className={`p-2 ml-1 rounded-sm hover:bg-reddit-blue-light text-reddit-blue
+                    ${shownVotes < votes ? "bg-reddit-blue-light" : ""}`}
+                    onClick={downvote}
+                    disabled={shownVotes < votes}>
                     Down
-                </span>
+                </button>
             </div>
             <div
                 className="p-2 rounded-sm text-yellow-600 hover:bg-yellow-300">

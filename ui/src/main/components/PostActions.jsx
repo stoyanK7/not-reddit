@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useState } from "react";
 import { toast } from "react-toast";
 
 import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
@@ -8,9 +9,12 @@ import getAccessToken from "@/utils/getAccessToken";
 import handleToast from "@/utils/handleToast";
 
 export default function PostActions({ id, votes, username, mutate }) {
+    const [shownVotes, setShownVotes] = useState(votes);
     const isUserOwnerOfPost = username === sessionStorage.getItem("username");
 
-    // TODO: Mimick that the user has already voted on the post
+    // TODO: Make request to see if already upvoted/downvoted
+    // TODO: Handle case where upvote is clicked but already upvoted
+
     async function upvote(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -27,6 +31,10 @@ export default function PostActions({ id, votes, username, mutate }) {
         });
 
         await handleToast(res, "Upvoted post successfully");
+
+        if (res.ok) {
+            setShownVotes(shownVotes + 1);
+        }
     }
 
     async function downvote(e) {
@@ -45,6 +53,10 @@ export default function PostActions({ id, votes, username, mutate }) {
         });
 
         await handleToast(res, "Downvoted post successfully");
+
+        if (res.ok) {
+            setShownVotes(shownVotes - 1);
+        }
     }
 
     async function deletePost(e) {
@@ -88,18 +100,22 @@ export default function PostActions({ id, votes, username, mutate }) {
             className="flex gap-2 text-reddit-gray hover:cursor-pointer">
             <div
                 className="flex items-center">
-                <span
-                    className="p-2 mr-1 rounded-sm hover:bg-reddit-orange-light text-reddit-orange"
-                    onClick={upvote}>
+                <button
+                    className={`p-2 mr-1 rounded-sm hover:bg-reddit-orange-light text-reddit-orange
+                    ${shownVotes > votes ? "bg-reddit-orange-light" : ""}`}
+                    onClick={upvote}
+                    disabled={shownVotes > votes}>
                     Up
-                </span>
+                </button>
                 <span
-                    className="font-bold text-reddit-black">{votes}</span>
-                <span
-                    className="p-2 ml-1 rounded-sm hover:bg-reddit-blue-light text-reddit-blue"
-                    onClick={downvote}>
+                    className="font-bold text-reddit-black">{shownVotes}</span>
+                <button
+                    className={`p-2 ml-1 rounded-sm hover:bg-reddit-blue-light text-reddit-blue
+                    ${shownVotes < votes ? "bg-reddit-blue-light" : ""}`}
+                    onClick={downvote}
+                    disabled={shownVotes < votes}>
                     Down
-                </span>
+                </button>
             </div>
             <Link
                 href={`/post/${id}`}>
