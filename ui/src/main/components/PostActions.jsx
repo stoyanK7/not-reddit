@@ -10,6 +10,7 @@ import handleToast from "@/utils/handleToast";
 export default function PostActions({ id, votes, username, mutate }) {
     const isUserOwnerOfPost = username === sessionStorage.getItem("username");
 
+    // TODO: Mimick that the user has already voted on the post
     async function upvote() {
         const accessToken = await getAccessToken();
         if (accessToken === null) {
