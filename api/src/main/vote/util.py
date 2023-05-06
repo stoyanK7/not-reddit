@@ -47,13 +47,11 @@ def handle_comment_creation(message: AbstractIncomingMessage):
 
 async def emit_post_vote_casted_event(request: Request, vote: dict):
     body = json.dumps(vote)
-    # TODO: move conversion of string and json.dumps to amql_util function
     await request.app.post_vote_casted_amqp_publisher.send_message(str(body))
 
 
 async def emit_comment_vote_casted_event(request: Request, vote: dict):
     body = json.dumps(vote)
-    # TODO: move conversion of string and json.dumps to amql_util function
     await request.app.comment_vote_casted_amqp_publisher.send_message(str(body))
 
 
