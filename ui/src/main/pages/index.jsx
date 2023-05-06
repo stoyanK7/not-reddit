@@ -1,25 +1,26 @@
 import { AuthenticatedTemplate } from "@azure/msal-react";
 import { useState } from "react";
-import { toast } from "react-toast";
-import useSWR from "swr";
 
 import CreatePost from "@/components/CreatePost";
 import PostList from "@/components/PostList";
-import fetcher from "@/utils/fetcher";
-import fromApi from "@/utils/fromApi";
 
 
 export default function Home() {
+    const [page, setPage] = useState(0);
     const [sortBy, setSortBy] = useState("hot");
+    const [canShowMore, setCanShowMore] = useState(true);
 
-    const { data: posts, error, isLoading, mutate } = useSWR(
-        [fromApi(`/api/post?sort_by=${sortBy}`), null],
-        fetcher);
-
-    if (error) {
-        toast.error("Failed to load latest posts");
+    const postsPages = [];
+    for (let i = 0; i <= page; i++) {
+        postsPages.push(
+            <PostList
+                setCanShowMore={setCanShowMore}
+                canShowMore={canShowMore}
+                page={i}
+                sortBy={sortBy}
+                key={i} />
+        );
     }
-    if (isLoading) return <div>loading...</div>;
 
     return (
         <main
@@ -42,10 +43,16 @@ export default function Home() {
                     Hot
                 </div>
             </div>
-            {posts &&
-                <PostList
-                    mutate={mutate}
-                    posts={posts} />
+            {postsPages}
+            {canShowMore &&
+                <button
+                    className="w-full p-2 rounded-sm bg-reddit-orange text-white"
+                    onClick={() => setPage(page + 1)}>
+                    Load more
+                </button>
+            }
+            {!canShowMore &&
+                <span>There are no more posts.</span>
             }
         </main>
     );
