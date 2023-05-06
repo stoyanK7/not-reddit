@@ -22,7 +22,8 @@ export default function PostInfo({
                         u/{username}
                     </Link>
                 </span>
-                <span>{postedAt && postedAt.split("T")[0]}</span>
+                <span>on {postedAt.split("T")[0]}</span>
+                <span>at {postedAt.split("T")[1].slice(0,5)}</span>
             </div>
         </div>
     );
