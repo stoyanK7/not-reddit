@@ -133,3 +133,12 @@ async def emit_post_creation_event(request: Request, post: dict):
     body = json.dumps(post)
     # TODO: move conversion of string and json.dumps to amql_util function
     await request.app.post_created_amqp_publisher.send_message(str(body))
+
+
+def handle_vote_casted(message: AbstractIncomingMessage) -> None:
+    body = decode_body_and_convert_to_dict(message.body)
+    db = next(get_db())
+    if body["vote_type"] == "up":
+        crud.cast_upvote(db=db, post_id=body["post_id"])
+    elif body["vote_type"] == "down":
+        crud.cast_downvote(db=db, post_id=body["post_id"])

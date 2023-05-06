@@ -30,6 +30,20 @@ def update_post_body(db: Session, post_id: int, body: str):
     return db_post
 
 
+def cast_upvote(db: Session, post_id: int):
+    db_post = db.query(PostModel).filter(PostModel.id == post_id).first()
+    db_post.votes += 1
+    db.commit()
+    db.refresh(db_post)
+
+
+def cast_downvote(db: Session, post_id: int):
+    db_post = db.query(PostModel).filter(PostModel.id == post_id).first()
+    db_post.votes -= 1
+    db.commit()
+    db.refresh(db_post)
+
+
 def delete_post_by_id(db: Session, post_id: int):
     db.query(PostModel).filter(PostModel.id == post_id).delete()
     db.commit()
