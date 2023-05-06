@@ -1,3 +1,5 @@
+import json
+
 from fastapi import HTTPException, Request
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_400_BAD_REQUEST
@@ -41,3 +43,15 @@ def handle_comment_creation(message: AbstractIncomingMessage):
     body = decode_body_and_convert_to_dict(message.body)
     db = next(get_db())
     crud.insert_comment(db=db, comment=body)
+
+
+async def emit_post_vote_casted_event(request: Request, vote: dict):
+    body = json.dumps(vote)
+    # TODO: move conversion of string and json.dumps to amql_util function
+    await request.app.post_vote_casted_amqp_publisher.send_message(str(body))
+
+
+async def emit_comment_vote_casted_event(request: Request, vote: dict):
+    body = json.dumps(vote)
+    # TODO: move conversion of string and json.dumps to amql_util function
+    await request.app.comment_vote_casted_amqp_publisher.send_message(str(body))
