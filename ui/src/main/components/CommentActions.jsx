@@ -1,6 +1,7 @@
 import { toast } from "react-toast";
 
 import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
+import buildJSONHeaders from "@/utils/buildJSONHeaders";
 import fromApi from "@/utils/fromApi";
 import getAccessToken from "@/utils/getAccessToken";
 import handleToast from "@/utils/handleToast";
@@ -8,14 +9,37 @@ import handleToast from "@/utils/handleToast";
 export default function CommentActions({ comment_id, votes, username, mutate }) {
     const isUserOwnerOfComment = username === sessionStorage.getItem("username");
 
-    function upvote() {
-        // TODO: implement call
-        // TODO: give visual feedback
+    // TODO: Mimick that the user has already voted on the post
+    async function upvote() {
+        const accessToken = await getAccessToken();
+        if (accessToken === null) {
+            toast.error("Failed to get your access token");
+            return;
+        }
+
+        const res = await fetch(fromApi("/api/vote/comment"), {
+            method: "POST",
+            headers: buildJSONHeaders(accessToken),
+            body: JSON.stringify({ "target_id": comment_id, "vote_type": "up" }),
+        });
+
+        await handleToast(res, "Upvoted comment successfully");
     }
 
-    function downvote() {
-        // TODO: implement call
-        // TODO: give visual feedback
+    async function downvote() {
+        const accessToken = await getAccessToken();
+        if (accessToken === null) {
+            toast.error("Failed to get your access token");
+            return;
+        }
+
+        const res = await fetch(fromApi("/api/vote/comment"), {
+            method: "POST",
+            headers: buildJSONHeaders(accessToken),
+            body: JSON.stringify({ "target_id": comment_id, "vote_type": "down" }),
+        });
+
+        await handleToast(res, "Downvoted comment successfully");
     }
 
     async function deleteComment(e) {
