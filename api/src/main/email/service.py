@@ -12,5 +12,6 @@ class EmailService:
         self.user_registered_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_USER_REGISTERED_EXCHANGE_NAME,
+            queue_name=settings.AMQP_USER_REGISTERED_QUEUE_NAME,
             incoming_message_handler=send_email,
         )

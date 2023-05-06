@@ -21,11 +21,13 @@ class PostService(FastAPI):
         self.user_registered_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_USER_REGISTERED_EXCHANGE_NAME,
+            queue_name=settings.AMQP_USER_REGISTERED_QUEUE_NAME,
             incoming_message_handler=handle_user_registration,
         )
         self.post_vote_casted_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_POST_VOTE_CASTED_EXCHANGE_NAME,
+            queue_name=settings.AMQP_POST_VOTE_CASTED_QUEUE_NAME,
             incoming_message_handler=handle_vote_casted,
         )
 

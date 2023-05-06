@@ -19,20 +19,22 @@ class CommentService(FastAPI):
         self.initialize_amqp_publishers()
 
     def initialize_amqp_consumers(self):
-        # TODO: change name
         self.user_registered_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_USER_REGISTERED_EXCHANGE_NAME,
+            queue_name=settings.AMQP_USER_REGISTERED_QUEUE_NAME,
             incoming_message_handler=handle_user_registration,
         )
         self.post_created_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_POST_CREATED_EXCHANGE_NAME,
+            queue_name=settings.AMQP_POST_CREATED_QUEUE_NAME,
             incoming_message_handler=handle_post_creation,
         )
         self.comment_vote_casted_amqp_consumer = AmqpConsumer(
             settings.AMQP_URL,
             exchange_name=settings.AMQP_COMMENT_VOTE_CASTED_EXCHANGE_NAME,
+            queue_name=settings.AMQP_COMMENT_VOTE_CASTED_QUEUE_NAME,
             incoming_message_handler=handle_vote_casted,
         )
 
