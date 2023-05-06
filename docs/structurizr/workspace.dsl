@@ -64,10 +64,19 @@ workspace {
 
             eventBus = container "Event Bus" {
                 tags "service" "rabbitmq"
-                userRegistrationEvent = component "User Registration Event" {
+                userRegisteredEvent = component "User Registered Event" {
                     tags "event"
                 }
-                postCreationEvent = component "Post Creation Event" {
+                postCreatedEvent = component "Post Created Event" {
+                    tags "event"
+                }
+                commentCreatedEvent = component "Comment Created Event" {
+                    tags "event"
+                }
+                postVoteCastedEvent = component "Post Vote Casted Event" {
+                    tags "event"
+                }
+                commentVoteCastedEvent = component "Comment Vote Casted Event" {
                     tags "event"
                 }
             }
@@ -100,26 +109,34 @@ workspace {
         authApi -> azureAdSystem "Ensures access token is valid with"
 
         userApi -> eventBus "Communicates with"
-        userApi -> userRegistrationEvent "Publishes"
+        userApi -> userRegisteredEvent "Publishes"
         userApi -> userDb "Stores information in"
 
         postApi -> azureBlobStorage "Stores media in"
         postApi -> eventBus "Communicates with"
         postApi -> postDb "Stores information in"
-        postApi -> postCreationEvent "Publishes"
-        postApi -> userRegistrationEvent "Subscribes to"
+        postApi -> postCreatedEvent "Publishes"
+        postApi -> userRegisteredEvent "Subscribes to"
+        postApi -> postVoteCastedEvent "Subscribes to"
 
         commentApi -> eventBus "Communicates with"
-        commentApi -> postCreationEvent "Subscribes to"
-        commentApi -> userRegistrationEvent "Subscribes to"
+        commentApi -> postCreatedEvent "Subscribes to"
+        commentApi -> userRegisteredEvent "Subscribes to"
         commentApi -> commentDb "Stores information in"
+        commentApi -> commentCreatedEvent "Publishes"
+        commentApi -> commentVoteCastedEvent "Subscribes to"
 
         voteApi -> eventBus "Communicates with"
         voteApi -> voteDb "Stores information in"
+        voteApi -> userRegisteredEvent "Subscribes to"
+        voteApi -> postCreatedEvent "Subscribes to"
+        voteApi -> commentCreatedEvent "Subscribes to"
+        voteApi -> postVoteCastedEvent "Publishes"
+        voteApi -> commentVoteCastedEvent "Publishes"
 
         emailScript -> azureEmailCommunicationService "Sends emails using"
         emailScript -> eventBus "Subscribes to"
-        emailScript -> userRegistrationEvent "Subscribes to"
+        emailScript -> userRegisteredEvent "Subscribes to"
 
         azureEmailCommunicationService -> notredditUser "Sends emails to"
     }

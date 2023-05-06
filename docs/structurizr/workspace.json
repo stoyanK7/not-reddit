@@ -2,9 +2,10 @@
   "id" : 1,
   "name" : "Name",
   "description" : "Description",
-  "lastModifiedDate" : "2023-05-03T17:18:02Z",
+  "lastModifiedDate" : "2023-05-06T17:29:18Z",
+  "lastModifiedAgent" : "structurizr-javascript",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgbm90cmVkZGl0VXNlciA9IHBlcnNvbiAiTm90LXJlZGRpdCBVc2VyIiB7CiAgICAgICAgICAgIHRhZ3MgIk1pY3Jvc29mdCBBenVyZSAtIFVzZXJzIiAicGVyc29uIgogICAgICAgIH0KCiAgICAgICAgbm90cmVkZGl0U3lzdGVtID0gc29mdHdhcmVTeXN0ZW0gIk5vdC1yZWRkaXQiewogICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAibm90cmVkZGl0IgogICAgICAgICAgICBzcEFwcGxpY2F0aW9uID0gY29udGFpbmVyICJub3QtcmVkZGl0IFNpbmdsZSBQYWdlIEFwcGxpY2F0aW9uIiB7CiAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAic3BhIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGdhdGV3YXkgPSBjb250YWluZXIgIkFQSSBHYXRld2F5IiB7CiAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAibmdpbngiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGdyb3VwICJBdXRoZW50aWNhdGlvbiBTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBhdXRoQXBpID0gY29udGFpbmVyICJBdXRoZW50aWNhdGlvbiBBUEkiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAiZmFzdGFwaSIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZ3JvdXAgIlVzZXIgU2VydmljZSIgewogICAgICAgICAgICAgICAgdXNlckFwaSA9IGNvbnRhaW5lciAiVXNlciBBUEkiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAiZmFzdGFwaSIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIHVzZXJEYiA9IGNvbnRhaW5lciAiVXNlciBEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgInBvc3RncmVzcWwiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGdyb3VwICJQb3N0IFNlcnZpY2UiIHsKICAgICAgICAgICAgICAgIHBvc3RBcGkgPSBjb250YWluZXIgIlBvc3QgQVBJIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAic2VydmljZSIgImZhc3RhcGkiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBwb3N0RGIgPSBjb250YWluZXIgIlBvc3QgRGF0YWJhc2UiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJwb3N0Z3Jlc3FsIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CgogICAgICAgICAgICBncm91cCAiQ29tbWVudCBTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBjb21tZW50QXBpID0gY29udGFpbmVyICJDb21tZW50IEFQSSIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgInNlcnZpY2UiICJmYXN0YXBpIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgY29tbWVudERiID0gY29udGFpbmVyICJDb21tZW50IERhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAicG9zdGdyZXNxbCIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZ3JvdXAgIlZvdGUgU2VydmljZSIgewogICAgICAgICAgICAgICAgdm90ZUFwaSA9IGNvbnRhaW5lciAiVm90ZSBBUEkiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAiZmFzdGFwaSIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIHZvdGVEYiA9IGNvbnRhaW5lciAiVm90ZSBEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgInBvc3RncmVzcWwiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGdyb3VwICJFbWFpbCBTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBlbWFpbFNjcmlwdCA9IGNvbnRhaW5lciAiRW1haWwgU2NyaXB0IiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAic2VydmljZSIgInB5dGhvbiIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZXZlbnRCdXMgPSBjb250YWluZXIgIkV2ZW50IEJ1cyIgewogICAgICAgICAgICAgICAgdGFncyAic2VydmljZSIgInJhYmJpdG1xIgogICAgICAgICAgICAgICAgdXNlclJlZ2lzdHJhdGlvbkV2ZW50ID0gY29tcG9uZW50ICJVc2VyIFJlZ2lzdHJhdGlvbiBFdmVudCIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgImV2ZW50IgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgcG9zdENyZWF0aW9uRXZlbnQgPSBjb21wb25lbnQgIlBvc3QgQ3JlYXRpb24gRXZlbnQiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJldmVudCIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgYXp1cmVBZFN5c3RlbSA9IHNvZnR3YXJlU3lzdGVtICJNaWNyb3NvZnQgQXp1cmUgQWN0aXZlIERpcmVjdG9yeSIgewogICAgICAgICAgICB0YWdzICJNaWNyb3NvZnQgQXp1cmUgLSBBenVyZSBBY3RpdmUgRGlyZWN0b3J5IiAiYXp1cmVBY3RpdmVEaXJlY3RvcnkiCiAgICAgICAgfQoKICAgICAgICBhenVyZUJsb2JTdG9yYWdlID0gc29mdHdhcmVTeXN0ZW0gIk1pY3Jvc29mdCBBenVyZSBCbG9iIFN0b3JhZ2UiIHsKICAgICAgICAgICAgdGFncyAiTWljcm9zb2Z0IEF6dXJlIC0gQmxvYiBQYWdlIiAiYXp1cmVCbG9iU3RvcmFnZSIKICAgICAgICB9CgogICAgICAgIGF6dXJlRW1haWxDb21tdW5pY2F0aW9uU2VydmljZSA9IHNvZnR3YXJlU3lzdGVtICJNaWNyb3NvZnQgQXp1cmUgRW1haWwgQ29tbXVuaWNhdGlvbiBTZXJ2aWNlIiB7CiAgICAgICAgICAgIHRhZ3MgIk1pY3Jvc29mdCBBenVyZSAtIEF6dXJlIENvbW11bmljYXRpb24gU2VydmljZXMiICJhenVyZUVtYWlsQ29tbXVuaWNhdGlvblNlcnZpY2UiCiAgICAgICAgfQoKICAgICAgICBub3RyZWRkaXRVc2VyIC0+IHNwQXBwbGljYXRpb24gIlVzZXMiCiAgICAgICAgbm90cmVkZGl0VXNlciAtPiBhenVyZUFkU3lzdGVtICJBdXRoZW50aWNhdGVzIHdpdGgiCgogICAgICAgIHNwQXBwbGljYXRpb24gLT4gZ2F0ZXdheSAiVXNlcyIKICAgICAgICBzcEFwcGxpY2F0aW9uIC0+IGF6dXJlQWRTeXN0ZW0gIkdldHMgYWNjZXNzIHRva2VuIGZyb20iCgogICAgICAgIGdhdGV3YXkgLT4gYXV0aEFwaSAiUm91dGVzIHRvIgogICAgICAgIGdhdGV3YXkgLT4gdXNlckFwaSAiUm91dGVzIHRvIgogICAgICAgIGdhdGV3YXkgLT4gcG9zdEFwaSAiUm91dGVzIHRvIgogICAgICAgIGdhdGV3YXkgLT4gY29tbWVudEFwaSAiUm91dGVzIHRvIgogICAgICAgIGdhdGV3YXkgLT4gdm90ZUFwaSAiUm91dGVzIHRvIgoKICAgICAgICBhdXRoQXBpIC0+IGF6dXJlQWRTeXN0ZW0gIkVuc3VyZXMgYWNjZXNzIHRva2VuIGlzIHZhbGlkIHdpdGgiCgogICAgICAgIHVzZXJBcGkgLT4gZXZlbnRCdXMgIkNvbW11bmljYXRlcyB3aXRoIgogICAgICAgIHVzZXJBcGkgLT4gdXNlclJlZ2lzdHJhdGlvbkV2ZW50ICJQdWJsaXNoZXMiCiAgICAgICAgdXNlckFwaSAtPiB1c2VyRGIgIlN0b3JlcyBpbmZvcm1hdGlvbiBpbiIKCiAgICAgICAgcG9zdEFwaSAtPiBhenVyZUJsb2JTdG9yYWdlICJTdG9yZXMgbWVkaWEgaW4iCiAgICAgICAgcG9zdEFwaSAtPiBldmVudEJ1cyAiQ29tbXVuaWNhdGVzIHdpdGgiCiAgICAgICAgcG9zdEFwaSAtPiBwb3N0RGIgIlN0b3JlcyBpbmZvcm1hdGlvbiBpbiIKICAgICAgICBwb3N0QXBpIC0+IHBvc3RDcmVhdGlvbkV2ZW50ICJQdWJsaXNoZXMiCiAgICAgICAgcG9zdEFwaSAtPiB1c2VyUmVnaXN0cmF0aW9uRXZlbnQgIlN1YnNjcmliZXMgdG8iCgogICAgICAgIGNvbW1lbnRBcGkgLT4gZXZlbnRCdXMgIkNvbW11bmljYXRlcyB3aXRoIgogICAgICAgIGNvbW1lbnRBcGkgLT4gcG9zdENyZWF0aW9uRXZlbnQgIlN1YnNjcmliZXMgdG8iCiAgICAgICAgY29tbWVudEFwaSAtPiB1c2VyUmVnaXN0cmF0aW9uRXZlbnQgIlN1YnNjcmliZXMgdG8iCiAgICAgICAgY29tbWVudEFwaSAtPiBjb21tZW50RGIgIlN0b3JlcyBpbmZvcm1hdGlvbiBpbiIKCiAgICAgICAgdm90ZUFwaSAtPiBldmVudEJ1cyAiQ29tbXVuaWNhdGVzIHdpdGgiCiAgICAgICAgdm90ZUFwaSAtPiB2b3RlRGIgIlN0b3JlcyBpbmZvcm1hdGlvbiBpbiIKCiAgICAgICAgZW1haWxTY3JpcHQgLT4gYXp1cmVFbWFpbENvbW11bmljYXRpb25TZXJ2aWNlICJTZW5kcyBlbWFpbHMgdXNpbmciCiAgICAgICAgZW1haWxTY3JpcHQgLT4gZXZlbnRCdXMgIlN1YnNjcmliZXMgdG8iCiAgICAgICAgZW1haWxTY3JpcHQgLT4gdXNlclJlZ2lzdHJhdGlvbkV2ZW50ICJTdWJzY3JpYmVzIHRvIgoKICAgICAgICBhenVyZUVtYWlsQ29tbXVuaWNhdGlvblNlcnZpY2UgLT4gbm90cmVkZGl0VXNlciAiU2VuZHMgZW1haWxzIHRvIgogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICB0aGVtZSBodHRwczovL3N0YXRpYy5zdHJ1Y3R1cml6ci5jb20vdGhlbWVzL21pY3Jvc29mdC1henVyZS0yMDIzLjAxLjI0L3RoZW1lLmpzb24KCiAgICAgICAgc3lzdGVtQ29udGV4dCBub3RyZWRkaXRTeXN0ZW0gewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dAogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIG5vdHJlZGRpdFN5c3RlbSB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgIH0KCiAgICAgICAgY29tcG9uZW50IGV2ZW50QnVzIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQoKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJub3RyZWRkaXQiIHsKICAgICAgICAgICAgICAgIGljb24gaW1nL25vdHJlZGRpdC5wbmcKICAgICAgICAgICAgICAgIHN0cm9rZVdpZHRoIDUKICAgICAgICAgICAgICAgIHN0cm9rZSAjODA4MDgwCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgInNlcnZpY2UiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2ZmZmZmZgogICAgICAgICAgICAgICAgY29sb3IgIzM2MzYzNgogICAgICAgICAgICAgICAgc3Ryb2tlV2lkdGggNQogICAgICAgICAgICAgICAgc3Ryb2tlICM4MDgwODAKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiZmFzdGFwaSIgewogICAgICAgICAgICAgICAgaWNvbiBpbWcvZmFzdGFwaS5wbmcKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI0U2RjRGMwogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJweXRob24iIHsKICAgICAgICAgICAgICAgIGljb24gaW1nL3B5dGhvbi5wbmcKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI0FGQzRENgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJuZ2lueCIgewogICAgICAgICAgICAgICAgaWNvbiBpbWcvbmdpbngucG5nCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNGRkZBQTAKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiYXp1cmVCbG9iU3RvcmFnZSIgewogICAgICAgICAgICAgICAgc2hhcGUgRm9sZGVyCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNlOGZiZmYKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAicG9zdGdyZXNxbCIgewogICAgICAgICAgICAgICAgc2hhcGUgQ3lsaW5kZXIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI0ZGRTVFNQogICAgICAgICAgICAgICAgY29sb3IgIzM2MzYzNgogICAgICAgICAgICAgICAgaWNvbiBpbWcvcG9zdGdyZXNxbC5wbmcKICAgICAgICAgICAgICAgIHN0cm9rZVdpZHRoIDUKICAgICAgICAgICAgICAgIHN0cm9rZSAjODA4MDgwCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgImF6dXJlQWN0aXZlRGlyZWN0b3J5IiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNlOGZiZmYKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiYXp1cmVFbWFpbENvbW11bmljYXRpb25TZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNlMGQ1ZjUKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAicGVyc29uIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBQZXJzb24KICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2IyZTNlZAogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJzcGEiIHsKICAgICAgICAgICAgICAgIHNoYXBlIFdlYkJyb3dzZXIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2U4ZThlOAogICAgICAgICAgICAgICAgaWNvbiBpbWcvbmV4dGpzLnBuZwogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJyYWJiaXRtcSIgewogICAgICAgICAgICAgICAgc2hhcGUgUGlwZQogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjZmZkN2E2CiAgICAgICAgICAgICAgICBpY29uIGltZy9yYWJiaXRtcS5wbmcKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiZXZlbnQiIHsKICAgICAgICAgICAgICAgIHNoYXBlIEhleGFnb24KICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2RkZGRkZAogICAgICAgICAgICAgICAgc3Ryb2tlV2lkdGggNQogICAgICAgICAgICAgICAgc3Ryb2tlICM4MDgwODAKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KCn0K"
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgbm90cmVkZGl0VXNlciA9IHBlcnNvbiAiTm90LXJlZGRpdCBVc2VyIiB7CiAgICAgICAgICAgIHRhZ3MgIk1pY3Jvc29mdCBBenVyZSAtIFVzZXJzIiAicGVyc29uIgogICAgICAgIH0KCiAgICAgICAgbm90cmVkZGl0U3lzdGVtID0gc29mdHdhcmVTeXN0ZW0gIk5vdC1yZWRkaXQiewogICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAibm90cmVkZGl0IgogICAgICAgICAgICBzcEFwcGxpY2F0aW9uID0gY29udGFpbmVyICJub3QtcmVkZGl0IFNpbmdsZSBQYWdlIEFwcGxpY2F0aW9uIiB7CiAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAic3BhIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGdhdGV3YXkgPSBjb250YWluZXIgIkFQSSBHYXRld2F5IiB7CiAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAibmdpbngiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGdyb3VwICJBdXRoZW50aWNhdGlvbiBTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBhdXRoQXBpID0gY29udGFpbmVyICJBdXRoZW50aWNhdGlvbiBBUEkiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAiZmFzdGFwaSIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZ3JvdXAgIlVzZXIgU2VydmljZSIgewogICAgICAgICAgICAgICAgdXNlckFwaSA9IGNvbnRhaW5lciAiVXNlciBBUEkiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAiZmFzdGFwaSIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIHVzZXJEYiA9IGNvbnRhaW5lciAiVXNlciBEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgInBvc3RncmVzcWwiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGdyb3VwICJQb3N0IFNlcnZpY2UiIHsKICAgICAgICAgICAgICAgIHBvc3RBcGkgPSBjb250YWluZXIgIlBvc3QgQVBJIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAic2VydmljZSIgImZhc3RhcGkiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBwb3N0RGIgPSBjb250YWluZXIgIlBvc3QgRGF0YWJhc2UiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJwb3N0Z3Jlc3FsIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CgogICAgICAgICAgICBncm91cCAiQ29tbWVudCBTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBjb21tZW50QXBpID0gY29udGFpbmVyICJDb21tZW50IEFQSSIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgInNlcnZpY2UiICJmYXN0YXBpIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgY29tbWVudERiID0gY29udGFpbmVyICJDb21tZW50IERhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAicG9zdGdyZXNxbCIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZ3JvdXAgIlZvdGUgU2VydmljZSIgewogICAgICAgICAgICAgICAgdm90ZUFwaSA9IGNvbnRhaW5lciAiVm90ZSBBUEkiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJzZXJ2aWNlIiAiZmFzdGFwaSIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIHZvdGVEYiA9IGNvbnRhaW5lciAiVm90ZSBEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgInBvc3RncmVzcWwiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGdyb3VwICJFbWFpbCBTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBlbWFpbFNjcmlwdCA9IGNvbnRhaW5lciAiRW1haWwgU2NyaXB0IiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAic2VydmljZSIgInB5dGhvbiIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZXZlbnRCdXMgPSBjb250YWluZXIgIkV2ZW50IEJ1cyIgewogICAgICAgICAgICAgICAgdGFncyAic2VydmljZSIgInJhYmJpdG1xIgogICAgICAgICAgICAgICAgdXNlclJlZ2lzdGVyZWRFdmVudCA9IGNvbXBvbmVudCAiVXNlciBSZWdpc3RlcmVkIEV2ZW50IiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiZXZlbnQiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBwb3N0Q3JlYXRlZEV2ZW50ID0gY29tcG9uZW50ICJQb3N0IENyZWF0ZWQgRXZlbnQiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJldmVudCIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIGNvbW1lbnRDcmVhdGVkRXZlbnQgPSBjb21wb25lbnQgIkNvbW1lbnQgQ3JlYXRlZCBFdmVudCIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgImV2ZW50IgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgcG9zdFZvdGVDYXN0ZWRFdmVudCA9IGNvbXBvbmVudCAiUG9zdCBWb3RlIENhc3RlZCBFdmVudCIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgImV2ZW50IgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgY29tbWVudFZvdGVDYXN0ZWRFdmVudCA9IGNvbXBvbmVudCAiQ29tbWVudCBWb3RlIENhc3RlZCBFdmVudCIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgImV2ZW50IgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICBhenVyZUFkU3lzdGVtID0gc29mdHdhcmVTeXN0ZW0gIk1pY3Jvc29mdCBBenVyZSBBY3RpdmUgRGlyZWN0b3J5IiB7CiAgICAgICAgICAgIHRhZ3MgIk1pY3Jvc29mdCBBenVyZSAtIEF6dXJlIEFjdGl2ZSBEaXJlY3RvcnkiICJhenVyZUFjdGl2ZURpcmVjdG9yeSIKICAgICAgICB9CgogICAgICAgIGF6dXJlQmxvYlN0b3JhZ2UgPSBzb2Z0d2FyZVN5c3RlbSAiTWljcm9zb2Z0IEF6dXJlIEJsb2IgU3RvcmFnZSIgewogICAgICAgICAgICB0YWdzICJNaWNyb3NvZnQgQXp1cmUgLSBCbG9iIFBhZ2UiICJhenVyZUJsb2JTdG9yYWdlIgogICAgICAgIH0KCiAgICAgICAgYXp1cmVFbWFpbENvbW11bmljYXRpb25TZXJ2aWNlID0gc29mdHdhcmVTeXN0ZW0gIk1pY3Jvc29mdCBBenVyZSBFbWFpbCBDb21tdW5pY2F0aW9uIFNlcnZpY2UiIHsKICAgICAgICAgICAgdGFncyAiTWljcm9zb2Z0IEF6dXJlIC0gQXp1cmUgQ29tbXVuaWNhdGlvbiBTZXJ2aWNlcyIgImF6dXJlRW1haWxDb21tdW5pY2F0aW9uU2VydmljZSIKICAgICAgICB9CgogICAgICAgIG5vdHJlZGRpdFVzZXIgLT4gc3BBcHBsaWNhdGlvbiAiVXNlcyIKICAgICAgICBub3RyZWRkaXRVc2VyIC0+IGF6dXJlQWRTeXN0ZW0gIkF1dGhlbnRpY2F0ZXMgd2l0aCIKCiAgICAgICAgc3BBcHBsaWNhdGlvbiAtPiBnYXRld2F5ICJVc2VzIgogICAgICAgIHNwQXBwbGljYXRpb24gLT4gYXp1cmVBZFN5c3RlbSAiR2V0cyBhY2Nlc3MgdG9rZW4gZnJvbSIKCiAgICAgICAgZ2F0ZXdheSAtPiBhdXRoQXBpICJSb3V0ZXMgdG8iCiAgICAgICAgZ2F0ZXdheSAtPiB1c2VyQXBpICJSb3V0ZXMgdG8iCiAgICAgICAgZ2F0ZXdheSAtPiBwb3N0QXBpICJSb3V0ZXMgdG8iCiAgICAgICAgZ2F0ZXdheSAtPiBjb21tZW50QXBpICJSb3V0ZXMgdG8iCiAgICAgICAgZ2F0ZXdheSAtPiB2b3RlQXBpICJSb3V0ZXMgdG8iCgogICAgICAgIGF1dGhBcGkgLT4gYXp1cmVBZFN5c3RlbSAiRW5zdXJlcyBhY2Nlc3MgdG9rZW4gaXMgdmFsaWQgd2l0aCIKCiAgICAgICAgdXNlckFwaSAtPiBldmVudEJ1cyAiQ29tbXVuaWNhdGVzIHdpdGgiCiAgICAgICAgdXNlckFwaSAtPiB1c2VyUmVnaXN0ZXJlZEV2ZW50ICJQdWJsaXNoZXMiCiAgICAgICAgdXNlckFwaSAtPiB1c2VyRGIgIlN0b3JlcyBpbmZvcm1hdGlvbiBpbiIKCiAgICAgICAgcG9zdEFwaSAtPiBhenVyZUJsb2JTdG9yYWdlICJTdG9yZXMgbWVkaWEgaW4iCiAgICAgICAgcG9zdEFwaSAtPiBldmVudEJ1cyAiQ29tbXVuaWNhdGVzIHdpdGgiCiAgICAgICAgcG9zdEFwaSAtPiBwb3N0RGIgIlN0b3JlcyBpbmZvcm1hdGlvbiBpbiIKICAgICAgICBwb3N0QXBpIC0+IHBvc3RDcmVhdGVkRXZlbnQgIlB1Ymxpc2hlcyIKICAgICAgICBwb3N0QXBpIC0+IHVzZXJSZWdpc3RlcmVkRXZlbnQgIlN1YnNjcmliZXMgdG8iCiAgICAgICAgcG9zdEFwaSAtPiBwb3N0Vm90ZUNhc3RlZEV2ZW50ICJTdWJzY3JpYmVzIHRvIgoKICAgICAgICBjb21tZW50QXBpIC0+IGV2ZW50QnVzICJDb21tdW5pY2F0ZXMgd2l0aCIKICAgICAgICBjb21tZW50QXBpIC0+IHBvc3RDcmVhdGVkRXZlbnQgIlN1YnNjcmliZXMgdG8iCiAgICAgICAgY29tbWVudEFwaSAtPiB1c2VyUmVnaXN0ZXJlZEV2ZW50ICJTdWJzY3JpYmVzIHRvIgogICAgICAgIGNvbW1lbnRBcGkgLT4gY29tbWVudERiICJTdG9yZXMgaW5mb3JtYXRpb24gaW4iCiAgICAgICAgY29tbWVudEFwaSAtPiBjb21tZW50Q3JlYXRlZEV2ZW50ICJQdWJsaXNoZXMiCiAgICAgICAgY29tbWVudEFwaSAtPiBjb21tZW50Vm90ZUNhc3RlZEV2ZW50ICJTdWJzY3JpYmVzIHRvIgoKICAgICAgICB2b3RlQXBpIC0+IGV2ZW50QnVzICJDb21tdW5pY2F0ZXMgd2l0aCIKICAgICAgICB2b3RlQXBpIC0+IHZvdGVEYiAiU3RvcmVzIGluZm9ybWF0aW9uIGluIgogICAgICAgIHZvdGVBcGkgLT4gdXNlclJlZ2lzdGVyZWRFdmVudCAiU3Vic2NyaWJlcyB0byIKICAgICAgICB2b3RlQXBpIC0+IHBvc3RDcmVhdGVkRXZlbnQgIlN1YnNjcmliZXMgdG8iCiAgICAgICAgdm90ZUFwaSAtPiBjb21tZW50Q3JlYXRlZEV2ZW50ICJTdWJzY3JpYmVzIHRvIgogICAgICAgIHZvdGVBcGkgLT4gcG9zdFZvdGVDYXN0ZWRFdmVudCAiUHVibGlzaGVzIgogICAgICAgIHZvdGVBcGkgLT4gY29tbWVudFZvdGVDYXN0ZWRFdmVudCAiUHVibGlzaGVzIgoKICAgICAgICBlbWFpbFNjcmlwdCAtPiBhenVyZUVtYWlsQ29tbXVuaWNhdGlvblNlcnZpY2UgIlNlbmRzIGVtYWlscyB1c2luZyIKICAgICAgICBlbWFpbFNjcmlwdCAtPiBldmVudEJ1cyAiU3Vic2NyaWJlcyB0byIKICAgICAgICBlbWFpbFNjcmlwdCAtPiB1c2VyUmVnaXN0ZXJlZEV2ZW50ICJTdWJzY3JpYmVzIHRvIgoKICAgICAgICBhenVyZUVtYWlsQ29tbXVuaWNhdGlvblNlcnZpY2UgLT4gbm90cmVkZGl0VXNlciAiU2VuZHMgZW1haWxzIHRvIgogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICB0aGVtZSBodHRwczovL3N0YXRpYy5zdHJ1Y3R1cml6ci5jb20vdGhlbWVzL21pY3Jvc29mdC1henVyZS0yMDIzLjAxLjI0L3RoZW1lLmpzb24KCiAgICAgICAgc3lzdGVtQ29udGV4dCBub3RyZWRkaXRTeXN0ZW0gewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dAogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIG5vdHJlZGRpdFN5c3RlbSB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgIH0KCiAgICAgICAgY29tcG9uZW50IGV2ZW50QnVzIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQoKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJub3RyZWRkaXQiIHsKICAgICAgICAgICAgICAgIGljb24gaW1nL25vdHJlZGRpdC5wbmcKICAgICAgICAgICAgICAgIHN0cm9rZVdpZHRoIDUKICAgICAgICAgICAgICAgIHN0cm9rZSAjODA4MDgwCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgInNlcnZpY2UiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2ZmZmZmZgogICAgICAgICAgICAgICAgY29sb3IgIzM2MzYzNgogICAgICAgICAgICAgICAgc3Ryb2tlV2lkdGggNQogICAgICAgICAgICAgICAgc3Ryb2tlICM4MDgwODAKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiZmFzdGFwaSIgewogICAgICAgICAgICAgICAgaWNvbiBpbWcvZmFzdGFwaS5wbmcKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI0U2RjRGMwogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJweXRob24iIHsKICAgICAgICAgICAgICAgIGljb24gaW1nL3B5dGhvbi5wbmcKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI0FGQzRENgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJuZ2lueCIgewogICAgICAgICAgICAgICAgaWNvbiBpbWcvbmdpbngucG5nCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNGRkZBQTAKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiYXp1cmVCbG9iU3RvcmFnZSIgewogICAgICAgICAgICAgICAgc2hhcGUgRm9sZGVyCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNlOGZiZmYKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAicG9zdGdyZXNxbCIgewogICAgICAgICAgICAgICAgc2hhcGUgQ3lsaW5kZXIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI0ZGRTVFNQogICAgICAgICAgICAgICAgY29sb3IgIzM2MzYzNgogICAgICAgICAgICAgICAgaWNvbiBpbWcvcG9zdGdyZXNxbC5wbmcKICAgICAgICAgICAgICAgIHN0cm9rZVdpZHRoIDUKICAgICAgICAgICAgICAgIHN0cm9rZSAjODA4MDgwCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgImF6dXJlQWN0aXZlRGlyZWN0b3J5IiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNlOGZiZmYKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiYXp1cmVFbWFpbENvbW11bmljYXRpb25TZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNlMGQ1ZjUKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAicGVyc29uIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBQZXJzb24KICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2IyZTNlZAogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJzcGEiIHsKICAgICAgICAgICAgICAgIHNoYXBlIFdlYkJyb3dzZXIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2U4ZThlOAogICAgICAgICAgICAgICAgaWNvbiBpbWcvbmV4dGpzLnBuZwogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJyYWJiaXRtcSIgewogICAgICAgICAgICAgICAgc2hhcGUgUGlwZQogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjZmZkN2E2CiAgICAgICAgICAgICAgICBpY29uIGltZy9yYWJiaXRtcS5wbmcKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiZXZlbnQiIHsKICAgICAgICAgICAgICAgIHNoYXBlIEhleGFnb24KICAgICAgICAgICAgICAgIGJhY2tncm91bmQgI2RkZGRkZAogICAgICAgICAgICAgICAgc3Ryb2tlV2lkdGggNQogICAgICAgICAgICAgICAgc3Ryb2tlICM4MDgwODAKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KCn0K"
   },
   "configuration" : { },
   "model" : {
@@ -16,27 +17,52 @@
       },
       "name" : "Not-reddit User",
       "relationships" : [ {
-        "id" : "21",
+        "id" : "25",
+        "sourceId" : "1",
+        "destinationId" : "2",
+        "description" : "Uses",
+        "linkedRelationshipId" : "24"
+      }, {
+        "id" : "24",
         "tags" : "Relationship",
         "sourceId" : "1",
         "destinationId" : "3",
         "description" : "Uses"
       }, {
-        "id" : "22",
-        "sourceId" : "1",
-        "destinationId" : "2",
-        "description" : "Uses",
-        "linkedRelationshipId" : "21"
-      }, {
-        "id" : "23",
+        "id" : "26",
         "tags" : "Relationship",
         "sourceId" : "1",
-        "destinationId" : "18",
+        "destinationId" : "21",
         "description" : "Authenticates with"
       } ],
       "location" : "Unspecified"
     } ],
     "softwareSystems" : [ {
+      "id" : "23",
+      "tags" : "Element,Software System,Microsoft Azure - Azure Communication Services,azureEmailCommunicationService",
+      "properties" : {
+        "structurizr.dsl.identifier" : "azureemailcommunicationservice"
+      },
+      "name" : "Microsoft Azure Email Communication Service",
+      "relationships" : [ {
+        "id" : "63",
+        "tags" : "Relationship",
+        "sourceId" : "23",
+        "destinationId" : "1",
+        "description" : "Sends emails to"
+      } ],
+      "location" : "Unspecified",
+      "documentation" : { }
+    }, {
+      "id" : "22",
+      "tags" : "Element,Software System,Microsoft Azure - Blob Page,azureBlobStorage",
+      "properties" : {
+        "structurizr.dsl.identifier" : "azureblobstorage"
+      },
+      "name" : "Microsoft Azure Blob Storage",
+      "location" : "Unspecified",
+      "documentation" : { }
+    }, {
       "id" : "2",
       "tags" : "Element,Software System,service,notreddit",
       "properties" : {
@@ -44,26 +70,35 @@
       },
       "name" : "Not-reddit",
       "relationships" : [ {
-        "id" : "26",
+        "id" : "29",
         "sourceId" : "2",
-        "destinationId" : "18",
+        "destinationId" : "21",
         "description" : "Gets access token from",
-        "linkedRelationshipId" : "25"
+        "linkedRelationshipId" : "28"
       }, {
-        "id" : "37",
+        "id" : "40",
         "sourceId" : "2",
-        "destinationId" : "19",
+        "destinationId" : "22",
         "description" : "Stores media in",
-        "linkedRelationshipId" : "36"
+        "linkedRelationshipId" : "39"
       }, {
-        "id" : "49",
+        "id" : "60",
         "sourceId" : "2",
-        "destinationId" : "20",
+        "destinationId" : "23",
         "description" : "Sends emails using",
-        "linkedRelationshipId" : "48"
+        "linkedRelationshipId" : "59"
       } ],
       "location" : "Unspecified",
       "containers" : [ {
+        "id" : "11",
+        "tags" : "Element,Container,postgresql",
+        "properties" : {
+          "structurizr.dsl.identifier" : "commentdb"
+        },
+        "name" : "Comment Database",
+        "group" : "Comment Service",
+        "documentation" : { }
+      }, {
         "id" : "13",
         "tags" : "Element,Container,postgresql",
         "properties" : {
@@ -71,104 +106,6 @@
         },
         "name" : "Vote Database",
         "group" : "Vote Service",
-        "documentation" : { }
-      }, {
-        "id" : "15",
-        "tags" : "Element,Container,service,rabbitmq",
-        "properties" : {
-          "structurizr.dsl.identifier" : "eventbus"
-        },
-        "name" : "Event Bus",
-        "components" : [ {
-          "id" : "16",
-          "tags" : "Element,Component,event",
-          "properties" : {
-            "structurizr.dsl.identifier" : "userregistrationevent"
-          },
-          "name" : "User Registration Event",
-          "documentation" : { }
-        }, {
-          "id" : "17",
-          "tags" : "Element,Component,event",
-          "properties" : {
-            "structurizr.dsl.identifier" : "postcreationevent"
-          },
-          "name" : "Post Creation Event",
-          "documentation" : { }
-        } ],
-        "documentation" : { }
-      }, {
-        "id" : "4",
-        "tags" : "Element,Container,service,nginx",
-        "properties" : {
-          "structurizr.dsl.identifier" : "gateway"
-        },
-        "name" : "API Gateway",
-        "relationships" : [ {
-          "id" : "27",
-          "tags" : "Relationship",
-          "sourceId" : "4",
-          "destinationId" : "5",
-          "description" : "Routes to"
-        }, {
-          "id" : "28",
-          "tags" : "Relationship",
-          "sourceId" : "4",
-          "destinationId" : "6",
-          "description" : "Routes to"
-        }, {
-          "id" : "29",
-          "tags" : "Relationship",
-          "sourceId" : "4",
-          "destinationId" : "8",
-          "description" : "Routes to"
-        }, {
-          "id" : "30",
-          "tags" : "Relationship",
-          "sourceId" : "4",
-          "destinationId" : "10",
-          "description" : "Routes to"
-        }, {
-          "id" : "31",
-          "tags" : "Relationship",
-          "sourceId" : "4",
-          "destinationId" : "12",
-          "description" : "Routes to"
-        } ],
-        "documentation" : { }
-      }, {
-        "id" : "10",
-        "tags" : "Element,Container,service,fastapi",
-        "properties" : {
-          "structurizr.dsl.identifier" : "commentapi"
-        },
-        "name" : "Comment API",
-        "relationships" : [ {
-          "id" : "42",
-          "tags" : "Relationship",
-          "sourceId" : "10",
-          "destinationId" : "15",
-          "description" : "Communicates with"
-        }, {
-          "id" : "43",
-          "tags" : "Relationship",
-          "sourceId" : "10",
-          "destinationId" : "17",
-          "description" : "Subscribes to"
-        }, {
-          "id" : "44",
-          "tags" : "Relationship",
-          "sourceId" : "10",
-          "destinationId" : "16",
-          "description" : "Subscribes to"
-        }, {
-          "id" : "45",
-          "tags" : "Relationship",
-          "sourceId" : "10",
-          "destinationId" : "11",
-          "description" : "Stores information in"
-        } ],
-        "group" : "Comment Service",
         "documentation" : { }
       }, {
         "id" : "7",
@@ -180,77 +117,137 @@
         "group" : "User Service",
         "documentation" : { }
       }, {
-        "id" : "11",
-        "tags" : "Element,Container,postgresql",
+        "id" : "15",
+        "tags" : "Element,Container,service,rabbitmq",
         "properties" : {
-          "structurizr.dsl.identifier" : "commentdb"
+          "structurizr.dsl.identifier" : "eventbus"
         },
-        "name" : "Comment Database",
-        "group" : "Comment Service",
+        "name" : "Event Bus",
+        "components" : [ {
+          "id" : "18",
+          "tags" : "Element,Component,event",
+          "properties" : {
+            "structurizr.dsl.identifier" : "commentcreatedevent"
+          },
+          "name" : "Comment Created Event",
+          "documentation" : { }
+        }, {
+          "id" : "17",
+          "tags" : "Element,Component,event",
+          "properties" : {
+            "structurizr.dsl.identifier" : "postcreatedevent"
+          },
+          "name" : "Post Created Event",
+          "documentation" : { }
+        }, {
+          "id" : "16",
+          "tags" : "Element,Component,event",
+          "properties" : {
+            "structurizr.dsl.identifier" : "userregisteredevent"
+          },
+          "name" : "User Registered Event",
+          "documentation" : { }
+        }, {
+          "id" : "20",
+          "tags" : "Element,Component,event",
+          "properties" : {
+            "structurizr.dsl.identifier" : "commentvotecastedevent"
+          },
+          "name" : "Comment Vote Casted Event",
+          "documentation" : { }
+        }, {
+          "id" : "19",
+          "tags" : "Element,Component,event",
+          "properties" : {
+            "structurizr.dsl.identifier" : "postvotecastedevent"
+          },
+          "name" : "Post Vote Casted Event",
+          "documentation" : { }
+        } ],
         "documentation" : { }
       }, {
-        "id" : "14",
-        "tags" : "Element,Container,service,python",
+        "id" : "10",
+        "tags" : "Element,Container,service,fastapi",
         "properties" : {
-          "structurizr.dsl.identifier" : "emailscript"
+          "structurizr.dsl.identifier" : "commentapi"
         },
-        "name" : "Email Script",
+        "name" : "Comment API",
         "relationships" : [ {
-          "id" : "48",
+          "id" : "51",
           "tags" : "Relationship",
-          "sourceId" : "14",
+          "sourceId" : "10",
           "destinationId" : "20",
-          "description" : "Sends emails using"
+          "description" : "Subscribes to"
+        }, {
+          "id" : "47",
+          "tags" : "Relationship",
+          "sourceId" : "10",
+          "destinationId" : "17",
+          "description" : "Subscribes to"
+        }, {
+          "id" : "49",
+          "tags" : "Relationship",
+          "sourceId" : "10",
+          "destinationId" : "11",
+          "description" : "Stores information in"
         }, {
           "id" : "50",
           "tags" : "Relationship",
-          "sourceId" : "14",
-          "destinationId" : "15",
-          "description" : "Subscribes to"
+          "sourceId" : "10",
+          "destinationId" : "18",
+          "description" : "Publishes"
         }, {
-          "id" : "51",
+          "id" : "46",
           "tags" : "Relationship",
-          "sourceId" : "14",
+          "sourceId" : "10",
+          "destinationId" : "15",
+          "description" : "Communicates with"
+        }, {
+          "id" : "48",
+          "tags" : "Relationship",
+          "sourceId" : "10",
           "destinationId" : "16",
           "description" : "Subscribes to"
         } ],
-        "group" : "Email Service",
+        "group" : "Comment Service",
         "documentation" : { }
       }, {
-        "id" : "5",
-        "tags" : "Element,Container,service,fastapi",
+        "id" : "4",
+        "tags" : "Element,Container,service,nginx",
         "properties" : {
-          "structurizr.dsl.identifier" : "authapi"
+          "structurizr.dsl.identifier" : "gateway"
         },
-        "name" : "Authentication API",
+        "name" : "API Gateway",
         "relationships" : [ {
+          "id" : "30",
+          "tags" : "Relationship",
+          "sourceId" : "4",
+          "destinationId" : "5",
+          "description" : "Routes to"
+        }, {
           "id" : "32",
           "tags" : "Relationship",
-          "sourceId" : "5",
-          "destinationId" : "18",
-          "description" : "Ensures access token is valid with"
-        } ],
-        "group" : "Authentication Service",
-        "documentation" : { }
-      }, {
-        "id" : "3",
-        "tags" : "Element,Container,service,spa",
-        "properties" : {
-          "structurizr.dsl.identifier" : "spapplication"
-        },
-        "name" : "not-reddit Single Page Application",
-        "relationships" : [ {
-          "id" : "24",
-          "tags" : "Relationship",
-          "sourceId" : "3",
-          "destinationId" : "4",
-          "description" : "Uses"
+          "sourceId" : "4",
+          "destinationId" : "8",
+          "description" : "Routes to"
         }, {
-          "id" : "25",
+          "id" : "33",
           "tags" : "Relationship",
-          "sourceId" : "3",
-          "destinationId" : "18",
-          "description" : "Gets access token from"
+          "sourceId" : "4",
+          "destinationId" : "10",
+          "description" : "Routes to"
+        }, {
+          "id" : "34",
+          "tags" : "Relationship",
+          "sourceId" : "4",
+          "destinationId" : "12",
+          "description" : "Routes to"
+        }, {
+          "id" : "31",
+          "tags" : "Relationship",
+          "sourceId" : "4",
+          "destinationId" : "6",
+          "description" : "Routes to"
         } ],
         "documentation" : { }
       }, {
@@ -261,13 +258,31 @@
         },
         "name" : "Post API",
         "relationships" : [ {
-          "id" : "36",
+          "id" : "43",
+          "tags" : "Relationship",
+          "sourceId" : "8",
+          "destinationId" : "17",
+          "description" : "Publishes"
+        }, {
+          "id" : "44",
+          "tags" : "Relationship",
+          "sourceId" : "8",
+          "destinationId" : "16",
+          "description" : "Subscribes to"
+        }, {
+          "id" : "42",
+          "tags" : "Relationship",
+          "sourceId" : "8",
+          "destinationId" : "9",
+          "description" : "Stores information in"
+        }, {
+          "id" : "45",
           "tags" : "Relationship",
           "sourceId" : "8",
           "destinationId" : "19",
-          "description" : "Stores media in"
+          "description" : "Subscribes to"
         }, {
-          "id" : "38",
+          "id" : "41",
           "tags" : "Relationship",
           "sourceId" : "8",
           "destinationId" : "15",
@@ -276,20 +291,8 @@
           "id" : "39",
           "tags" : "Relationship",
           "sourceId" : "8",
-          "destinationId" : "9",
-          "description" : "Stores information in"
-        }, {
-          "id" : "40",
-          "tags" : "Relationship",
-          "sourceId" : "8",
-          "destinationId" : "17",
-          "description" : "Publishes"
-        }, {
-          "id" : "41",
-          "tags" : "Relationship",
-          "sourceId" : "8",
-          "destinationId" : "16",
-          "description" : "Subscribes to"
+          "destinationId" : "22",
+          "description" : "Stores media in"
         } ],
         "group" : "Post Service",
         "documentation" : { }
@@ -301,25 +304,142 @@
         },
         "name" : "User API",
         "relationships" : [ {
-          "id" : "33",
+          "id" : "36",
           "tags" : "Relationship",
           "sourceId" : "6",
           "destinationId" : "15",
           "description" : "Communicates with"
         }, {
-          "id" : "34",
-          "tags" : "Relationship",
-          "sourceId" : "6",
-          "destinationId" : "16",
-          "description" : "Publishes"
-        }, {
-          "id" : "35",
+          "id" : "38",
           "tags" : "Relationship",
           "sourceId" : "6",
           "destinationId" : "7",
           "description" : "Stores information in"
+        }, {
+          "id" : "37",
+          "tags" : "Relationship",
+          "sourceId" : "6",
+          "destinationId" : "16",
+          "description" : "Publishes"
         } ],
         "group" : "User Service",
+        "documentation" : { }
+      }, {
+        "id" : "12",
+        "tags" : "Element,Container,service,fastapi",
+        "properties" : {
+          "structurizr.dsl.identifier" : "voteapi"
+        },
+        "name" : "Vote API",
+        "relationships" : [ {
+          "id" : "55",
+          "tags" : "Relationship",
+          "sourceId" : "12",
+          "destinationId" : "17",
+          "description" : "Subscribes to"
+        }, {
+          "id" : "56",
+          "tags" : "Relationship",
+          "sourceId" : "12",
+          "destinationId" : "18",
+          "description" : "Subscribes to"
+        }, {
+          "id" : "57",
+          "tags" : "Relationship",
+          "sourceId" : "12",
+          "destinationId" : "19",
+          "description" : "Publishes"
+        }, {
+          "id" : "54",
+          "tags" : "Relationship",
+          "sourceId" : "12",
+          "destinationId" : "16",
+          "description" : "Subscribes to"
+        }, {
+          "id" : "53",
+          "tags" : "Relationship",
+          "sourceId" : "12",
+          "destinationId" : "13",
+          "description" : "Stores information in"
+        }, {
+          "id" : "58",
+          "tags" : "Relationship",
+          "sourceId" : "12",
+          "destinationId" : "20",
+          "description" : "Publishes"
+        }, {
+          "id" : "52",
+          "tags" : "Relationship",
+          "sourceId" : "12",
+          "destinationId" : "15",
+          "description" : "Communicates with"
+        } ],
+        "group" : "Vote Service",
+        "documentation" : { }
+      }, {
+        "id" : "3",
+        "tags" : "Element,Container,service,spa",
+        "properties" : {
+          "structurizr.dsl.identifier" : "spapplication"
+        },
+        "name" : "not-reddit Single Page Application",
+        "relationships" : [ {
+          "id" : "27",
+          "tags" : "Relationship",
+          "sourceId" : "3",
+          "destinationId" : "4",
+          "description" : "Uses"
+        }, {
+          "id" : "28",
+          "tags" : "Relationship",
+          "sourceId" : "3",
+          "destinationId" : "21",
+          "description" : "Gets access token from"
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "5",
+        "tags" : "Element,Container,service,fastapi",
+        "properties" : {
+          "structurizr.dsl.identifier" : "authapi"
+        },
+        "name" : "Authentication API",
+        "relationships" : [ {
+          "id" : "35",
+          "tags" : "Relationship",
+          "sourceId" : "5",
+          "destinationId" : "21",
+          "description" : "Ensures access token is valid with"
+        } ],
+        "group" : "Authentication Service",
+        "documentation" : { }
+      }, {
+        "id" : "14",
+        "tags" : "Element,Container,service,python",
+        "properties" : {
+          "structurizr.dsl.identifier" : "emailscript"
+        },
+        "name" : "Email Script",
+        "relationships" : [ {
+          "id" : "61",
+          "tags" : "Relationship",
+          "sourceId" : "14",
+          "destinationId" : "15",
+          "description" : "Subscribes to"
+        }, {
+          "id" : "62",
+          "tags" : "Relationship",
+          "sourceId" : "14",
+          "destinationId" : "16",
+          "description" : "Subscribes to"
+        }, {
+          "id" : "59",
+          "tags" : "Relationship",
+          "sourceId" : "14",
+          "destinationId" : "23",
+          "description" : "Sends emails using"
+        } ],
+        "group" : "Email Service",
         "documentation" : { }
       }, {
         "id" : "9",
@@ -330,62 +450,15 @@
         "name" : "Post Database",
         "group" : "Post Service",
         "documentation" : { }
-      }, {
-        "id" : "12",
-        "tags" : "Element,Container,service,fastapi",
-        "properties" : {
-          "structurizr.dsl.identifier" : "voteapi"
-        },
-        "name" : "Vote API",
-        "relationships" : [ {
-          "id" : "46",
-          "tags" : "Relationship",
-          "sourceId" : "12",
-          "destinationId" : "15",
-          "description" : "Communicates with"
-        }, {
-          "id" : "47",
-          "tags" : "Relationship",
-          "sourceId" : "12",
-          "destinationId" : "13",
-          "description" : "Stores information in"
-        } ],
-        "group" : "Vote Service",
-        "documentation" : { }
       } ],
       "documentation" : { }
     }, {
-      "id" : "18",
+      "id" : "21",
       "tags" : "Element,Software System,Microsoft Azure - Azure Active Directory,azureActiveDirectory",
       "properties" : {
         "structurizr.dsl.identifier" : "azureadsystem"
       },
       "name" : "Microsoft Azure Active Directory",
-      "location" : "Unspecified",
-      "documentation" : { }
-    }, {
-      "id" : "19",
-      "tags" : "Element,Software System,Microsoft Azure - Blob Page,azureBlobStorage",
-      "properties" : {
-        "structurizr.dsl.identifier" : "azureblobstorage"
-      },
-      "name" : "Microsoft Azure Blob Storage",
-      "location" : "Unspecified",
-      "documentation" : { }
-    }, {
-      "id" : "20",
-      "tags" : "Element,Software System,Microsoft Azure - Azure Communication Services,azureEmailCommunicationService",
-      "properties" : {
-        "structurizr.dsl.identifier" : "azureemailcommunicationservice"
-      },
-      "name" : "Microsoft Azure Email Communication Service",
-      "relationships" : [ {
-        "id" : "52",
-        "tags" : "Relationship",
-        "sourceId" : "20",
-        "destinationId" : "1",
-        "description" : "Sends emails to"
-      } ],
       "location" : "Unspecified",
       "documentation" : { }
     } ]
@@ -396,6 +469,11 @@
       "key" : "SystemContext-001",
       "order" : 1,
       "softwareSystemId" : "2",
+      "paperSize" : "A4_Landscape",
+      "dimensions" : {
+        "width" : 2366,
+        "height" : 2016
+      },
       "automaticLayout" : {
         "implementation" : "Graphviz",
         "rankDirection" : "TopBottom",
@@ -406,38 +484,46 @@
       },
       "enterpriseBoundaryVisible" : true,
       "elements" : [ {
+        "id" : "22",
+        "x" : 958,
+        "y" : 1508
+      }, {
         "id" : "1",
-        "x" : 0,
-        "y" : 0
+        "x" : 983,
+        "y" : 208
+      }, {
+        "id" : "23",
+        "x" : 1708,
+        "y" : 1508
       }, {
         "id" : "2",
-        "x" : 0,
-        "y" : 0
+        "x" : 958,
+        "y" : 908
       }, {
-        "id" : "18",
-        "x" : 0,
-        "y" : 0
-      }, {
-        "id" : "19",
-        "x" : 0,
-        "y" : 0
-      }, {
-        "id" : "20",
-        "x" : 0,
-        "y" : 0
+        "id" : "21",
+        "x" : 208,
+        "y" : 1508
       } ],
       "relationships" : [ {
-        "id" : "37"
+        "id" : "29"
       }, {
-        "id" : "26"
+        "id" : "26",
+        "vertices" : [ {
+          "x" : 808,
+          "y" : 908
+        } ]
       }, {
-        "id" : "52"
+        "id" : "60"
       }, {
-        "id" : "23"
+        "id" : "25"
       }, {
-        "id" : "22"
+        "id" : "40"
       }, {
-        "id" : "49"
+        "id" : "63",
+        "vertices" : [ {
+          "x" : 1558,
+          "y" : 908
+        } ]
       } ]
     } ],
     "containerViews" : [ {
@@ -454,9 +540,17 @@
         "x" : 1964,
         "y" : 2737
       }, {
+        "id" : "22",
+        "x" : 3609,
+        "y" : 2215
+      }, {
         "id" : "12",
         "x" : 1104,
         "y" : 2215
+      }, {
+        "id" : "23",
+        "x" : 3654,
+        "y" : 4015
       }, {
         "id" : "13",
         "x" : 1099,
@@ -469,14 +563,6 @@
         "id" : "15",
         "x" : 1513,
         "y" : 3295
-      }, {
-        "id" : "18",
-        "x" : 805,
-        "y" : 245
-      }, {
-        "id" : "19",
-        "x" : 3609,
-        "y" : 2215
       }, {
         "id" : "1",
         "x" : 2540,
@@ -510,18 +596,18 @@
         "x" : 2829,
         "y" : 2747
       }, {
-        "id" : "20",
-        "x" : 3654,
-        "y" : 4015
+        "id" : "21",
+        "x" : 805,
+        "y" : 245
       }, {
         "id" : "10",
         "x" : 1969,
         "y" : 2215
       } ],
       "relationships" : [ {
-        "id" : "50"
+        "id" : "61"
       }, {
-        "id" : "52",
+        "id" : "63",
         "vertices" : [ {
           "x" : 4284,
           "y" : 4165
@@ -530,7 +616,55 @@
           "y" : 395
         } ]
       }, {
-        "id" : "42",
+        "id" : "41",
+        "vertices" : [ {
+          "x" : 2624,
+          "y" : 2360
+        }, {
+          "x" : 2624,
+          "y" : 3450
+        } ]
+      }, {
+        "id" : "52",
+        "vertices" : [ {
+          "x" : 1739,
+          "y" : 2355
+        } ]
+      }, {
+        "id" : "53"
+      }, {
+        "id" : "42"
+      }, {
+        "id" : "32"
+      }, {
+        "id" : "31"
+      }, {
+        "id" : "30"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "27"
+      }, {
+        "id" : "26"
+      }, {
+        "id" : "36",
+        "vertices" : [ {
+          "x" : 899,
+          "y" : 2355
+        }, {
+          "x" : 899,
+          "y" : 3450
+        } ]
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "35"
+      }, {
+        "id" : "34"
+      }, {
+        "id" : "33"
+      }, {
+        "id" : "46",
         "vertices" : [ {
           "x" : 1764,
           "y" : 2357
@@ -539,59 +673,11 @@
           "y" : 2360
         } ]
       }, {
-        "id" : "32"
+        "id" : "59"
       }, {
-        "id" : "21"
+        "id" : "49"
       }, {
-        "id" : "31"
-      }, {
-        "id" : "30"
-      }, {
-        "id" : "29"
-      }, {
-        "id" : "28"
-      }, {
-        "id" : "27"
-      }, {
-        "id" : "25"
-      }, {
-        "id" : "36"
-      }, {
-        "id" : "24"
-      }, {
-        "id" : "35"
-      }, {
-        "id" : "23"
-      }, {
-        "id" : "33",
-        "vertices" : [ {
-          "x" : 899,
-          "y" : 2355
-        }, {
-          "x" : 899,
-          "y" : 3450
-        } ]
-      }, {
-        "id" : "45"
-      }, {
-        "id" : "46",
-        "vertices" : [ {
-          "x" : 1739,
-          "y" : 2355
-        } ]
-      }, {
-        "id" : "47"
-      }, {
-        "id" : "48"
-      }, {
-        "id" : "38",
-        "vertices" : [ {
-          "x" : 2624,
-          "y" : 2360
-        }, {
-          "x" : 2624,
-          "y" : 3450
-        } ]
+        "id" : "38"
       }, {
         "id" : "39"
       } ]
@@ -600,52 +686,80 @@
       "key" : "Component-001",
       "order" : 3,
       "dimensions" : {
-        "width" : 2505,
-        "height" : 1950
+        "width" : 4674,
+        "height" : 2320
       },
       "containerId" : "15",
       "externalContainerBoundariesVisible" : true,
       "elements" : [ {
+        "id" : "12",
+        "x" : 2534,
+        "y" : 1819
+      }, {
         "id" : "14",
         "x" : 199,
-        "y" : 809
+        "y" : 1033
       }, {
         "id" : "16",
-        "x" : 1084,
-        "y" : 759
+        "x" : 1003,
+        "y" : 982
       }, {
         "id" : "6",
-        "x" : 1084,
+        "x" : 1009,
         "y" : 199
       }, {
         "id" : "17",
-        "x" : 1834,
-        "y" : 759
+        "x" : 2503,
+        "y" : 982
+      }, {
+        "id" : "18",
+        "x" : 4003,
+        "y" : 982
       }, {
         "id" : "8",
-        "x" : 1504,
-        "y" : 1449
+        "x" : 1814,
+        "y" : 199
+      }, {
+        "id" : "19",
+        "x" : 1753,
+        "y" : 982
+      }, {
+        "id" : "20",
+        "x" : 3253,
+        "y" : 982
       }, {
         "id" : "10",
-        "x" : 1769,
+        "x" : 3964,
         "y" : 199
       } ],
       "relationships" : [ {
+        "id" : "50"
+      }, {
         "id" : "51"
       }, {
-        "id" : "40"
+        "id" : "62"
       }, {
-        "id" : "41"
-      }, {
-        "id" : "34"
+        "id" : "54"
       }, {
         "id" : "43"
       }, {
-        "id" : "44",
-        "vertices" : [ {
-          "x" : 1684,
-          "y" : 655
-        } ]
+        "id" : "37"
+      }, {
+        "id" : "44"
+      }, {
+        "id" : "55"
+      }, {
+        "id" : "56"
+      }, {
+        "id" : "45"
+      }, {
+        "id" : "57"
+      }, {
+        "id" : "58"
+      }, {
+        "id" : "47"
+      }, {
+        "id" : "48"
       } ]
     } ],
     "configuration" : {
@@ -716,7 +830,8 @@
       },
       "themes" : [ "https://static.structurizr.com/themes/microsoft-azure-2023.01.24/theme.json" ],
       "terminology" : { },
-      "lastSavedView" : "Container-001"
+      "metadataSymbols" : "SquareBrackets",
+      "lastSavedView" : "Component-001"
     }
   }
 }
