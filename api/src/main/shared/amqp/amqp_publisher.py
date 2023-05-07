@@ -20,7 +20,6 @@ class AmqpPublisher:
 
         prefetch_count = 1
         await channel.set_qos(prefetch_count=prefetch_count)
-        logger.info(f"QoS set to {prefetch_count}.")
 
         exchange_type = ExchangeType.FANOUT
         self.exchange = await channel.declare_exchange(self.exchange_name, exchange_type)
