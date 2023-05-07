@@ -3,13 +3,25 @@ from sqlalchemy.orm import Session
 from src.main.comment.model import Comment as CommentModel, User as UserModel, Post as PostModel
 
 
-def get_10_comments_for_post(db: Session, post_id: int, page: int = 0):
-    comment_limit = 10
-    offset = page * comment_limit
+def get_10_latest_comments_for_post(db: Session, post_id: int, page: int = 0):
+    post_limit = 10
+    offset = page * post_limit
     return db.query(CommentModel) \
         .filter(CommentModel.post_id == post_id) \
+        .order_by(CommentModel.commented_at.desc()) \
         .offset(offset) \
-        .limit(comment_limit) \
+        .limit(post_limit) \
+        .all()
+
+
+def get_10_hot_comments_for_post(db: Session, post_id: int, page: int = 0):
+    post_limit = 10
+    offset = page * post_limit
+    return db.query(CommentModel) \
+        .filter(CommentModel.post_id == post_id) \
+        .order_by(CommentModel.votes.desc()) \
+        .offset(offset) \
+        .limit(post_limit) \
         .all()
 
 

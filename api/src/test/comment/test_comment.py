@@ -1,3 +1,5 @@
+import datetime
+
 from starlette.status import HTTP_204_NO_CONTENT, HTTP_201_CREATED, HTTP_200_OK, \
     HTTP_404_NOT_FOUND, HTTP_401_UNAUTHORIZED
 
@@ -133,3 +135,58 @@ def test_delete_comment__not_owner_of_comment(client, session, insert_user, inse
     assert response.status_code == HTTP_401_UNAUTHORIZED
     assert response.json()["detail"] == "You are not the owner of this comment"
     assert session.query(CommentModel).filter_by(id=comment.id).first() is not None
+
+
+def test_get_latest_comments_for_post_id(client, session, insert_comment):
+    """Assert that latest comments are retrieved."""
+    post_id = 1
+    insert_comment({
+        "body": "Should be second",
+        "post_id": post_id,
+        "commented_at": datetime.datetime(2023, 5, 4)
+    }, session=session)
+    insert_comment({
+        "body": "Should be third",
+        "post_id": post_id,
+        "commented_at": datetime.datetime(2023, 5, 3)
+    }, session=session)
+    insert_comment({
+        "post_id": post_id,
+        "body": "Should be first",
+        "post_id": post_id,
+        "commented_at": datetime.datetime(2023, 5, 6)
+    }, session=session)
+
+    response = client.get(f"/api/comment?sort_by=latest&post_id={post_id}")
+
+    assert response.status_code == HTTP_200_OK
+    assert response.json()[0]["body"] == "Should be first"
+    assert response.json()[1]["body"] == "Should be second"
+    assert response.json()[2]["body"] == "Should be third"
+
+
+def test_get_hot_comments_for_post_id(client, session, insert_comment):
+    """Assert that hot comments are retrieved."""
+    post_id = 1
+    insert_comment({
+        "body": "Should be second",
+        "post_id": post_id,
+        "votes": 2
+    }, session=session)
+    insert_comment({
+        "body": "Should be third",
+        "post_id": post_id,
+        "votes": 1
+    }, session=session)
+    insert_comment({
+        "body": "Should be first",
+        "post_id": post_id,
+        "votes": 3
+    }, session=session)
+
+    response = client.get(f"/api/comment?sort_by=hot&post_id={post_id}")
+
+    assert response.status_code == HTTP_200_OK
+    assert response.json()[0]["body"] == "Should be first"
+    assert response.json()[1]["body"] == "Should be second"
+    assert response.json()[2]["body"] == "Should be third"
