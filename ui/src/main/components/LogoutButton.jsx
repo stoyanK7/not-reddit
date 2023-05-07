@@ -6,6 +6,7 @@ export default function LogoutButton() {
     async function logout() {
         await msalInstance.logoutPopup();
         toast.success("Logged out successfully.");
+        localStorage.removeItem("username");
     }
 
     return (
