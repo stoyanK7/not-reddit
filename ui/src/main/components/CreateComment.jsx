@@ -7,7 +7,7 @@ import getAccessToken from "@/utils/getAccessToken";
 import handleToast from "@/utils/handleToast";
 
 
-export default function CreateComment({ postId }) {
+export default function CreateComment({ postId, setCreatedComment }) {
     const [commentBody, setCommentBody] = useState("");
 
     async function publishComment() {
@@ -32,7 +32,8 @@ export default function CreateComment({ postId }) {
         await handleToast(res, "Comment created successfully");
 
         if (res.ok) {
-            // TODO: There is probably a better way to push the new comment to the list
+            const data = await res.json();
+            setCreatedComment(data);
         }
     }
 

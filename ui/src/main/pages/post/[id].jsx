@@ -1,8 +1,8 @@
 import { AuthenticatedTemplate } from "@azure/msal-react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toast";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 import CommentList from "@/components/CommentList";
 import CreateComment from "@/components/CreateComment";
@@ -11,6 +11,7 @@ import PostItem from "@/components/PostItem";
 import SortBy from "@/components/SortBy";
 import fetcher from "@/utils/fetcher";
 import fromApi from "@/utils/fromApi";
+import CommentItem from "@/components/CommentItem";
 
 export default function PostPage() {
     const router = useRouter();
@@ -18,6 +19,7 @@ export default function PostPage() {
     const [page, setPage] = useState(0);
     const [sortBy, setSortBy] = useState("hot");
     const [canLoadMore, setCanLoadMore] = useState(true);
+    const [createdComment, setCreatedComment] = useState(null);
 
     const { data: post, error: postError, isLoading: postIsLoading, mutate: postMutate } = useSWR(
         [fromApi(`/api/post/${id}`), null], fetcher
@@ -53,12 +55,16 @@ export default function PostPage() {
                 }
                 <AuthenticatedTemplate>
                     <CreateComment
+                        setCreatedComment={setCreatedComment}
                         postId={id} />
                 </AuthenticatedTemplate>
-
                 <SortBy
                     sortBy={sortBy}
                     setSortBy={setSortBy} />
+                {createdComment &&
+                    <CommentItem
+                        comment={createdComment} />
+                }
                 {commentsPages}
                 <LoadMore
                     canLoadMore={canLoadMore}
