@@ -5,7 +5,7 @@ import {
 } from "@azure/msal-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toast";
 
 import LogoutButton from "@/components/LogoutButton";
@@ -18,17 +18,16 @@ import getAccessToken from "@/utils/getAccessToken";
 export default function Auth() {
     const { accounts } = useMsal();
     const isAuthenticated = accounts.length > 0;
-    const hasFetchedData = useRef(false);
 
     useEffect(() => {
         async function checkRegistrationStatus() {
-            console.log("in");
-            const isRegistered = await isUserRegistered();
+            let isRegistered;
+            if (isAuthenticated) {
+                isRegistered = await isUserRegistered();
+            }
+
             if (isAuthenticated && !isRegistered) {
-                const email = msalInstance.getActiveAccount()?.username;
-                if (email) {
-                    await registerUser(email);
-                }
+                await registerUser();
             }
 
             if (isAuthenticated && isRegistered) {
@@ -37,15 +36,13 @@ export default function Auth() {
             }
         }
 
-        if (hasFetchedData.current === false) {
-            checkRegistrationStatus();
-            hasFetchedData.current = true;
-        }
+        checkRegistrationStatus();
     }, [isAuthenticated]);
 
     async function isUserRegistered() {
         const accessToken = await getAccessToken();
         if (accessToken === null) {
+            toast.error("Failed to get access token");
             return;
         }
         const res = await fetch(fromApi("/api/user/registered"), {
