@@ -224,7 +224,7 @@ def test_upvote_post_already_upvoted(client, session, generate_jwt, insert_user,
 
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert response.json() == {
-        "detail": "Upvote already casted for this post"
+        "detail": "Vote already casted for this post"
     }
     assert len(
         session.query(VoteModel).filter_by(target_id=vote.target_id, vote_type=vote.vote_type,
@@ -261,7 +261,7 @@ def test_downvote_post_already_downvoted(client, session, generate_jwt, insert_u
 
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert response.json() == {
-        "detail": "Downvote already casted for this post"
+        "detail": "Vote already casted for this post"
     }
     assert len(
         session.query(VoteModel).filter_by(target_id=vote.target_id, vote_type=vote.vote_type,
@@ -298,7 +298,7 @@ def test_upvote_comment_already_upvoted(client, session, generate_jwt, insert_us
 
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert response.json() == {
-        "detail": "Upvote already casted for this comment"
+        "detail": "Vote already casted for this comment"
     }
     assert len(
         session.query(VoteModel).filter_by(target_id=vote.target_id, vote_type=vote.vote_type,
@@ -335,7 +335,7 @@ def test_downvote_comment_already_downvoted(client, session, generate_jwt, inser
 
     assert response.status_code == HTTP_400_BAD_REQUEST
     assert response.json() == {
-        "detail": "Downvote already casted for this comment"
+        "detail": "Vote already casted for this comment"
     }
     assert len(
         session.query(VoteModel).filter_by(target_id=vote.target_id, vote_type=vote.vote_type,

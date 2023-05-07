@@ -68,8 +68,7 @@ def assert_vote_not_already_casted(db: Session, vote: dict):
                                         target_type=vote["target_type"],
                                         username=vote["username"]) is not None
     if vote_already_casted:
-        vote_type = vote['vote_type'].capitalize()
         raise HTTPException(
             status_code=HTTP_400_BAD_REQUEST,
-            detail=f"{vote_type}vote already casted for this {vote['target_type']}"
+            detail=f"Vote already casted for this {vote['target_type']}"
         )
