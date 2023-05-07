@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toast";
 
 import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
@@ -13,10 +13,7 @@ export default function PostActions({ id, votes, username, mutate }) {
     const [shownVotes, setShownVotes] = useState(votes);
     const isUserOwnerOfPost = username === getUsername();
 
-    // TODO: Make request to see if already upvoted/downvoted
-    // TODO: Handle case where upvote is clicked but already upvoted
-
-    async function upvote(e) {
+    async function upvotePost(e) {
         e.preventDefault();
         e.stopPropagation();
         const accessToken = await getAccessToken();
@@ -38,7 +35,7 @@ export default function PostActions({ id, votes, username, mutate }) {
         }
     }
 
-    async function downvote(e) {
+    async function downvotePost(e) {
         e.preventDefault();
         e.stopPropagation();
         const accessToken = await getAccessToken();
@@ -104,7 +101,7 @@ export default function PostActions({ id, votes, username, mutate }) {
                 <button
                     className={`p-2 mr-1 rounded-sm hover:bg-reddit-orange-light text-reddit-orange
                     ${shownVotes > votes ? "bg-reddit-orange-light" : ""}`}
-                    onClick={upvote}
+                    onClick={upvotePost}
                     disabled={shownVotes > votes}>
                     Up
                 </button>
@@ -113,7 +110,7 @@ export default function PostActions({ id, votes, username, mutate }) {
                 <button
                     className={`p-2 ml-1 rounded-sm hover:bg-reddit-blue-light text-reddit-blue
                     ${shownVotes < votes ? "bg-reddit-blue-light" : ""}`}
-                    onClick={downvote}
+                    onClick={downvotePost}
                     disabled={shownVotes < votes}>
                     Down
                 </button>
