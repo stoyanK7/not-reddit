@@ -6,18 +6,18 @@ import PostItem from "@/components/PostItem";
 import fetcher from "@/utils/fetcher";
 import fromApi from "@/utils/fromApi";
 
-export default function PostList({ page, sortBy, setCanShowMore }) {
+export default function PostList({ page, sortBy, setCanLoadMore }) {
     const { data: posts, error, isLoading, mutate } = useSWR(
         [fromApi(`/api/post?sort_by=${sortBy}&page=${page}`), null],
         fetcher);
 
     if (error) {
-        toast.error("Failed to load latest posts");
+        toast.error("Failed to load posts");
     }
     if (isLoading) return <div>loading...</div>;
 
     if (posts.length === 0 || posts.length < 10) {
-        setCanShowMore(false);
+        setCanLoadMore(false);
     }
 
     return (

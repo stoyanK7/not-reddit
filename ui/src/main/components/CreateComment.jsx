@@ -7,7 +7,7 @@ import getAccessToken from "@/utils/getAccessToken";
 import handleToast from "@/utils/handleToast";
 
 
-export default function CreateComment({ postId, mutate }) {
+export default function CreateComment({ postId }) {
     const [commentBody, setCommentBody] = useState("");
 
     async function publishComment() {
@@ -32,7 +32,6 @@ export default function CreateComment({ postId, mutate }) {
 
         if (res.ok) {
             // TODO: There is probably a better way to push the new comment to the list
-            mutate();
         }
     }
 
