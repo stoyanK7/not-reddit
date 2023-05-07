@@ -6,11 +6,12 @@ import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
 import buildJSONHeaders from "@/utils/buildJSONHeaders";
 import fromApi from "@/utils/fromApi";
 import getAccessToken from "@/utils/getAccessToken";
+import getUsername from "@/utils/getUsername";
 import handleToast from "@/utils/handleToast";
 
 export default function PostActions({ id, votes, username, mutate }) {
     const [shownVotes, setShownVotes] = useState(votes);
-    const isUserOwnerOfPost = username === sessionStorage.getItem("username");
+    const isUserOwnerOfPost = username === getUsername();
 
     // TODO: Make request to see if already upvoted/downvoted
     // TODO: Handle case where upvote is clicked but already upvoted

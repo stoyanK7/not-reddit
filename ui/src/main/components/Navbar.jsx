@@ -2,6 +2,8 @@ import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-reac
 import Image from "next/image";
 import Link from "next/link";
 
+import getUsername from "@/utils/getUsername";
+
 import LogoutButton from "./LogoutButton";
 
 export default function Navbar() {
@@ -36,7 +38,7 @@ export default function Navbar() {
                 <AuthenticatedTemplate>
                     <span
                         className="mr-2 font-bold">
-                        {typeof window !== "undefined" && sessionStorage.getItem("username")}
+                        {typeof window !== "undefined" && getUsername()}
                     </span>
                     <LogoutButton />
                 </AuthenticatedTemplate>

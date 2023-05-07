@@ -5,11 +5,12 @@ import buildAuthorizationHeader from "@/utils/buildAuthorizationHeader";
 import buildJSONHeaders from "@/utils/buildJSONHeaders";
 import fromApi from "@/utils/fromApi";
 import getAccessToken from "@/utils/getAccessToken";
+import getUsername from "@/utils/getUsername";
 import handleToast from "@/utils/handleToast";
 
 export default function CommentActions({ comment_id, votes, username, mutate }) {
     const [shownVotes, setShownVotes] = useState(votes);
-    const isUserOwnerOfComment = username === sessionStorage.getItem("username");
+    const isUserOwnerOfComment = username === getUsername();
 
     async function upvote() {
         const accessToken = await getAccessToken();

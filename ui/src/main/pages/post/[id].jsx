@@ -1,3 +1,4 @@
+import { AuthenticatedTemplate } from "@azure/msal-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toast";
@@ -7,10 +8,9 @@ import CommentList from "@/components/CommentList";
 import CreateComment from "@/components/CreateComment";
 import LoadMore from "@/components/LoadMore";
 import PostItem from "@/components/PostItem";
+import SortBy from "@/components/SortBy";
 import fetcher from "@/utils/fetcher";
 import fromApi from "@/utils/fromApi";
-import SortBy from "@/components/SortBy";
-import { AuthenticatedTemplate } from "@azure/msal-react";
 
 export default function PostPage() {
     const router = useRouter();
