@@ -1,8 +1,8 @@
 import { 
+    BrowserCacheLocation,
     EventType,
     LogLevel,
-    PublicClientApplication 
-} from "@azure/msal-browser";
+    PublicClientApplication } from "@azure/msal-browser";
 import { toast } from "react-toast";
 
 export const msalConfig = {
@@ -11,7 +11,7 @@ export const msalConfig = {
         redirectUri: "http://localhost:3000/auth",
     },
     cache: {
-        cacheLocation: "sessionStorage",
+        cacheLocation: BrowserCacheLocation.LocalStorage,
         storeAuthStateInCookie: false,
     },
     system: {	

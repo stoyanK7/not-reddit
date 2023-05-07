@@ -32,7 +32,7 @@ export default function Auth() {
 
             if (isAuthenticated && isRegistered) {
                 const username = await getUsername();
-                sessionStorage.setItem("username", username);
+                localStorage.setItem("username", username);
             }
         }
 
