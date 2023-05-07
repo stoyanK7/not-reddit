@@ -11,8 +11,7 @@ export default function LogoutButton() {
     return (
         <button
             className="p-2 rounded-sm bg-red-800 text-white h-full"
-            onClick={logout}
-            data-cy="logOut">
+            onClick={logout}>
             Logout
         </button>
     );

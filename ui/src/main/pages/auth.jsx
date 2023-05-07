@@ -97,9 +97,9 @@ export default function Auth() {
                 gap-2 shadow-reddit border border-reddit-postline">
                 <h1>Welcome to <b>not-reddit</b>!</h1>
                 <AuthenticatedTemplate>
-                    <span>
+                    <span data-testid="youAreSignedIn">
                         <b
-                            className="text-reddit-orange" data-cy="accountsAmount">
+                            className="text-reddit-orange">
                             You&nbsp;
                         </b>
                         are signed in!
@@ -116,7 +116,7 @@ export default function Auth() {
                 </AuthenticatedTemplate>
                 <UnauthenticatedTemplate>
                     <span
-                        data-cy="nobodySignedIn">There are currently no users signed in!</span>
+                        data-testid="nobodySignedIn">There are currently no users signed in!</span>
                     <div
                         className="relative overflow-visible w-1/2 h-10 hover:cursor-pointer">
                         <Image
@@ -125,7 +125,7 @@ export default function Auth() {
                             src="/ms-symbollockup-signin-light.svg"
                             fill
                             onClick={() => msalInstance.loginRedirect(loginRequest)}
-                            data-cy="signIn" />
+                            data-testid="signIn" />
                     </div>
                 </UnauthenticatedTemplate>
             </div>
