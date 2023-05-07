@@ -44,6 +44,7 @@ export default function PostCreatePage() {
     async function createTextPost(accessToken) {
         const res = await fetch(fromApi("/api/post/text"), {
             method: "POST",
+            credentials: "include",
             headers: buildJSONHeaders(accessToken),
             body: JSON.stringify({ title, body }),
         });
@@ -57,6 +58,7 @@ export default function PostCreatePage() {
         formData.append("file", body);
         const res = await fetch(fromApi("/api/post/media"), {
             method: "POST",
+            credentials: "include",
             // Media requests shouldn't have content type explicitly set.
             headers: buildAuthorizationHeader(accessToken),
             body: formData,

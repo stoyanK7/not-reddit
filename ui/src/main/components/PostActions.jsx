@@ -24,6 +24,7 @@ export default function PostActions({ id, votes, username, mutate }) {
 
         const res = await fetch(fromApi("/api/vote/post"), {
             method: "POST",
+            credentials: "include",
             headers: buildJSONHeaders(accessToken),
             body: JSON.stringify({ "target_id": id, "vote_type": "up" }),
         });
@@ -46,6 +47,7 @@ export default function PostActions({ id, votes, username, mutate }) {
 
         const res = await fetch(fromApi("/api/vote/post"), {
             method: "POST",
+            credentials: "include",
             headers: buildJSONHeaders(accessToken),
             body: JSON.stringify({ "target_id": id, "vote_type": "down" }),
         });
@@ -79,6 +81,7 @@ export default function PostActions({ id, votes, username, mutate }) {
 
         const res = await fetch(fromApi(`/api/post/${id}`), {
             method: "DELETE",
+            credentials: "include",
             headers: buildAuthorizationHeader(accessToken)
         });
 

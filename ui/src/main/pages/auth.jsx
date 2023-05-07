@@ -47,6 +47,7 @@ export default function Auth() {
         }
         const res = await fetch(fromApi("/api/user/registered"), {
             method: "GET",
+            credentials: "include",
             headers: buildAuthorizationHeader(accessToken),
         });
         const data = await res.json();
@@ -61,6 +62,7 @@ export default function Auth() {
         }
         const res = await fetch(fromApi("/api/user"), {
             method: "POST",
+            credentials: "include",
             headers: buildAuthorizationHeader(accessToken),
         });
 
@@ -78,6 +80,7 @@ export default function Auth() {
 
         const res = await fetch(fromApi("/api/user/username"), {
             method: "GET",
+            credentials: "include",
             headers: buildAuthorizationHeader(accessToken),
         });
 
@@ -97,7 +100,8 @@ export default function Auth() {
                 gap-2 shadow-reddit border border-reddit-postline">
                 <h1>Welcome to <b>not-reddit</b>!</h1>
                 <AuthenticatedTemplate>
-                    <span data-testid="youAreSignedIn">
+                    <span
+                        data-testid="youAreSignedIn">
                         <b
                             className="text-reddit-orange">
                             You&nbsp;

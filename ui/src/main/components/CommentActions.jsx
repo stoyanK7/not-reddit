@@ -21,6 +21,7 @@ export default function CommentActions({ comment_id, votes, username, mutate }) 
 
         const res = await fetch(fromApi("/api/vote/comment"), {
             method: "POST",
+            credentials: "include",
             headers: buildJSONHeaders(accessToken),
             body: JSON.stringify({ "target_id": comment_id, "vote_type": "up" }),
         });
@@ -41,6 +42,7 @@ export default function CommentActions({ comment_id, votes, username, mutate }) 
 
         const res = await fetch(fromApi("/api/vote/comment"), {
             method: "POST",
+            credentials: "include",
             headers: buildJSONHeaders(accessToken),
             body: JSON.stringify({ "target_id": comment_id, "vote_type": "down" }),
         });
@@ -74,6 +76,7 @@ export default function CommentActions({ comment_id, votes, username, mutate }) 
 
         const res = await fetch(fromApi(`/api/comment/${comment_id}`), {
             method: "DELETE",
+            credentials: "include",
             headers: buildAuthorizationHeader(accessToken)
         });
 

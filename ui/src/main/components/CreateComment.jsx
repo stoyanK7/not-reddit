@@ -24,6 +24,7 @@ export default function CreateComment({ postId }) {
 
         const res = await fetch(fromApi("/api/comment"), {
             method: "POST",
+            credentials: "include",
             headers: buildJSONHeaders(accessToken),
             body: JSON.stringify({ "body": commentBody, "post_id": postId }),
         });
