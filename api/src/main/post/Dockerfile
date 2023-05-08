@@ -6,11 +6,13 @@ LABEL org.opencontainers.image.licenses="GPL-3.0"
 
 WORKDIR /app
 
+ENV PYTHONDONTWRITEBYTECODE 1
+
 COPY ./post/requirements.txt /app
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-COPY ./*.py /app/src/main/
+COPY ./shared/ /app/src/main/shared/
 
 COPY ./post/ /app/src/main/post/
 
