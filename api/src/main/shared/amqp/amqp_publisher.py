@@ -12,8 +12,12 @@ class AmqpPublisher:
         self.exchange = None
 
     async def prepare_connection(self, loop):
-        connection = await connect_robust(self.amqp_url, loop=loop)
-        logger.info("Connected via AMQP.")
+        try:
+            connection = await connect_robust(self.amqp_url, loop=loop)
+            logger.info("Connected via AMQP.")
+        except ValueError:
+            logger.error("Failed connecting. Skipping AMQP connection.")
+            return
 
         channel = await connection.channel()
         logger.info("Channel opened.")
