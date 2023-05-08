@@ -21,3 +21,4 @@
 **/Dockerfile
 **/k8s
 **/.venv
+**/files
