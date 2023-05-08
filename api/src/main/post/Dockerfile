@@ -8,12 +8,16 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 
-COPY ./post/requirements.txt /app
+COPY ./src/__init__.py /app/src/__init__.py
+
+COPY ./src/main/__init__.py /app/src/main/__init__.py
+
+COPY ./src/main/post/requirements.txt /app
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-COPY ./shared/ /app/src/main/shared/
+COPY ./src/main/shared/ /app/src/main/shared/
 
-COPY ./post/ /app/src/main/post/
+COPY ./src/main/post/ /app/src/main/post/
 
 CMD ["uvicorn", "src.main.post.main:app", "--host", "0.0.0.0", "--port", "8080"]
