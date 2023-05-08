@@ -17,7 +17,8 @@ jobs:
           - post
           - vote
           - comment
-          - subreddit
+          - auth
+          - email
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
