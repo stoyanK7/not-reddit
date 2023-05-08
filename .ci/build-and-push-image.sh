@@ -7,10 +7,10 @@ source ./.ci/util.sh
 checkForVariable REGISTRY_LOGIN_SERVER
 checkForVariable SERVICE
 
-cd api/src/main || exit
+cd api || exit
 
-IMAGE_NAME="$REGISTRY_LOGIN_SERVER/$SERVICE-api:latest"
+IMAGE_NAME="$REGISTRY_LOGIN_SERVER/$SERVICE-service:latest"
 docker build . \
   -t "$IMAGE_NAME" \
-  -f "$SERVICE"/Dockerfile
+  -f src/main/"$SERVICE"/Dockerfile
 docker push "$IMAGE_NAME"
