@@ -6,12 +6,18 @@ LABEL org.opencontainers.image.licenses="GPL-3.0"
 
 WORKDIR /app
 
-COPY ./vote/requirements.txt /app
+ENV PYTHONDONTWRITEBYTECODE 1
+
+COPY ./src/__init__.py /app/src/__init__.py
+
+COPY ./src/main/__init__.py /app/src/main/__init__.py
+
+COPY ./src/main/vote/requirements.txt /app
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-COPY ./*.py /app/src/main/
+COPY ./src/main/shared/ /app/src/main/shared/
 
-COPY ./vote/ /app/src/main/vote/
+COPY ./src/main/vote/ /app/src/main/vote/
 
 CMD ["uvicorn", "src.main.vote.main:app", "--host", "0.0.0.0", "--port", "8080"]
