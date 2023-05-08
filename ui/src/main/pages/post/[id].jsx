@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toast";
 import useSWR, { mutate } from "swr";
 
+import CommentItem from "@/components/CommentItem";
 import CommentList from "@/components/CommentList";
 import CreateComment from "@/components/CreateComment";
 import LoadMore from "@/components/LoadMore";
@@ -11,7 +12,6 @@ import PostItem from "@/components/PostItem";
 import SortBy from "@/components/SortBy";
 import fetcher from "@/utils/fetcher";
 import fromApi from "@/utils/fromApi";
-import CommentItem from "@/components/CommentItem";
 
 export default function PostPage() {
     const router = useRouter();
