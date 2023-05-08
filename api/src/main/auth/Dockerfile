@@ -8,12 +8,16 @@ WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 
-COPY ./auth/requirements.txt /app
+COPY ./src/__init__.py /app/src/__init__.py
+
+COPY ./src/main/__init__.py /app/src/main/__init__.py
+
+COPY ./src/main/auth/requirements.txt /app
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-COPY ./shared/ /app/src/main/shared/
+COPY ./src/main/shared/ /app/src/main/shared/
 
-COPY ./auth/ /app/src/main/auth/
+COPY ./src/main/auth/ /app/src/main/auth/
 
 CMD ["uvicorn", "src.main.auth.main:app", "--host", "0.0.0.0", "--port", "8080"]
