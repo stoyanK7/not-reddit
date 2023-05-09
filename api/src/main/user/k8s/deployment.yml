@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: user-api
-        image: notreddit.azurecr.io/user-api
+        image: notreddit.azurecr.io/user-service
+        imagePullPolicy: Never
         envFrom:
           - secretRef:
               name: user-api-secret
