@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: gateway-api
-        image: notreddit.azurecr.io/gateway-api
+        image: notreddit.azurecr.io/gateway-service
+        imagePullPolicy: Never
         envFrom:
           - secretRef:
               name: gateway-api-secret
