@@ -4,13 +4,15 @@ set -e
 
 source ./.ci/util.sh
 
-checkForVariable REGISTRY_LOGIN_SERVER
-checkForVariable SERVICE
+checkForVariable "REGISTRY_LOGIN_SERVER"
+checkForVariable "SERVICE_NAME"
+checkForVariable "CONTEXT"
+checkForVariable "DOCKERFILE_PATH"
 
-cd api || exit
+cd "$CONTEXT" || exit
 
-IMAGE_NAME="$REGISTRY_LOGIN_SERVER/$SERVICE-service:latest"
+IMAGE_NAME="$REGISTRY_LOGIN_SERVER/$SERVICE_NAME-service:latest"
 docker build . \
   -t "$IMAGE_NAME" \
-  -f src/main/"$SERVICE"/Dockerfile
+  -f "$DOCKERFILE_PATH"
 docker push "$IMAGE_NAME"

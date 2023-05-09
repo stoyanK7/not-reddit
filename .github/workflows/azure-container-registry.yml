@@ -12,13 +12,15 @@ jobs:
     strategy:
       matrix:
         service:
-          - gateway
-          - user
-          - post
-          - vote
-          - comment
-          - auth
-          - email
+          # [service-name, docker-context, dockerfile-path]
+          - [gateway, api, src/main/gateway/Dockerfile]
+          - [user, api, src/main/user/Dockerfile]
+          - [post, api, src/main/post/Dockerfile]
+          - [vote, api, src/main/vote/Dockerfile]
+          - [comment, api, src/main/comment/Dockerfile]
+          - [auth, api, src/main/auth/Dockerfile]
+          - [email, api, src/main/email/Dockerfile]
+          - [ui, ui/src/main, Dockerfile]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -39,5 +41,7 @@ jobs:
       - name: Build and push image
         env:
           REGISTRY_LOGIN_SERVER: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-          SERVICE: ${{ matrix.service }}
+          SERVICE_NAME: ${{ matrix.service[0] }}
+          CONTEXT: ${{ matrix.service[1] }}
+          DOCKERFILE_PATH: ${{ matrix.service[2] }}
         run: ./.ci/build-and-push-image.sh
