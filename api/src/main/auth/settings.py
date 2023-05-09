@@ -8,7 +8,6 @@ class AuthSettings(BaseSettings):
     SERVICE_PREFIX: str = "/api/auth"
     # Auth
     APP_CLIENT_ID = get_env("APP_CLIENT_ID")
-    OPENAPI_CLIENT_ID = get_env("OPENAPI_CLIENT_ID")
     # CORS
     CORS_ORIGINS: list[Union[str, AnyHttpUrl]] = [
         'http://localhost:8000',
