@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: email-api-deployment
+  labels:
+    app: email-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: email-api
+  template:
+    metadata:
+      labels:
+        app: email-api
+    spec:
+      containers:
+      - name: email-api
+        image: notreddit.azurecr.io/email-service
+        imagePullPolicy: Never
+        envFrom:
+          - secretRef:
+              name: email-api-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: email-api-service
+spec:
+  selector:
+    app: email-api
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
