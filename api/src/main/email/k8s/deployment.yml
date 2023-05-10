@@ -17,7 +17,6 @@ spec:
       containers:
       - name: email-api
         image: notreddit.azurecr.io/email-service
-        imagePullPolicy: Never
         envFrom:
           - secretRef:
               name: email-api-secret

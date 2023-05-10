@@ -17,7 +17,6 @@ spec:
       containers:
       - name: auth-api
         image: notreddit.azurecr.io/auth-service
-        imagePullPolicy: Never
         envFrom:
           - secretRef:
               name: auth-api-secret

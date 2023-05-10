@@ -17,7 +17,6 @@ spec:
       containers:
       - name: ui
         image: notreddit.azurecr.io/ui-service
-        imagePullPolicy: Never
         envFrom:
           - secretRef:
               name: ui-secret

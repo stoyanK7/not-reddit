@@ -17,7 +17,6 @@ spec:
       containers:
       - name: post-api
         image: notreddit.azurecr.io/post-service
-        imagePullPolicy: Never
         envFrom:
           - secretRef:
               name: post-api-secret

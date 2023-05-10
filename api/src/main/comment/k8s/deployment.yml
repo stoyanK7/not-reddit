@@ -17,7 +17,6 @@ spec:
       containers:
       - name: comment-api
         image: notreddit.azurecr.io/comment-service
-        imagePullPolicy: Never
         envFrom:
           - secretRef:
               name: comment-api-secret
