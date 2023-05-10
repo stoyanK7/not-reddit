@@ -52,8 +52,8 @@ ENTRYPOINT ["./entrypoint.sh"]
 
 USER nextjs
 
-EXPOSE 3000
+EXPOSE 80
 
-ENV PORT 3000
+ENV PORT 80
 
 CMD ["npm", "start"]
