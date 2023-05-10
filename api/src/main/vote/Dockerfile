@@ -20,4 +20,4 @@ COPY ./src/main/shared/ /app/src/main/shared/
 
 COPY ./src/main/vote/ /app/src/main/vote/
 
-CMD ["uvicorn", "src.main.vote.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "src.main.vote.main:app", "--host", "0.0.0.0", "--port", "8080"]
