@@ -25,7 +25,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ui-service
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: MC_not-reddit_not-reddit-cluster_switzerlandnorth
 spec:
+  loadBalancerIP: 20.208.57.64
   selector:
     app: ui
   type: LoadBalancer
