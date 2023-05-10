@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 
-from src.main.shared.cors.cors import configure_cors
 from src.main.shared.amqp.amqp_consumer import AmqpConsumer
 from src.main.shared.amqp.amqp_publisher import AmqpPublisher
 from src.main.post.settings import settings
@@ -10,8 +9,6 @@ from src.main.post.util import handle_user_registration, handle_vote_casted
 class PostService(FastAPI):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        configure_cors(self)
 
         self.user_registered_amqp_consumer = None
         self.post_vote_casted_amqp_consumer = None

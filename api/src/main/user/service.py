@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 
-from src.main.shared.cors.cors import configure_cors
 from src.main.shared.amqp.amqp_publisher import AmqpPublisher
 from src.main.user.settings import settings
 
@@ -8,8 +7,6 @@ from src.main.user.settings import settings
 class UserService(FastAPI):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        configure_cors(self)
 
         self.user_registered_amqp_publisher = None
         self.initialize_amqp_publishers()
