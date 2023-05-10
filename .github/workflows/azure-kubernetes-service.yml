@@ -41,11 +41,11 @@ jobs:
         with:
           action: deploy
           manifests: |
-            api/src/main/gateway/k8s/deployment.yml
-            api/src/main/user/k8s/deployment.yml
-            api/src/main/post/k8s/deployment.yml
-            api/src/main/vote/k8s/deployment.yml
-            api/src/main/comment/k8s/deployment.yml
-            api/src/main/auth/k8s/deployment.yml
-            api/src/main/email/k8s/deployment.yml
-            ui/src/main/k8s/deployment.yml
+            api/src/main/gateway/k8s/gateway-deployment.yml
+            api/src/main/user/k8s/user-deployment.yml
+            api/src/main/post/k8s/post-deployment.yml
+            api/src/main/vote/k8s/vote-deployment.yml
+            api/src/main/comment/k8s/comment-deployment.yml
+            api/src/main/auth/k8s/auth-deployment.yml
+            api/src/main/email/k8s/email-deployment.yml
+            ui/src/main/k8s/ui-deployment.yml
