@@ -40,6 +40,16 @@ COPY --from=builder /app/node_modules ./node_modules
 
 COPY --from=builder /app/package.json ./package.json
 
+COPY entrypoint.sh .
+
+COPY .env.production .
+
+RUN apk add --no-cache --upgrade bash
+
+RUN ["chmod", "+x", "./entrypoint.sh"]
+
+ENTRYPOINT ["./entrypoint.sh"]
+
 USER nextjs
 
 EXPOSE 3000
