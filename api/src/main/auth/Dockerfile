@@ -20,4 +20,4 @@ COPY ./src/main/shared/ /app/src/main/shared/
 
 COPY ./src/main/auth/ /app/src/main/auth/
 
-CMD ["uvicorn", "src.main.auth.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "src.main.auth.main:app", "--host", "0.0.0.0", "--port", "80"]

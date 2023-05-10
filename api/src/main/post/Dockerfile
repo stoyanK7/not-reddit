@@ -20,4 +20,4 @@ COPY ./src/main/shared/ /app/src/main/shared/
 
 COPY ./src/main/post/ /app/src/main/post/
 
-CMD ["uvicorn", "src.main.post.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "src.main.post.main:app", "--host", "0.0.0.0", "--port", "80"]
