@@ -1,5 +1,6 @@
 from aio_pika import connect_robust, Message
 from aio_pika.abc import ExchangeType, DeliveryMode
+from aio_pika.exceptions import AMQPConnectionError
 
 from src.main.shared.logger import logger
 
@@ -15,7 +16,7 @@ class AmqpPublisher:
         try:
             connection = await connect_robust(self.amqp_url, loop=loop)
             logger.info("Connected via AMQP.")
-        except ValueError:
+        except (ValueError, AMQPConnectionError):
             logger.error("Failed connecting. Skipping AMQP connection.")
             return
 
