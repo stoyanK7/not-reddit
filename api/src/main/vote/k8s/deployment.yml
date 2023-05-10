@@ -28,7 +28,7 @@ metadata:
 spec:
   selector:
     app: vote-api
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 8080

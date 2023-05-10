@@ -28,7 +28,7 @@ metadata:
 spec:
   selector:
     app: auth-api
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 8080
