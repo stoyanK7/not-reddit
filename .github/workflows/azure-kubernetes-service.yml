@@ -9,18 +9,6 @@ concurrency:
 
 jobs:
   deploy:
-    strategy:
-      matrix:
-        service:
-          # [service-name, deployment-yaml-path]
-          - [ gateway, api/src/main/gateway/k8s/deployment.yml ]
-          - [ user, api/src/main/user/k8s/deployment.yml ]
-          - [ post, api/src/main/post/k8s/deployment.yml ]
-          - [ vote, api/src/main/vote/k8s/deployment.yml ]
-          - [ comment, api/src/main/comment/k8s/deployment.yml ]
-          - [ auth, api/src/main/auth/k8s/deployment.yml ]
-          - [ email, api/src/main/email/k8s/deployment.yml ]
-          - [ ui, ui/src/main/k8s/deployment.yml ]
     permissions:
       actions: read
       contents: read
@@ -52,6 +40,12 @@ jobs:
         uses: Azure/k8s-deploy@v4
         with:
           action: deploy
-          manifests: ${{ matrix.service[1] }}
-          images: |
-            ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ matrix.service[0] }}-service:latest
+          manifests: |
+            api/src/main/gateway/k8s/deployment.yml
+            api/src/main/user/k8s/deployment.yml
+            api/src/main/post/k8s/deployment.yml
+            api/src/main/vote/k8s/deployment.yml
+            api/src/main/comment/k8s/deployment.yml
+            api/src/main/auth/k8s/deployment.yml
+            api/src/main/email/k8s/deployment.yml
+            ui/src/main/k8s/deployment.yml
