@@ -25,10 +25,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gateway-api-service
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-resource-group: MC_not-reddit_not-reddit-cluster_switzerlandnorth
 spec:
-  loadBalancerIP: 20.208.62.235
   selector:
     app: gateway-api
   type: LoadBalancer
