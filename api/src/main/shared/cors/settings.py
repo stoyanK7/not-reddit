@@ -1,13 +1,11 @@
-import json
-
 from pydantic import BaseSettings
-
-from src.main.shared.env import get_env
 
 
 class CorsSettings(BaseSettings):
-    print(get_env("CORS_ALLOWED_ORIGINS", '["*"]'))
-    CORS_ALLOWED_ORIGINS: list[str] = json.loads(get_env("CORS_ALLOWED_ORIGINS", '["*"]'))
+    CORS_ALLOWED_ORIGINS: list[str] = [
+        "http://localhost:3000",
+        "https://notredditui.switzerlandnorth.cloudapp.azure.com"
+    ]
 
 
 settings = CorsSettings()
