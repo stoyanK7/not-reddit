@@ -19,8 +19,6 @@ spec:
         image: notreddit.azurecr.io/user-service:latest
         envFrom:
           - secretRef:
-              name: cors-secret
-          - secretRef:
               name: user-api-secret
 ---
 apiVersion: v1
