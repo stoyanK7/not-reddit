@@ -19,7 +19,7 @@ spec:
         image: notreddit.azurecr.io/auth-service:latest
         envFrom:
           - secretRef:
-                name: cors-secret
+              name: cors-secret
           - secretRef:
               name: auth-api-secret
 ---
