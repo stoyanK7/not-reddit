@@ -8,7 +8,7 @@ import { toast } from "react-toast";
 export const msalConfig = {
     auth: {
         clientId: "d448d19c-b7c3-4c1f-8c1b-e726b3a3ba88",
-        redirectUri: "http://localhost:3000/auth",
+        redirectUri: `${process.env.NEXT_PUBLIC_UI_SERVICE_URL}/auth`,
     },
     cache: {
         cacheLocation: BrowserCacheLocation.LocalStorage,
