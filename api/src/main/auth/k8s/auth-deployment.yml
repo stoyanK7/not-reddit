@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: auth-api
-        image: notreddit.azurecr.io/auth-service
+        image: notreddit.azurecr.io/auth-service:latest
         envFrom:
           - secretRef:
               name: auth-api-secret

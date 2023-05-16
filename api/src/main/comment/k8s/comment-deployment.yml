@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: comment-api
-        image: notreddit.azurecr.io/comment-service
+        image: notreddit.azurecr.io/comment-service:latest
         envFrom:
           - secretRef:
               name: comment-api-secret

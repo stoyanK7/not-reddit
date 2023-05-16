@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: user-api
-        image: notreddit.azurecr.io/user-service
+        image: notreddit.azurecr.io/user-service:latest
         envFrom:
           - secretRef:
               name: user-api-secret
