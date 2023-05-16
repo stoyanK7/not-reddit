@@ -1,6 +1,7 @@
 name: "Azure Container Registry"
 
 on:
+  workflow_call:
   workflow_dispatch:
 
 concurrency:
