@@ -13,6 +13,7 @@ jobs:
 
   azure-container-registry:
     uses: ./.github/workflows/azure-container-registry.yml
+    needs: pytest
     secrets: inherit
 
   azure-kubernetes-service:

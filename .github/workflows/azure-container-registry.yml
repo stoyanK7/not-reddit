@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: azure-container-registry-${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:

@@ -7,7 +7,7 @@ on:
       - "api/src/**.py"
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: pytest-${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
