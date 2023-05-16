@@ -8,7 +8,7 @@ spec:
   tls:
     - hosts:
         - notredditapi.switzerlandnorth.cloudapp.azure.com
-      secretName: tls-secret
+      secretName: tls-secret-api
   rules:
   - host: notredditapi.switzerlandnorth.cloudapp.azure.com
     http:
