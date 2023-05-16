@@ -1,4 +1,4 @@
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 from src.main.shared.cors.settings import settings as cors_settings
 from src.main.comment.lifespan import lifespan
