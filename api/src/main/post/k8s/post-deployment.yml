@@ -19,6 +19,8 @@ spec:
         image: notreddit.azurecr.io/post-service:latest
         envFrom:
           - secretRef:
+              name: cors-secret
+          - secretRef:
               name: post-api-secret
 ---
 apiVersion: v1

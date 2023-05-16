@@ -19,6 +19,8 @@ spec:
         image: notreddit.azurecr.io/comment-service:latest
         envFrom:
           - secretRef:
+              name: cors-secret
+          - secretRef:
               name: comment-api-secret
 ---
 apiVersion: v1

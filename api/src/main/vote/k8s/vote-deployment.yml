@@ -19,6 +19,8 @@ spec:
         image: notreddit.azurecr.io/vote-service:latest
         envFrom:
           - secretRef:
+              name: cors-secret
+          - secretRef:
               name: vote-api-secret
 ---
 apiVersion: v1
