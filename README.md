@@ -28,11 +28,8 @@ not-reddit
         <img src="https://github.com/stoyanK7/not-reddit/actions/workflows/shellcheck.yml/badge.svg"/>
     </a>
     <br/>
-    <a href="https://github.com/stoyanK7/not-reddit/actions/workflows/azure-container-registry.yml">
-        <img src="https://github.com/stoyanK7/not-reddit/actions/workflows/azure-container-registry.yml/badge.svg"/>
-    </a>
-    <a href="https://github.com/stoyanK7/not-reddit/actions/workflows/azure-kubernetes-service.yml">
-        <img src="https://github.com/stoyanK7/not-reddit/actions/workflows/azure-kubernetes-service.yml/badge.svg"/>
+    <a href="https://github.com/stoyanK7/not-reddit/actions/workflows/deploy.yml">
+        <img src="https://github.com/stoyanK7/not-reddit/actions/workflows/deploy.yml/badge.svg"/>
     </a>
     <br/>
     <a href="https://www.gnu.org/licenses/gpl-3.0">
