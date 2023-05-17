@@ -1,8 +1,12 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ["styles.redditmedia.com", "localhost"]
+        domains: ["styles.redditmedia.com",
+            "localhost",
+            "notredditapi.switzerlandnorth.cloudapp.azure.com",
+            "notredditui.switzerlandnorth.cloudapp.azure.com"
+        ]
     },
 };
 
