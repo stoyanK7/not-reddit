@@ -8,7 +8,7 @@ export default function PostBody({ body, type }) {
                     className="relative overflow-visible h-40 w-full">
                     <Image
                         style={{ objectFit: "contain" }}
-                        src={body}
+                        src={`${process.env.NEXT_PUBLIC_API_SERVICE_URL}/api/post/media/${body}`}
                         alt="Application logo"
                         fill
                         // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

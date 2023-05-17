@@ -105,19 +105,6 @@ def assert_file_type_is_allowed(file: UploadFile):
         )
 
 
-def determine_media_url(file: UploadFile) -> str:
-    # TODO: Remove back to normal for production
-    # if settings.BLOB_STORAGE_CONNECTION_STRING:
-    #     container = determine_storage_container_name(file=file)
-    #     return (
-    #         f"https://{settings.BLOB_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/"
-    #         f"{container}/{file.filename}"
-    #     )
-    # else:
-    # TODO: Put in settings for production
-    return f"http://localhost:8080/api/post/media/{file.filename}"
-
-
 def determine_storage_container_name(file: UploadFile) -> str:
     if file.content_type in settings.ALLOWED_IMAGE_TYPES:
         return settings.BLOB_STORAGE_IMAGES_CONTAINER_NAME

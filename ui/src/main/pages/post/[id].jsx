@@ -1,8 +1,8 @@
 import { AuthenticatedTemplate } from "@azure/msal-react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toast";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 
 import CommentItem from "@/components/CommentItem";
 import CommentList from "@/components/CommentList";

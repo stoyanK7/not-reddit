@@ -8,7 +8,7 @@ from src.main.post import crud
 from src.main.post.schema import TextPostCreate
 from src.main.post.settings import settings
 from src.main.post.util import upload_file, assert_user_is_owner_of_post, \
-    get_username_from_access_token, assert_file_type_is_allowed, determine_media_url, \
+    get_username_from_access_token, assert_file_type_is_allowed, \
     delete_file_from_post, construct_file_response, rename_file, emit_post_creation_event
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
@@ -56,8 +56,7 @@ async def create_media_post(request: Request, title: Annotated[str, Form()], fil
     created_post = crud.create_post(db=db, post=post)
 
     file = rename_file(file=file, post_id=created_post.id)
-    media_url = determine_media_url(file=file)
-    crud.update_post_body(db=db, post_id=created_post.id, body=media_url)
+    crud.update_post_body(db=db, post_id=created_post.id, body=file.filename)
 
     # TODO: think about making a separate service for file compression
     background_tasks.add_task(upload_file, file=file, post_id=created_post.id)
