@@ -23,11 +23,6 @@ server {
     listen 8080;
     server_name 127.0.0.1;
 
-    add_header 'Access-Control-Allow-Origin' 'https://notredditui.switzerlandnorth.cloudapp.azure.com' always;
-    add_header 'Access-Control-Allow-Methods' '*' always;
-    add_header 'Access-Control-Allow-Headers' '*' always;
-    add_header 'Access-Control-Allow-Credentials' 'true' always;
-
     location = /api/auth {
         internal;
         proxy_pass http://auth_service;
