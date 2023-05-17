@@ -143,7 +143,7 @@ def test_create_media_post(client, session, insert_user, test_file_name, generat
     assert response.status_code == HTTP_201_CREATED
     assert "id" in response.json().keys()
     assert response.json()["title"] == data["title"]
-    assert "http" in response.json()["body"]
+    assert str(response.json()["id"]) in response.json()["body"]
     assert response.json()["username"] == user.username
     assert session.query(PostModel).filter_by(id=response.json()["id"]).first() is not None
 
