@@ -5,3 +5,5 @@ LABEL org.opencontainers.image.description="Not-reddit API gateway service"
 LABEL org.opencontainers.image.licenses="GPL-3.0"
 
 COPY ./src/main/gateway/nginx.conf.template /etc/nginx/templates/nginx.conf.template
+
+EXPOSE 8080

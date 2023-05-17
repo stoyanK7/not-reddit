@@ -20,4 +20,6 @@ COPY ./src/main/shared/ /app/src/main/shared/
 
 COPY ./src/main/user/ /app/src/main/user/
 
+EXPOSE 8080
+
 CMD ["uvicorn", "src.main.user.main:app", "--host", "0.0.0.0", "--port", "8080"]
