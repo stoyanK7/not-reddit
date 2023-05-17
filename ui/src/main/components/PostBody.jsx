@@ -15,6 +15,11 @@ export default function PostBody({ body, type }) {
                     />
                 </div>
             )}
+            {type === "text" && (
+                <div>
+                    {body}
+                </div>
+            )}
         </>
     );
 }
