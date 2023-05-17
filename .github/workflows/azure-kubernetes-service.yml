@@ -50,3 +50,14 @@ jobs:
             api/src/main/auth/k8s/auth-deployment.yml
             api/src/main/email/k8s/email-deployment.yml
             ui/src/main/k8s/ui-deployment.yml
+
+      - name: Rollout restart
+        run: |
+          kubectl rollout restart deployment user-api-deployment
+          kubectl rollout restart deployment post-api-deployment
+          kubectl rollout restart deployment vote-api-deployment
+          kubectl rollout restart deployment comment-api-deployment
+          kubectl rollout restart deployment auth-api-deployment
+          kubectl rollout restart deployment email-api-deployment
+          kubectl rollout restart deployment gateway-api-deployment
+          kubectl rollout restart deployment ui-deployment
