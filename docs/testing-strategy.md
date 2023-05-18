@@ -41,4 +41,6 @@ _JMeter_.
 
 ## Security
 
-
+For penetration testing, [_OWASP ZAP_](https://owasp.org/www-project-zap/) will be used. The project
+provides a [docker image](https://www.zaproxy.org/docs/docker/about/) and is beginner-friendly. Each
+security requirement will be tested manually and then automated using _ZAP_ if possible.
