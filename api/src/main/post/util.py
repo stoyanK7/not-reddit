@@ -6,7 +6,7 @@ from fastapi import UploadFile, Request, HTTPException
 from fastapi.responses import FileResponse
 from azure.storage.blob import BlobServiceClient
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST
+from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 
 from src.main.shared.database.main import get_db
 from src.main.post import crud
@@ -113,7 +113,14 @@ def determine_storage_container_name(file: UploadFile) -> str:
 
 
 def construct_file_response(name: str) -> FileResponse:
-    return FileResponse(f"{files_directory}/{name}")
+    file_location = f"{files_directory}/{name}"
+    if os.path.exists(file_location):
+        return FileResponse(file_location)
+    else:
+        raise HTTPException(
+            status_code=HTTP_404_NOT_FOUND,
+            detail="File not found"
+        )
 
 
 async def emit_post_creation_event(request: Request, post: dict):
