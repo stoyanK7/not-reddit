@@ -36,6 +36,6 @@ do
   curl -XPOST \
   -H "Authorization: Bearer $JWT_TOKEN" \
   -F "title=$i: Lorem ipsum 1234567890!@#$%^&*()_+{}:<>" \
-  -F "image=@./.dev/test-image.png" \
+  -F "body=@docs/test/img/$i.png" \
   "$API_URL/api/post/media"
 done
