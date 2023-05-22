@@ -4,7 +4,7 @@
 
 The purpose of this document is to describe the non-functional requirements of the project.
 
-[_Testing Strategy_](testing-strategy.md) and [_Test Report_](test-report.md) document
+[_Testing Strategy_](test/testing-strategy.md) and [_Test Report_](test/test-report.md) document
 the testing strategy and results for validating the non-functional requirements.
 
 ## Non-Functional Requirements
