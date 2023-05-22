@@ -2,7 +2,12 @@
 
 This document describes the history of the architecture of the project. Latest is always on the top.
 
-## 26 April 2023 (Latest)
+## 22 May 2023 (Latest)
+
+![img](img/2023-05-22-architecture-system.png "System Architecture from 22 May 2023")
+![img](img/2023-05-22-architecture-container.png "Container Architecture from 22 May 2023")
+
+## 26 April 2023
 
 The post microservice is now subscribed to the successful registration queue, so it can create a
 user row in its database too. This prevents the post microservice from talking with the user
