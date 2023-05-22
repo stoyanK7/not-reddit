@@ -71,3 +71,5 @@ export JWT_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImJXOFpjTWpCQ25KWlM
 export API_URL=https://notredditapi.switzerlandnorth.cloudapp.azure.com
 ./.dev/setup-testing-environment.sh
 ```
+
+All safeguards are removed from commit 0c823001ca8be8cc478a5680c90d7c0290ff5518.
