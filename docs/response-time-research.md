@@ -11,6 +11,8 @@ By Kostadinov, Stoyan S.L.
         * [Methodology](#methodology)
         * [Constraints](#constraints)
         * [Glossary](#glossary)
+    * [Baseline](#baseline)
+        * [Baseline results](#baseline-results)
     * [Literature review](#literature-review)
     * [Non-functional testing](#non-functional-testing)
     * [References](#references)
@@ -85,7 +87,8 @@ The research is constrained by the following factors:
 - **Resources**\
   The research is limited to the resources available to the author. All tests are ran from
   a `ASUSTeK COMPUTER INC. ZenBook UX434FLC_UX434FL` laptop with `8GB` of RAM and
-  an `Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz` processor.
+  an `Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz` processor. The Azure Kubernetes Services cluster is
+  running on a `Standard_B4ms` machine with 1 node pool.
 - **Scope**\
   The research is limited to the not-reddit platform and does not consider other social media
   platforms.
@@ -97,11 +100,33 @@ The research is constrained by the following factors:
   The research is limited to the author's expertise. The author is a student with limited
   experience in the field of performance optimization.
 
-### Glossary
+The landing page will contain 6 text and 4 media posts.
 
-| Term | Definition |
-|------|------------|
-| xxx  |            |
+### Glossary
+TODO: look for terms at the end of the document and add them here
+
+| Term                            | Definition                                                                                                                                                                 |
+|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Azure Kubernetes Services (AKS) | A fully managed container orchestration service provided by Microsoft Azure, enabling developers to deploy, scale, and manage containerized applications using Kubernetes. |
+
+## Measurements
+
+The following measurements will be used to evaluate the performance of the not-reddit platform:
+
+- **Latency**\
+  The time it takes for a request to be sent from the client to the server and back.
+- **Throughput**\
+  The number of requests that can be processed per second.
+- **Error rate**\
+  The percentage of requests that fail.
+- **CPU usage**\
+  The percentage of CPU used by the application.
+- **Network usage**\
+  The percentage of network bandwidth used by the application.
+
+Latency, Throughput and Error rate are measured using _Apache
+JMeter_[[x]](https://jmeter.apache.org/) and _Azure Kubernetes
+Metrics_.[[x]](https://learn.microsoft.com/en-us/azure/aks/monitor-aks)
 
 ## Baseline
 
@@ -109,6 +134,7 @@ On a system level, the not-reddit platform consists of 4 components - not-reddit
 Azure Active Directory (AAD), Azure Blob Storage (ABS), and Azure Email Communication Service (
 AECS).
 ![img](img/2023-05-22-architecture-system.png)
+<p align="center"><i>Figure 1: System architecture</i></p>
 
 The scope of this research is focuses on the post service which is responsible for handling creation
 and retrieval of posts and media. A typical request starts from the client (browser), goes
@@ -116,6 +142,9 @@ through the API gateway and lands in the Post API. The API will retrieve the pos
 and send it back to the client. Depending of the `type` of the post, the client will send additional
 request for the media. In total, for a media post, 2 requests will be made.
 ![img](img/2023-05-23-architecture-post.png)
+<p align="center"><i>Figure 2: Post service architecture</i></p>
+
+### Baseline results
 
 ## Literature review
 
