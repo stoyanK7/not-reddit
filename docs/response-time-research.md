@@ -3,16 +3,18 @@
 By Kostadinov, Stoyan S.L.
 
 <!-- TOC -->
+
 * [Accelerating response times for high-traffic social media platforms](#accelerating-response-times-for-high-traffic-social-media-platforms)
-  * [Introduction](#introduction)
-    * [Context](#context)
-    * [Research questions and objectives](#research-questions-and-objectives)
-    * [Methodology](#methodology)
-    * [Constraints](#constraints)
-    * [Glossary](#glossary)
-  * [Literature review](#literature-review)
-  * [Non-functional testing](#non-functional-testing)
-  * [References](#references)
+    * [Introduction](#introduction)
+        * [Context](#context)
+        * [Research questions and objectives](#research-questions-and-objectives)
+        * [Methodology](#methodology)
+        * [Constraints](#constraints)
+        * [Glossary](#glossary)
+    * [Literature review](#literature-review)
+    * [Non-functional testing](#non-functional-testing)
+    * [References](#references)
+
 <!-- TOC -->
 
 ## Introduction
@@ -103,7 +105,17 @@ The research is constrained by the following factors:
 
 ## Baseline
 
-![img](img/2023-05-22-architecture-container.png)
+On a system level, the not-reddit platform consists of 4 components - not-reddit system itself,
+Azure Active Directory (AAD), Azure Blob Storage (ABS), and Azure Email Communication Service (
+AECS).
+![img](img/2023-05-22-architecture-system.png)
+
+The scope of this research is focuses on the post service which is responsible for handling creation
+and retrieval of posts and media. A typical request starts from the client (browser), goes
+through the API gateway and lands in the Post API. The API will retrieve the post from the database
+and send it back to the client. Depending of the `type` of the post, the client will send additional
+request for the media. In total, for a media post, 2 requests will be made.
+![img](img/2023-05-23-architecture-post.png)
 
 ## Literature review
 

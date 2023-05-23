@@ -150,6 +150,11 @@ workspace {
         }
 
         container notredditSystem {
+            include postApi postDb gateway eventBus authApi spApplication notredditUser azureAdSystem azureBlobStorage
+            autolayout
+        }
+
+        container notredditSystem {
             include *
         }
 
