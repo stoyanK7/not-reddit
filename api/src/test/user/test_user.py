@@ -1,4 +1,5 @@
-from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
+from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT, \
+    HTTP_204_NO_CONTENT
 import jwt
 
 from src.main.user.model import User as UserModel
@@ -71,10 +72,10 @@ def test_get_username_with_non_existing_user(client, session, mock_user_with_use
 def test_check_if_registered(client, session, mock_user_with_username):
     """Assert that user is registered."""
     user = mock_user_with_username
-    jwt_token = jwt.encode({"preferred_username": user["email"]}, "secret", algorithm="HS256")
     session.add(UserModel(**user))
     session.commit()
 
+    jwt_token = jwt.encode({"preferred_username": user["email"]}, "secret", algorithm="HS256")
     response = client.get("/api/user/registered",
                           headers={"Authorization": f"Bearer {jwt_token}"})
 
@@ -92,3 +93,27 @@ def test_check_if_registered_not_registered(client, session, mock_user):
 
     assert response.status_code == HTTP_200_OK
     assert response.json() == {"registered": False}
+
+
+def test_delete_user(client, session, mock_user_with_username):
+    """Assert that deleting a user works."""
+    user = mock_user_with_username
+    session.add(UserModel(**user))
+    session.commit()
+
+    jwt_token = jwt.encode({"preferred_username": user["email"]}, "secret", algorithm="HS256")
+    response = client.delete("/api/user",
+                             headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_204_NO_CONTENT
+    assert session.query(UserModel).filter_by(email=user["email"]).first() is None
+
+
+def test_delete_user_non_existing_user(client, session):
+
+    jwt_token = jwt.encode({"preferred_username": "nonexistingemail"}, "secret", algorithm="HS256")
+    response = client.delete("/api/user",
+                             headers={"Authorization": f"Bearer {jwt_token}"})
+
+    assert response.status_code == HTTP_404_NOT_FOUND
+    assert response.json() == {"detail": "User not found"}

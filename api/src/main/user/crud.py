@@ -22,3 +22,8 @@ def get_user_by_email(db: Session, email: str) -> UserModel:
 def get_user_by_username_or_email(db: Session, username: str, email: str) -> UserModel:
     return db.query(UserModel)\
         .filter((UserModel.username == username) or (UserModel.email == email)).first()
+
+
+def delete_user(db: Session, email: str):
+    db.query(UserModel).filter(UserModel.email == email).delete()
+    db.commit()
