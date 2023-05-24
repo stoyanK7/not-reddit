@@ -135,3 +135,11 @@ def handle_vote_casted(message: AbstractIncomingMessage) -> None:
         crud.cast_upvote(db=db, post_id=body["post_id"])
     elif body["vote_type"] == "down":
         crud.cast_downvote(db=db, post_id=body["post_id"])
+
+
+def handle_user_deleted(message: AbstractIncomingMessage) -> None:
+    body = decode_body_and_convert_to_dict(message.body)
+    db = next(get_db())
+    crud.delete_user(db=db, oid=body["oid"])
+    username = crud.get_username_by_oid(db=db, oid=body["oid"])
+    crud.delete_user_posts(db=db, username=username)

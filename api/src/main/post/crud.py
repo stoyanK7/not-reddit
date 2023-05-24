@@ -64,12 +64,24 @@ def delete_post_by_id(db: Session, post_id: int):
     return
 
 
+def delete_user_posts(db: Session, username: str):
+    db.query(PostModel).filter(PostModel.username == username).delete()
+    db.commit()
+    return
+
+
 def insert_user(db: Session, username: str, oid: str):
     db_user = UserModel(username=username, oid=oid)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def delete_user(db: Session, oid: str):
+    db.query(UserModel).filter(UserModel.oid == oid).delete()
+    db.commit()
+    return
 
 
 def get_username_by_oid(db: Session, oid: str):
