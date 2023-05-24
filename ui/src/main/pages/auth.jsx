@@ -5,7 +5,7 @@ import {
 } from "@azure/msal-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toast";
 
 import LogoutButton from "@/components/LogoutButton";
@@ -18,26 +18,30 @@ import getAccessToken from "@/utils/getAccessToken";
 export default function Auth() {
     const { accounts } = useMsal();
     const isAuthenticated = accounts.length > 0;
+    const [hasUserConsented, setHasUserConsented] = useState(false);
+    const [isRegistered, setIsRegistered] = useState(false);
 
     useEffect(() => {
         async function checkRegistrationStatus() {
-            let isRegistered;
+            let internalIsRegistered;
             if (isAuthenticated) {
-                isRegistered = await isUserRegistered();
-            }
-
-            if (isAuthenticated && !isRegistered) {
-                await registerUser();
-            }
-
-            if (isAuthenticated && isRegistered) {
-                const username = await getUsername();
-                localStorage.setItem("username", username);
+                internalIsRegistered = await isUserRegistered();
+                setIsRegistered(internalIsRegistered);
             }
         }
 
         checkRegistrationStatus();
     }, [isAuthenticated]);
+
+    useEffect(() => {
+        async function getUserName() {
+            if (isAuthenticated && isRegistered) {
+                const username = await getUsername();
+                localStorage.setItem("username", username);
+            }
+        }
+        getUserName();
+    }, [isAuthenticated, isRegistered]);
 
     async function isUserRegistered() {
         const accessToken = await getAccessToken();
@@ -68,6 +72,7 @@ export default function Auth() {
 
         if (res.ok) {
             toast.success("Registered successfully.");
+            setIsRegistered(true);
         }
     }
 
@@ -92,30 +97,73 @@ export default function Auth() {
         return data.username;
     }
 
+    const handleChecked = () => {
+        setHasUserConsented(!hasUserConsented);
+    };
+
+    async function handleRegister() {
+        if (isAuthenticated && !isRegistered) {
+            if (!hasUserConsented) {
+                toast.error("Please consent to the terms.");
+                return;
+            }
+            await registerUser();
+        }
+    }
+
     return (
         <main
             className="flex flex-col w-screen h-screen justify-center items-center">
             <div
                 className="rounded-sm bg-white p-4 m-2 flex flex-col justify-center items-center
-                gap-2 shadow-reddit border border-reddit-postline">
+                gap-2 shadow-reddit border border-reddit-postline w-1/3">
                 <h1>Welcome to <b>not-reddit</b>!</h1>
                 <AuthenticatedTemplate>
-                    <span
-                        data-testid="youAreSignedIn">
-                        <b
-                            className="text-reddit-orange">
-                            You&nbsp;
-                        </b>
-                        are signed in!
-                    </span>
-                    <Link
-                        href="/">
-                        <button
-                            className="p-2 rounded-sm bg-reddit-orange text-white">
-                            Go to home page
-                        </button>
-                    </Link>
-                    <span>or..</span>
+                    {isAuthenticated && !isRegistered && (
+                        <>
+                            <p
+                                className="italic underline text-center">
+                                By registering, you consent to the storage of your email for
+                                identification
+                                purposes. We prioritize your privacy and will only use your email
+                                for
+                                essential account-related communication.
+                            </p>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={hasUserConsented}
+                                    onChange={handleChecked} />
+                                I consent to the above.
+                            </label>
+                            <button
+                                disabled={!hasUserConsented}
+                                className="p-2 rounded-sm bg-reddit-orange text-white"
+                                onClick={handleRegister} >
+                                Register
+                            </button>
+                        </>
+                    )}
+                    {isAuthenticated && isRegistered && (
+                        <>
+                            <span
+                                data-testid="youAreSignedIn">
+                                <b
+                                    className="text-reddit-orange">
+                                    You&nbsp;
+                                </b>
+                                are signed in!
+                            </span>
+                            <Link
+                                href="/">
+                                <button
+                                    className="p-2 rounded-sm bg-reddit-orange text-white">
+                                    Go to home page
+                                </button>
+                            </Link>
+                            <span>or..</span>
+                        </>
+                    )}
                     <LogoutButton />
                 </AuthenticatedTemplate>
                 <UnauthenticatedTemplate>
