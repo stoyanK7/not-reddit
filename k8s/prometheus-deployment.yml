@@ -1,0 +1,75 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: prometheus-database-storageclass
+provisioner: file.csi.azure.com
+allowVolumeExpansion: false
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=0
+  - gid=0
+  - mfsymlinks
+  - cache=strict
+  - actimeo=30
+parameters:
+  skuName: Standard_LRS
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-database-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: prometheus-database-storageclass
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-database-deployment
+  labels:
+    app: prometheus-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-database
+  template:
+    metadata:
+      labels:
+        app: prometheus-database
+    spec:
+      volumes:
+        - name: prometheus-database-volume
+          persistentVolumeClaim:
+            claimName: prometheus-database-claim
+        - name: config
+          configMap:
+            name: config
+      containers:
+        - name: prometheus-database
+          image: prom/prometheus:latest
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - name: prometheus-database-volume
+              mountPath: /prometheus
+            - name: config
+              mountPath: /etc/prometheus/prometheus.yml
+              subPath: prometheus.yml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-database-service
+spec:
+  selector:
+    app: prometheus-database
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
