@@ -3,7 +3,15 @@
 The purpose of this document is to show the history of the CI/CD pipeline for the project. Latest
 is always on the top.
 
-## 14 April 2023 (Latest)
+## 24 May 2023 (Latest)
+
+A deployment job was added. It first run tests, then builds and pushes the Docker images to Azure
+Container Registry and finally deploys the application to Azure Kubernetes Service via a rolling
+deployment.
+
+![img](../../docs/img/2023-05-24-cicd.png "CI/CD from 24 May 2023")
+
+## 14 April 2023
 
 The project now has a workflow to build and push the Docker images to Azure Container Registry.
 
