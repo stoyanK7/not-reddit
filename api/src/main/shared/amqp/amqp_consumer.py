@@ -31,7 +31,7 @@ class AmqpConsumer:
         exchange = await channel.declare_exchange(self.exchange_name, exchange_type)
         logger.info(f"Declared exchange '{self.exchange_name}' of type {exchange_type}.")
 
-        queue = await channel.declare_queue(exclusive=True, name=self.queue_name)
+        queue = await channel.declare_queue(exclusive=False, name=self.queue_name)
         logger.info(f"Declared queue '{self.queue_name}'.")
 
         await queue.bind(exchange)
