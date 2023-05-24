@@ -25,7 +25,7 @@ def assert_is_user_exists(user):
         )
 
 
-async def emit_user_registration_event(request: Request, email: str, oid: str, username: str):
+async def emit_user_registered_event(request: Request, email: str, oid: str, username: str):
     body = json.dumps({
         "recipients": [email],
         "content_topic": "user_registration",
@@ -33,3 +33,10 @@ async def emit_user_registration_event(request: Request, email: str, oid: str, u
         "username": username
     })
     await request.app.user_registered_amqp_publisher.send_message(str(body))
+
+
+async def emit_user_deleted_event(request: Request, oid: str):
+    body = json.dumps({
+        "oid": oid
+    })
+    await request.app.user_deleted_amqp_publisher.send_message(str(body))
