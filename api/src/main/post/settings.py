@@ -7,7 +7,7 @@ class PostServiceSettings(AmqpSettings):
     # AMQP
     AMQP_USER_REGISTERED_QUEUE_NAME: str = "post_service_user_registered_queue"
     AMQP_POST_VOTE_CASTED_QUEUE_NAME: str = "post_service_post_vote_casted_queue"
-    AMQP_USER_DELETED_QUEUE_NAME: str = "post_service_post_user_deleted_queue"
+    AMQP_USER_DELETED_QUEUE_NAME: str = "post_service_user_deleted_queue"
     # Azure Blob Storage
     BLOB_STORAGE_ACCOUNT_NAME: str = get_env("BLOB_STORAGE_ACCOUNT_NAME")
     BLOB_STORAGE_CONNECTION_STRING: str = get_env("BLOB_STORAGE_CONNECTION_STRING")

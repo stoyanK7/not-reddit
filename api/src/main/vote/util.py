@@ -36,8 +36,8 @@ def handle_user_registration(message: AbstractIncomingMessage):
 def handle_user_deleted(message: AbstractIncomingMessage):
     body = decode_body_and_convert_to_dict(message.body)
     db = next(get_db())
-    crud.delete_user(db=db, oid=body['oid'])
     username = crud.get_username_by_oid(db=db, oid=body['oid'])
+    crud.delete_user(db=db, oid=body['oid'])
     crud.delete_user_votes(db=db, username=username)
 
 
