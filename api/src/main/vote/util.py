@@ -33,6 +33,14 @@ def handle_user_registration(message: AbstractIncomingMessage):
     crud.insert_user(db=db, username=username, oid=oid)
 
 
+def handle_user_deleted(message: AbstractIncomingMessage):
+    body = decode_body_and_convert_to_dict(message.body)
+    db = next(get_db())
+    crud.delete_user(db=db, oid=body['oid'])
+    username = crud.get_username_by_oid(db=db, oid=body['oid'])
+    crud.delete_user_votes(db=db, username=username)
+
+
 def handle_post_creation(message: AbstractIncomingMessage):
     body = decode_body_and_convert_to_dict(message.body)
     db = next(get_db())

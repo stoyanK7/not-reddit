@@ -18,12 +18,24 @@ def cast_vote(db: Session, vote: dict):
     return
 
 
+def delete_user_votes(db: Session, username: str):
+    db.query(VoteModel).filter(VoteModel.username == username).delete()
+    db.commit()
+    return
+
+
 def insert_user(db: Session, username: str, oid: str):
     db_user = UserModel(username=username, oid=oid)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def delete_user(db: Session, oid: str):
+    db.query(UserModel).filter(UserModel.oid == oid).delete()
+    db.commit()
+    return
 
 
 def insert_post(db: Session, post: dict):
