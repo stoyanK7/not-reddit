@@ -37,6 +37,12 @@ def create_comment(db: Session, comment: dict):
     return db_comment
 
 
+def delete_user_comments(db: Session, username: str):
+    db.query(CommentModel).filter(CommentModel.username == username).delete()
+    db.commit()
+    return
+
+
 def cast_upvote(db: Session, comment_id: int):
     db_post = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
     db_post.votes += 1
@@ -63,6 +69,12 @@ def insert_user(db: Session, username: str, oid: str):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def delete_user(db: Session, oid: str):
+    db.query(UserModel).filter(UserModel.oid == oid).delete()
+    db.commit()
+    return
 
 
 def get_username_by_oid(db: Session, oid: str):

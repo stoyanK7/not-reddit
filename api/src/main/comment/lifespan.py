@@ -19,6 +19,8 @@ async def lifespan(app: CommentService) -> Lifespan[AppType]:
     await task
     task = loop.create_task(app.comment_vote_casted_amqp_consumer.consume(loop))
     await task
+    task = loop.create_task(app.user_deleted_amqp_consumer.consume(loop))
+    await task
     yield
 
 

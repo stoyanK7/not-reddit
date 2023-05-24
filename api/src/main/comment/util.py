@@ -39,6 +39,14 @@ def handle_vote_casted(message: AbstractIncomingMessage):
         crud.cast_downvote(db=db, comment_id=body["comment_id"])
 
 
+def handle_user_deleted(message: AbstractIncomingMessage):
+    body = decode_body_and_convert_to_dict(message.body)
+    db = next(get_db())
+    crud.delete_user(db=db, oid=body["oid"])
+    username = crud.get_username_by_oid(db=db, oid=body["oid"])
+    crud.delete_user_comments(db=db, username=username)
+
+
 def assert_post_exists(db: Session, post_id: int):
     post_exists = crud.get_post_by_id(db=db, post_id=post_id)
     if not post_exists:
