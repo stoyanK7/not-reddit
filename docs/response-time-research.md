@@ -102,14 +102,7 @@ The research is constrained by the following factors:
 
 The landing page will contain 6 text and 4 media posts.
 
-### Glossary
-TODO: look for terms at the end of the document and add them here
-
-| Term                            | Definition                                                                                                                                                                 |
-|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Azure Kubernetes Services (AKS) | A fully managed container orchestration service provided by Microsoft Azure, enabling developers to deploy, scale, and manage containerized applications using Kubernetes. |
-
-## Measurements
+#### Measurements
 
 The following measurements will be used to evaluate the performance of the not-reddit platform:
 
@@ -119,14 +112,25 @@ The following measurements will be used to evaluate the performance of the not-r
   The number of requests that can be processed per second.
 - **Error rate**\
   The percentage of requests that fail.
-- **CPU usage**\
-  The percentage of CPU used by the application.
-- **Network usage**\
-  The percentage of network bandwidth used by the application.
 
-Latency, Throughput and Error rate are measured using _Apache
-JMeter_[[x]](https://jmeter.apache.org/) and _Azure Kubernetes
-Metrics_.[[x]](https://learn.microsoft.com/en-us/azure/aks/monitor-aks)
+All are measured using _Apache JMeter_.[[x]](https://jmeter.apache.org/) A total of 5 requests
+different requests will be made to simulate real user behavior:
+
+- /api/post?sort_by=hot&page=0
+- /api/post/media/7.png
+- /api/post/media/8.png
+- /api/post/media/9.png
+- /api/post/media/10.png
+
+The number of threads will be set to 1000 and the ramp-up period to 1 second.
+
+### Glossary
+
+TODO: look for terms at the end of the document and add them here
+
+| Term                            | Definition                                                                                                                                                                 |
+|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Azure Kubernetes Services (AKS) | A fully managed container orchestration service provided by Microsoft Azure, enabling developers to deploy, scale, and manage containerized applications using Kubernetes. |
 
 ## Baseline
 
