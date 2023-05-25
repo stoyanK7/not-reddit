@@ -46,7 +46,7 @@ async def webhook(request: Request):
 
 
 @router.post("/session")
-def create_checkout_session(request: Request, subject_type: Annotated[str, Form()],
+def create_checkout_session(subject_type: Annotated[str, Form()],
                             subject_id: Annotated[int, Form()],
                             award_type: Annotated[str, Form()]):
     try:
