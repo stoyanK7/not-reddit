@@ -1,7 +1,7 @@
 #!/bin/sh
 # This script is expected to be run from root folder of repository.
 
-source ./.dev/util.sh
+. ./.dev/util.sh
 
 checkForVariable "JWT_TOKEN"
 checkForVariable "API_URL"
