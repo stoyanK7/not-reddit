@@ -14,6 +14,9 @@ class Post(Base):
     username = Column(String)
     post_type = Column(String)
     votes = Column(Integer, server_default="0")
+    silver_awards = Column(Integer, server_default="0")
+    gold_awards = Column(Integer, server_default="0")
+    platinum_awards = Column(Integer, server_default="0")
 
 
 class User(Base):
