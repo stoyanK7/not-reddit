@@ -12,6 +12,7 @@ SERVICES=(
   "post" # 8082
   "vote" # 8083
   "comment" # 8084
+  "award" # 8085
 )
 STARTING_PORT=8081
 
