@@ -16,13 +16,13 @@ def webhook(request: Request, body: dict):
     event = None
     payload = body
 
-    if settings.EDNPOINT_SECRET:
+    if settings.STRIPE_ENDPOINT_SECRET:
         # Only verify the event if there is an endpoint secret defined
         # Otherwise use the basic event deserialized with json
         sig_header = request.headers['stripe-signature']
         try:
             event = stripe.Webhook.construct_event(
-                payload, sig_header, settings.EDNPOINT_SECRET
+                payload, sig_header, settings.STRIPE_ENDPOINT_SECRET
             )
         except stripe.error.SignatureVerificationError as e:
             print('⚠️  Webhook signature verification failed.' + str(e))
