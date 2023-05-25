@@ -17,6 +17,9 @@ spec:
       containers:
       - name: ui
         image: notreddit.azurecr.io/ui-service:latest
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
         envFrom:
           - secretRef:
               name: ui-secret

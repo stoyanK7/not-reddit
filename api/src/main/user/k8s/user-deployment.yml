@@ -17,6 +17,9 @@ spec:
       containers:
       - name: user-api
         image: notreddit.azurecr.io/user-service:latest
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
         envFrom:
           - secretRef:
               name: user-api-secret
