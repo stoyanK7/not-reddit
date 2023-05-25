@@ -50,19 +50,16 @@ server {
     }
 
     location /api/post {
-        auth_request /api/auth;
         proxy_pass http://post_service;
         proxy_pass_request_headers on;
     }
 
     location /api/vote {
-        auth_request /api/auth;
         proxy_pass http://vote_service;
         proxy_pass_request_headers on;
     }
 
     location /api/comment {
-        auth_request /api/auth;
         proxy_pass http://comment_service;
         proxy_pass_request_headers on;
     }

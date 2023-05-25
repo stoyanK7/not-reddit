@@ -72,7 +72,11 @@ def assert_vote_exists(vote):
 
 
 def assert_vote_not_already_casted(db: Session, vote: dict):
-    crud.get_vote(db=db, target_id=vote["target_id"],
+    vote_already_casted = crud.get_vote(db=db, target_id=vote["target_id"],
                                         target_type=vote["target_type"],
                                         username=vote["username"]) is not None
-    return True
+    if vote_already_casted:
+        raise HTTPException(
+            status_code=HTTP_400_BAD_REQUEST,
+            detail=f"Vote already casted for this {vote['target_type']}"
+        )
