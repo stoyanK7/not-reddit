@@ -1,9 +1,12 @@
+from typing import Annotated
+
 import stripe
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Form
 from stripe.error import SignatureVerificationError
 from starlette.responses import RedirectResponse
 
+from src.main.award.util import determine_stripe_product
 from src.main.award.settings import settings
 
 router = APIRouter(prefix=settings.SERVICE_PREFIX)
@@ -43,12 +46,14 @@ async def webhook(request: Request):
 
 
 @router.post("/session")
-def create_checkout_session():
+def create_checkout_session(request: Request, subject_type: Annotated[str, Form()],
+                                              subject_id: Annotated[int, Form()],
+                                              award_type: Annotated[str, Form()]):
     try:
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
-                    'price': 'price_1NBcsqHMj8LggMg2UidsD64r',
+                    'price': determine_stripe_product(award_type),
                     'quantity': 1,
                 },
             ],

@@ -19,20 +19,23 @@ export default function Award() {
         <main
             className="flex flex-col w-screen h-screen justify-center items-center">
             <div
-                className="flex gap-2">
+                className="flex gap-6">
                 <AwardProduct
+                    type="silver"
                     name="Silver Award"
                     description="A silver award for the best of the best"
                     price="1.50"
                     image="silver-award.png"
                     color="bg-gray-300 hover:bg-gray-500 transition ease-in-out" />
                 <AwardProduct
+                    type="gold"
                     name="Gold Award"
                     description="A gold award for the best of the best"
                     price="3.00"
                     image="gold-award.png"
                     color="bg-yellow-300 hover:bg-yellow-500 transition ease-in-out" />
                 <AwardProduct
+                    type="platinum"
                     name="Platinum Award"
                     description="A silver award for the best of the best"
                     price="5.00"
