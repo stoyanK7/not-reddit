@@ -1,7 +1,8 @@
+from src.main.shared.amqp.settings import AmqpSettings
 from src.main.shared.env import get_env
 
 
-class AwardServiceSettings:
+class AwardServiceSettings(AmqpSettings):
     SERVICE_PREFIX: str = "/api/award"
     STRIPE_API_KEY = get_env("STRIPE_API_KEY")
     STRIPE_ENDPOINT_SECRET = get_env("STRIPE_ENDPOINT_SECRET")

@@ -1,10 +1,11 @@
 from starlette.middleware.cors import CORSMiddleware
 
+from src.main.award.lifespan import lifespan
 from src.main.award.router import router
 from src.main.shared.cors.settings import settings as cors_settings
 from src.main.award.service import AwardService
 
-app = AwardService()
+app = AwardService(lifespan=lifespan)
 app.include_router(router)
 app.add_middleware(
     CORSMiddleware,
