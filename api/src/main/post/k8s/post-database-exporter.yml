@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-exporter-deployment
+  namespace: monitoring
+  labels:
+    app: post-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-exporter
+  template:
+    metadata:
+      labels:
+        app: post-exporter
+    spec:
+      containers:
+        - name: post-exporter
+          image: prometheuscommunity/postgres-exporter:latest
+          envFrom:
+            - secretRef:
+                name: post-exporter-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-exporter-service
+  namespace: monitoring
+spec:
+  selector:
+    app: post-exporter
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 9187
+      targetPort: 9187
