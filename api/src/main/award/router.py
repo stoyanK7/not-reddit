@@ -12,13 +12,11 @@ stripe.api_key = settings.STRIPE_API_KEY
 
 
 @router.post("/stripe_webhooks")
-def webhook(request: Request, body: dict):
+async def webhook(request: Request):
     event = None
-    payload = body
+    payload = await request.body()
 
     if settings.STRIPE_ENDPOINT_SECRET:
-        # Only verify the event if there is an endpoint secret defined
-        # Otherwise use the basic event deserialized with json
         sig_header = request.headers['stripe-signature']
         try:
             event = stripe.Webhook.construct_event(
@@ -28,19 +26,15 @@ def webhook(request: Request, body: dict):
             print('⚠️  Webhook signature verification failed.' + str(e))
             return {"success": False}
 
-        # Handle the event
-    if event and event['type'] == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']  # contains a stripe.PaymentIntent
-        print('Payment for {} succeeded'.format(payment_intent['amount']))
-        # Then define and call a method to handle the successful payment intent.
-        # handle_payment_intent_succeeded(payment_intent)
-    elif event['type'] == 'payment_method.attached':
-        payment_method = event['data']['object']  # contains a stripe.PaymentMethod
-        # Then define and call a method to handle the successful attachment of a PaymentMethod.
-        # handle_payment_method_attached(payment_method)
+    event_type = event['type']
+    if event_type == 'checkout.session.completed':
+        print('checkout session completed')
+    elif event_type == 'invoice.paid':
+        print('invoice paid')
+    elif event_type == 'invoice.payment_failed':
+        print('invoice payment failed')
     else:
-        # Unexpected event type
-        print('Unhandled event type {}'.format(event['type']))
+        print(f'unhandled event: {event_type}')
 
     # Handle the event
     print('Handled event type {}'.format(event['type']))
