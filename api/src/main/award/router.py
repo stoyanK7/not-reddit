@@ -14,7 +14,7 @@ router = APIRouter(prefix=settings.SERVICE_PREFIX)
 stripe.api_key = settings.STRIPE_API_KEY
 
 
-@router.post("/stripe_webhooks")
+@router.post("/webhooks")
 async def webhook(request: Request):
     event = None
     payload = await request.body()
