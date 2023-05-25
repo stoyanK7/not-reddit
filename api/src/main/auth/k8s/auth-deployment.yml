@@ -19,7 +19,6 @@ spec:
         image: notreddit.azurecr.io/auth-service:latest
         securityContext:
           allowPrivilegeEscalation: false
-          runAsNonRoot: true
         envFrom:
           - secretRef:
               name: auth-api-secret

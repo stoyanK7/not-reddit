@@ -19,7 +19,6 @@ spec:
         image: notreddit.azurecr.io/gateway-service:latest
         securityContext:
           allowPrivilegeEscalation: false
-          runAsNonRoot: true
         envFrom:
           - secretRef:
               name: gateway-api-secret

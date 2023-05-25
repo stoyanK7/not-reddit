@@ -19,7 +19,6 @@ spec:
         image: notreddit.azurecr.io/post-service:latest
         securityContext:
           allowPrivilegeEscalation: false
-          runAsNonRoot: true
         envFrom:
           - secretRef:
               name: post-api-secret
