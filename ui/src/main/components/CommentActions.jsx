@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toast";
 
@@ -106,10 +107,14 @@ export default function CommentActions({ comment_id, votes, username, mutate }) 
                     Down
                 </button>
             </div>
-            <div
-                className="p-2 rounded-sm text-yellow-600 hover:bg-yellow-300">
+            <Link
+                href={`/award?subject_id=${comment_id}&subject_type=comment`}>
+                <div
+                    className="p-2 rounded-sm text-yellow-600 hover:bg-yellow-300">
                 Award
-            </div>
+                </div>
+            </Link>
+
             {isUserOwnerOfComment &&
                 <div
                     className="p-2 rounded-sm text-red-600 hover:bg-red-300"

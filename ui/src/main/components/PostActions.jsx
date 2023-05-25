@@ -125,10 +125,13 @@ export default function PostActions({ id, votes, username, mutate }) {
                     Comments
                 </div>
             </Link>
-            <div
-                className="p-2 rounded-sm text-yellow-600 hover:bg-yellow-300">
-                Award
-            </div>
+            <Link
+                href={`/award?subject_id=${id}&subject_type=post`}>
+                <div
+                    className="p-2 rounded-sm text-yellow-600 hover:bg-yellow-300">
+                    Award
+                </div>
+            </Link>
             <div
                 onClick={sharePost}
                 className="p-2 rounded-sm hover:bg-reddit-gray-hover">
