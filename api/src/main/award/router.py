@@ -47,8 +47,8 @@ async def webhook(request: Request):
 
 @router.post("/session")
 def create_checkout_session(request: Request, subject_type: Annotated[str, Form()],
-                                              subject_id: Annotated[int, Form()],
-                                              award_type: Annotated[str, Form()]):
+                            subject_id: Annotated[int, Form()],
+                            award_type: Annotated[str, Form()]):
     try:
         checkout_session = stripe.checkout.Session.create(
             line_items=[
@@ -60,6 +60,11 @@ def create_checkout_session(request: Request, subject_type: Annotated[str, Form(
             mode='payment',
             success_url=settings.UI_URL + '/award?success=true',
             cancel_url=settings.UI_URL + '/award?canceled=true',
+            metadata={
+                'subject_type': subject_type,
+                'subject_id': subject_id,
+                'award_type': award_type
+            }
         )
         return RedirectResponse(url=checkout_session.url, status_code=303)
     except Exception as e:
