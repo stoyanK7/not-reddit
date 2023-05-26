@@ -21,6 +21,8 @@ async def lifespan(app: PostService) -> Lifespan[AppType]:
     await task
     task = loop.create_task(app.user_deleted_amqp_consumer.consume(loop))
     await task
+    task = loop.create_task(app.post_awarded_amqp_consumer.consume(loop))
+    await task
     yield
 
 

@@ -80,6 +80,19 @@ def handle_user_registration(message: AbstractIncomingMessage) -> None:
     crud.insert_user(db=db, username=username, oid=oid)
 
 
+def handle_post_awarded(message: AbstractIncomingMessage) -> None:
+    body = decode_body_and_convert_to_dict(message.body)
+    post_id = body['subject_id']
+    db = next(get_db())
+    award_type = body['award_type']
+    if award_type == "silver":
+        crud.update_post_silver_awards(db=db, post_id=post_id)
+    elif award_type == "gold":
+        crud.update_post_gold_awards(db=db, post_id=post_id)
+    elif award_type == "platinum":
+        crud.update_post_platinum_awards(db=db, post_id=post_id)
+
+
 def assert_user_is_owner_of_post(db: Session, request: Request, post_id: int):
     oid = get_access_token_oid(request=request)
     username = crud.get_username_by_oid(db=db, oid=oid)

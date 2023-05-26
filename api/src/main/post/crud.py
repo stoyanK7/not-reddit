@@ -44,6 +44,27 @@ def update_post_body(db: Session, post_id: int, body: str):
     return db_post
 
 
+def update_post_silver_awards(db: Session, post_id: int):
+    db_post = db.query(PostModel).filter(PostModel.id == post_id).first()
+    db_post.silver_awards += 1
+    db.commit()
+    db.refresh(db_post)
+
+
+def update_post_gold_awards(db: Session, post_id: int):
+    db_post = db.query(PostModel).filter(PostModel.id == post_id).first()
+    db_post.gold_awards += 1
+    db.commit()
+    db.refresh(db_post)
+
+
+def update_post_platinum_awards(db: Session, post_id: int):
+    db_post = db.query(PostModel).filter(PostModel.id == post_id).first()
+    db_post.platinum_awards += 1
+    db.commit()
+    db.refresh(db_post)
+
+
 def cast_upvote(db: Session, post_id: int):
     db_post = db.query(PostModel).filter(PostModel.id == post_id).first()
     db_post.votes += 1
