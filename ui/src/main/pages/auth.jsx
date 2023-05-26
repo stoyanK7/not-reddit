@@ -148,7 +148,7 @@ export default function Auth() {
                             <h3
                                 className="text-2xl">Account registration</h3>
                             <p
-                                className="italic underline">
+                                className="italic">
                                 By registering, you consent to the storage of your email for
                                 identification
                                 purposes. We prioritize your privacy and will only use your email
@@ -158,13 +158,31 @@ export default function Auth() {
                             <h3
                                 className="text-2xl">Account deletion</h3>
                             <p
-                                className="underline italic">
+                                className="italic">
                                 In accordance with GDPR guidelines, when a user requests account
                                 deletion, we ensure complete erasure of their personal data. This
                                 includes removing all posts, comments, and votes associated with
                                 their account. By taking these measures, we respect the user&apos;s
                                 right to be forgotten and prioritize the protection of their
                                 privacy.
+                            </p>
+                            <h3
+                                className="text-2xl">Payment processing</h3>
+                            <p
+                                className="italic">
+                                Our website/app uses Stripe, a trusted third-party payment
+                                processor, to securely handle all payment transactions. When you
+                                make a payment, your payment information is directly transmitted to
+                                and processed by Stripe, and we do not collect or store any payment
+                                data on our servers. Please refer to Stripe&apos;s privacy policy
+                                for more information on how they handle your payment data.
+                                <br />
+                                <a
+                                    className="underline text-blue-600"
+                                    target="_blank"
+                                    href="https://stripe.com/en-nl/privacy">
+                                    https://stripe.com/en-nl/privacy
+                                </a>
                             </p>
                             <label>
                                 <input
