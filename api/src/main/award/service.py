@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from main.award.settings import settings
-from main.shared.amqp.amqp_publisher import AmqpPublisher
+from src.main.award.settings import settings
+from src.main.shared.amqp.amqp_publisher import AmqpPublisher
 
 
 class AwardService(FastAPI):

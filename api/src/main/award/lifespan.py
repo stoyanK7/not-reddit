@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi.applications import AppType
 from starlette.types import Lifespan
 
-from main.award.service import AwardService
+from src.main.award.service import AwardService
 
 
 @asynccontextmanager
