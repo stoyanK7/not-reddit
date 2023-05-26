@@ -37,6 +37,27 @@ def create_comment(db: Session, comment: dict):
     return db_comment
 
 
+def update_comment_silver_awards(db: Session, comment_id: int):
+    db_comment = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
+    db_comment.silver_awards += 1
+    db.commit()
+    db.refresh(db_comment)
+
+
+def update_comment_gold_awards(db: Session, comment_id: int):
+    db_comment = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
+    db_comment.gold_awards += 1
+    db.commit()
+    db.refresh(db_comment)
+
+
+def update_comment_platinum_awards(db: Session, comment_id: int):
+    db_comment = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
+    db_comment.platinum_awards += 1
+    db.commit()
+    db.refresh(db_comment)
+
+
 def delete_user_comments(db: Session, username: str):
     db.query(CommentModel).filter(CommentModel.username == username).delete()
     db.commit()
@@ -44,17 +65,17 @@ def delete_user_comments(db: Session, username: str):
 
 
 def cast_upvote(db: Session, comment_id: int):
-    db_post = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
-    db_post.votes += 1
+    db_comment = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
+    db_comment.votes += 1
     db.commit()
-    db.refresh(db_post)
+    db.refresh(db_comment)
 
 
 def cast_downvote(db: Session, comment_id: int):
-    db_post = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
-    db_post.votes -= 1
+    db_comment = db.query(CommentModel).filter(CommentModel.id == comment_id).first()
+    db_comment.votes -= 1
     db.commit()
-    db.refresh(db_post)
+    db.refresh(db_comment)
 
 
 def delete_comment(db: Session, comment_id: int):

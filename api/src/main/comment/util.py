@@ -39,6 +39,19 @@ def handle_vote_casted(message: AbstractIncomingMessage):
         crud.cast_downvote(db=db, comment_id=body["comment_id"])
 
 
+def handle_comment_awarded(message: AbstractIncomingMessage):
+    body = decode_body_and_convert_to_dict(message.body)
+    comment_id = body['subject_id']
+    db = next(get_db())
+    award_type = body['award_type']
+    if award_type == "silver":
+        crud.update_comment_silver_awards(db=db, comment_id=comment_id)
+    elif award_type == "gold":
+        crud.update_comment_gold_awards(db=db, comment_id=comment_id)
+    elif award_type == "platinum":
+        crud.update_comment_platinum_awards(db=db, comment_id=comment_id)
+
+
 def handle_user_deleted(message: AbstractIncomingMessage):
     body = decode_body_and_convert_to_dict(message.body)
     db = next(get_db())
