@@ -10,6 +10,9 @@ export default function PostItem({ post, mutate }) {
             rounded-sm p-2 shadow-reddit border border-reddit-postline w-full">
             <PostInfo
                 username={post.username}
+                silverAwards={post.silver_awards}
+                goldAwards={post.gold_awards}
+                platinumAwards={post.platinum_awards}
                 postedAt={post.posted_at} />
             <PostTitle
                 title={post.title} />

@@ -9,7 +9,10 @@ export default function CommentItem({ comment, mutate }) {
             rounded-sm p-2 shadow-reddit border border-reddit-postline w-full">
             <CommentInfo
                 username={comment.username}
-                commentedAt={comment.commented_at} />
+                commentedAt={comment.commented_at}
+                silverAwards={comment.silver_awards}
+                goldAwards={comment.gold_awards}
+                platinumAwards={comment.platinum_awards} />
             <CommentBody
                 body={comment.body} />
             <CommentActions

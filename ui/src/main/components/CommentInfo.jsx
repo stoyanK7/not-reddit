@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function CommentInfo({ username, commentedAt }) {
+import AwardsBar from "@/components/AwardsBar";
+
+export default function CommentInfo({ username, commentedAt, silverAwards, goldAwards,
+    platinumAwards }) {
     return (
         <div
             className="flex gap-2">
@@ -24,6 +27,10 @@ export default function CommentInfo({ username, commentedAt }) {
                     <span>at {commentedAt.split("T")[1].slice(0,5)}</span>
                 </>
             }
+            <AwardsBar
+                silverAwards={silverAwards}
+                goldAwards={goldAwards}
+                platinumAwards={platinumAwards} />
         </div>
     );
 }

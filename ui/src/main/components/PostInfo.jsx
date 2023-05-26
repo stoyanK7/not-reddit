@@ -1,11 +1,17 @@
 import Link from "next/link";
 
+import AwardsBar from "@/components/AwardsBar";
+
 import PostSubreddit from "./PostSubreddit";
 
 export default function PostInfo({
     subreddit = "all",
     username = "unknown",
-    postedAt }
+    postedAt,
+    silverAwards,
+    goldAwards,
+    platinumAwards
+}
 ) {
     return (
         <div
@@ -25,6 +31,10 @@ export default function PostInfo({
                 <span>on {postedAt.split("T")[0]}</span>
                 <span>at {postedAt.split("T")[1].slice(0,5)}</span>
             </div>
+            <AwardsBar
+                silverAwards={silverAwards}
+                goldAwards={goldAwards}
+                platinumAwards={platinumAwards} />
         </div>
     );
 }
