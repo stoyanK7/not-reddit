@@ -1,4 +1,4 @@
-FROM node:20.0-bullseye-slim AS deps
+FROM node:18-alpine AS deps
 
 RUN apk add --no-cache libc6-compat
 
@@ -8,7 +8,7 @@ COPY package.json package-lock.json ./
 
 RUN  npm install --production
 
-FROM node:20.0-bullseye-slim AS builder
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npm run build
 
-FROM node:20.0-bullseye-slim AS runner
+FROM node:18-alpine AS runner
 
 WORKDIR /app
 
