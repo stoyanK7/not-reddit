@@ -17,8 +17,6 @@ spec:
       containers:
       - name: vote-api
         image: notreddit.azurecr.io/vote-service:latest
-        securityContext:
-          allowPrivilegeEscalation: false
         envFrom:
           - secretRef:
               name: vote-api-secret

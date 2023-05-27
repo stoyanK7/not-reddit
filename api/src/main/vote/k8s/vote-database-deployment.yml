@@ -51,8 +51,6 @@ spec:
         - name: vote-database
           image: postgres:15.2-alpine
           imagePullPolicy: Always
-          securityContext:
-            allowPrivilegeEscalation: false
           ports:
             - containerPort: 5432
           envFrom:

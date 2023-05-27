@@ -17,8 +17,6 @@ spec:
       containers:
       - name: award-api
         image: notreddit.azurecr.io/award-service:latest
-        securityContext:
-          allowPrivilegeEscalation: false
         envFrom:
           - secretRef:
               name: award-api-secret

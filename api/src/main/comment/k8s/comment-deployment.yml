@@ -17,8 +17,6 @@ spec:
       containers:
       - name: comment-api
         image: notreddit.azurecr.io/comment-service:latest
-        securityContext:
-          allowPrivilegeEscalation: false
         envFrom:
           - secretRef:
               name: comment-api-secret

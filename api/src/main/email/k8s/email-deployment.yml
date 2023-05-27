@@ -17,8 +17,6 @@ spec:
       containers:
       - name: email-api
         image: notreddit.azurecr.io/email-service:latest
-        securityContext:
-          allowPrivilegeEscalation: false
         envFrom:
           - secretRef:
               name: email-api-secret
