@@ -49,6 +49,7 @@ jobs:
             api/src/main/comment/k8s/comment-deployment.yml
             api/src/main/auth/k8s/auth-deployment.yml
             api/src/main/email/k8s/email-deployment.yml
+            api/src/main/award/k8s/award-deployment.yml
             ui/src/main/k8s/ui-deployment.yml
 
       - name: Rollout restart
@@ -60,4 +61,5 @@ jobs:
           kubectl rollout restart deployment auth-api-deployment
           kubectl rollout restart deployment email-api-deployment
           kubectl rollout restart deployment gateway-api-deployment
+          kubectl rollout restart deployment award-api-deployment
           kubectl rollout restart deployment ui-deployment

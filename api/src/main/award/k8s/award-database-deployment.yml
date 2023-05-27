@@ -1,0 +1,76 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: award-database-storageclass
+provisioner: file.csi.azure.com
+allowVolumeExpansion: false
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=0
+  - gid=0
+  - mfsymlinks
+  - cache=strict
+  - actimeo=30
+parameters:
+  skuName: Standard_LRS
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: award-database-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: award-database-storageclass
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: award-database-deployment
+  labels:
+    app: award-database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: award-database
+  template:
+    metadata:
+      labels:
+        app: award-database
+    spec:
+      volumes:
+        - name: award-database-volume
+          persistentVolumeClaim:
+            claimName: award-database-claim
+      containers:
+        - name: award-database
+          image: postgres:15.2-alpine
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: award-database-secret
+          volumeMounts:
+            - name: award-database-volume
+              mountPath: /var/lib/postgresql
+              subPath: data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: award-database-service
+spec:
+  selector:
+    app: award-database
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

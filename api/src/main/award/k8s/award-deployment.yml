@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: award-api-deployment
+  labels:
+    app: award-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: award-api
+  template:
+    metadata:
+      labels:
+        app: award-api
+    spec:
+      containers:
+      - name: award-api
+        image: notreddit.azurecr.io/award-service:latest
+        securityContext:
+          allowPrivilegeEscalation: false
+        envFrom:
+          - secretRef:
+              name: award-api-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: award-api-service
+spec:
+  selector:
+    app: award-api
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

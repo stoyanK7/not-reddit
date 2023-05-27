@@ -18,6 +18,10 @@ upstream comment_service {
     server ${COMMENT_SERVICE_SERVER};
 }
 
+upstream award_service {
+    server ${AWARD_SERVICE_SERVER};
+}
+
 server {
 
     listen 8080;
@@ -61,6 +65,11 @@ server {
 
     location /api/comment {
         proxy_pass http://comment_service;
+        proxy_pass_request_headers on;
+    }
+
+    location /api/award {
+        proxy_pass http://award_service;
         proxy_pass_request_headers on;
     }
 }

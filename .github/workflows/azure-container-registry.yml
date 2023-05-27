@@ -21,6 +21,7 @@ jobs:
           - [comment, api, src/main/comment/Dockerfile]
           - [auth, api, src/main/auth/Dockerfile]
           - [email, api, src/main/email/Dockerfile]
+          - [award, api, src/main/award/Dockerfile]
           - [ui, ui/src/main, Dockerfile]
     runs-on: ubuntu-latest
     steps:
