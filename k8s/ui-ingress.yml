@@ -4,6 +4,8 @@ metadata:
   name: hello-world-ingress
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/limit-connections: '2'
+    nginx.ingress.kubernetes.io/limit-rpm: '120'
 spec:
   tls:
     - hosts:
