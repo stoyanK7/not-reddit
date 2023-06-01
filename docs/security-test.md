@@ -59,6 +59,80 @@ Below is the response time chart. An interesting drop in response time can be se
 
 ![img](img/2023-05-30-ddos-mitigation-result.png)
 
+## OWASP ZAP Automatic scan
+
+For the next attacks I used _OWASP ZAP_.
+
+### Local
+
+First I ran an automatic scan on `http://localhost:3000`
+
+![img](img/2023-05-30-owasp-zap-automatic-local.png)
+
+#### Cloud Data Potentially Exposed
+
+This attack targeted my API Gateway on `http://localhost:8080` by trying to expose cloud data. From _nginx_'s blog, the following configuration allows such attacks to happen.
+
+https://www.nginx.com/blog/trust-no-one-perils-of-trusting-user-input/
+```nginx
+# Don't ever use 'proxy_pass' like this!
+location / {
+    proxy_pass http://$host; # To repeat: don't do this!
+}
+```
+
+The attack was unsuccessful since I don't use such configuration and the tool got a `308 Permanent Redirect` which in turn shows `404`.
+
+![img](img/2023-05-30-owasp-zap-cloud-data.png)
+![img](img/2023-05-30-owasp-zap-cloud-data-2.png)
+
+
+#### Content Security Policy (CSP) Header Not Set
+
+The report shows that the CSP header is not set on neither the ui `http://localhost:3000` nor the API `http://localhost:8080`.
+
+![img](img/2023-05-30-owasp-zap-csp.png)
+
+From https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP it is clear that this opens up the application to XSS attacks.
+
+##### Mitigation
+
+NextJS has documentation explaining how to set the CSP header so I followed it.
+
+https://nextjs.org/docs/pages/api-reference/next-config-js/headers#content-security-policy
+
+File: [next.config.js](../ui/src/main/next.config.js)
+```js
+const ContentSecurityPolicy = `
+  default-src 'self' ${process.env.NEXT_PUBLIC_API_SERVICE_URL};
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' ${process.env.NEXT_PUBLIC_API_SERVICE_URL};
+  style-src 'self' 'unsafe-inline' ${process.env.NEXT_PUBLIC_API_SERVICE_URL};
+  img-src 'self' blob: data: ${process.env.NEXT_PUBLIC_API_SERVICE_URL};
+  connect-src 'self' ${process.env.NEXT_PUBLIC_API_SERVICE_URL} login.microsoftonline.com;
+  object-src 'self' ${process.env.NEXT_PUBLIC_API_SERVICE_URL};
+  media-src 'self' ${process.env.NEXT_PUBLIC_API_SERVICE_URL};
+  frame-src 'self' ${process.env.NEXT_PUBLIC_API_SERVICE_URL};
+  font-src 'self' ${process.env.NEXT_PUBLIC_API_SERVICE_URL};
+  form-action 'self' ${process.env.NEXT_PUBLIC_API_SERVICE_URL};
+`;
+
+const securityHeaders = [
+    {
+      key: 'Content-Security-Policy',
+      value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim()
+    },
+```
+
+Then I added a header to the API gateway too which is an nginx server.
+
+https://content-security-policy.com/examples/nginx/
+File: [nginx.conf](../api/src/main/gateway/nginx.conf)
+```nginx
+add_header Content-Security-Policy "default-src 'self';";
+```
+
+<!-- ![img](img/2023-05-30-owasp-zap-automatic-prod.png) -->
+
 ## SQL Injection
 
 ## XSS
