@@ -4,12 +4,31 @@ services:
   grafana:
     image: grafana/grafana-oss
     container_name: meta-research-grafana
-    network_mode: host
     environment:
       GF_PLUGIN_ALLOW_LOCAL_MODE: true
+    ports:
+      - "3000:3000"
     volumes:
       - ./data:/var/data
       - meta-research-grafana:/var/lib/grafana
+    networks:
+      - meta-research-net
+
+  mysql:
+    image: mysql
+    container_name: meta-research-mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    ports:
+      - "3306:3306"
+    volumes:
+      - meta-research-mysql:/var/lib/mysql
+    networks:
+      - meta-research-net
 
 volumes:
+  meta-research-mysql:
   meta-research-grafana:
+
+networks:
+  meta-research-net:
