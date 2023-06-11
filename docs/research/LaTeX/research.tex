@@ -71,7 +71,7 @@ imposed on their family of applications (\textbf{\textit{Facebook}},
 \begin{itemize}
     \item Articles published in English
     \item Articles published after 2010
-    \item Data about GDPR fines
+    \item Data about GDPR fines above 1 million EUR
     \item Data about \textit{Meta Platforms, Inc.} financials
     \item Data between 2018 and 2023
 \end{itemize}
@@ -81,7 +81,7 @@ imposed on their family of applications (\textbf{\textit{Facebook}},
 \begin{itemize}
     \item Articles published in languages other than English
     \item Articles published before 2010
-    \item Data that is not about GDPR fines
+    \item Data that is about GDPR fines below 1 million EUR
     \item Data that is not about \textit{Meta Platforms, Inc.} financials
     \item Data before 2018
 \end{itemize}
@@ -106,13 +106,11 @@ sources and no personal data is collected. The author is not affiliated with
     \label{fig:amount-of-gdpr-fines}
 \end{figure}
 
-% \begin{figure}[H]
-%     \centering
+% \begin{figure}[H] \centering
 %     \includegraphics[width=1.00\textwidth]{violations-by-article}
 %     \caption{Number of violations by GDPR
 %     article\cite{gdprFine1,gdprFine2,gdprFine3,gdprFine4,gdprFine5,gdprFine6,gdprFine7,gdprFine8,gdprFine9}}
-%     \label{fig:violations-by-article}
-% \end{figure}
+%     \label{fig:violations-by-article} \end{figure}
 
 \subsection*{Financials}
 
@@ -211,6 +209,85 @@ sources and no personal data is collected. The author is not affiliated with
 
 % connections
 
+Comparing net income and monetarial amount of GDPR fines shows little to no
+signs of correlation. Since the first GDPR fine was issued in 2021 as displayed
+in Figure \ref{fig:amount-of-gdpr-fines}, the net income has decreased by 46.7\%
+as displayed in Figure \ref{fig:net-income}. However, this can be attributed to
+other macroeconomic factors because the net income of other large technology
+companies such as \textit{Amazon.com, Inc.} and \textit{Alphabet, Inc.}, has
+also decreased in a similar fashion\cite{amznNetIncome,googleNetIncome}. Figure
+\ref{fig:rel-fines-net-income} below shows a comparison between both figures.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{rel-fines-net-income}
+    \caption{Comparison between Net Income and Monetarial Amount of GDPR Fines}
+    \label{fig:rel-fines-net-income}
+\end{figure}
+
+Similarly, the revenue is not affected as well. Figure
+\ref{fig:rel-fines-revenue} below shows a comparison between revenue and the
+monetarial amount of GDPR fines.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{rel-fines-revenue}
+    \caption{Comparison between Revenue and Monetarial Amount of GDPR Fines}
+    \label{fig:rel-fines-revenue}
+\end{figure}
+
+Figure \ref{fig:stock-price} shows that the first GDPR fine might have had a
+negative impact on the stock price, but subsequent more severe fines did not. In
+fact, the latest record-breaking fine of \$1.2 billion shows an opposite trend
+where the stock price continues to increase from \$234 to \$265 by the time this
+report was written. It is worth noting that the stock price reaction might
+experience a delay based on whether the fine will be imposed or not as
+\textit{Meta} is arguing against the fine \cite{metaArgueFine}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{rel-fines-stock-price}
+    \caption{Comparison between Stock Price and Monetarial Amount of GDPR Fines}
+    \label{fig:rel-stock-price}
+\end{figure}
+
+Likewise, the unchanged volume of shares traded signals no decrease in investor
+confidence as displayed in Figure \ref{fig:volume}. Figure
+\ref{fig:rel-fines-volume} below shows a comparison between the volume of shares
+traded and the monetarial amount of GDPR fines.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{rel-fines-volume}
+    \caption{Comparison between Stock Volume and Monetarial Amount of GDPR Fines}
+    \label{fig:rel-fines-volume}
+\end{figure}
+
+The average revenue per person shows no signs of correlation with the monetarial
+amount of GDPR fines as shown in Figure \ref{fig:family-revenue-per-person}.
+
+Dividing the average revenue per person by user geography region shows that
+\textit{Meta's} revenue per person in Europe is less volatile than people in the
+US despite Europe having nearly twice the users compared to the United
+States\cite{2023q1}. The period from 31-Mar-2022 to 31-Dec-2022 is very
+different from the rest of the timeline because a \%6.45 increase in revenue in
+the US was met with a \%10.77 decline in revenue in Europe. Figure
+\ref{fig:rel-fines-avg-revenue-per-person-region} below shows a comparison
+between the average revenue per person by user geography region and the
+monetarial amount of GDPR fines.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.00\textwidth]{rel-fines-avg-revenue-per-person-region}
+    \caption{Comparison between Average Revenue per Person by User Geography Region and Monetarial Amount of GDPR Fines}
+    \label{fig:rel-fines-avg-revenue-per-person-region}
+\end{figure}
+
+Figure \ref{fig:facebook-mau} and Figure \ref{fig:facebook-dau} show that the
+number of daily and monthly active users in Europe has been steadily increasing
+regardless of the fines imposed. It is worth noting that this increase seems to
+be slowing down. Other regions show a similar trend with some showing a
+shrinkage in the number of users.
 
 
 The limitations of this study are that it does not consider the legal expenses
@@ -224,6 +301,15 @@ Platforms'} brand value or customer perception. Further research could be done
 into those areas.
 \section*{Conclusion}
 
+In summary, the fines imposed on \textit{Meta Platforms, Inc.} under the GDPR
+have not had a substantial impact on the company's financial performance.
+Investor confidence remains intact, as evidenced by the stability of the stock
+price and trading volume around the time of the fines. Furthermore, the
+company's revenue and net income have not been adversely affected by these
+penalties. The only noticeable change is the less volatile average revenue per
+person in Europe compared to the US. Especially in the period from 31-Mar-2022
+to 31-Dec-2022 where a \%6.45 increase in revenue in the US was met with a
+\%10.77 decline in revenue in Europe.
 
 \bibliographystyle{vancouver}
 \bibliography{refs}
