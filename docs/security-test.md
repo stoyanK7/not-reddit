@@ -112,6 +112,7 @@ better attack. I then inserted a post to see the query better:
 I know that the query starts as `INSERT INTO posts (title, body, username, post_type) VALUES ('` so
 I tried to mess with the insert statement with the following
 payload:`a', 'body', 'solidHawk8', 'text') -- -`. But _SQLAlchemy_ escaped the input again.
+
 ```
 2023-06-15 08:10:23.350 UTC [37] LOG:  statement: INSERT INTO posts (title, body, username, post_type) VALUES ('a'', ''body'', ''solidHawk8'', ''text'') -- -', 'asdsd', 'solidHawk8', 'text') RETURNING posts.id, posts.posted_at, posts.votes, posts.silver_awards, posts.gold_awards, posts.platinum_awards
 ```
@@ -123,6 +124,18 @@ concatenation, etc..
 https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html
 
 ## XSS
+
+Again, I am not validating user input, so I will try a XSS attack. I read how to do it at
+https://owasp.org/www-community/attacks/xss/. _NextJS_ is safe from XSS attacks by default, so I
+don't expect to find
+anything. https://stackoverflow.com/questions/33644499/what-does-it-mean-when-they-say-react-is-xss-protected
+describes the few scenarios where XSS attacks can happen in _React_, but I am not doing any of
+those.
+
+The simplest attack one can do is to add a `<script>alert("Hello there");</script>` in the body of a
+post. The result is that the script is escaped and not executed.
+
+![img](img/2023-06-15-xss.png)
 
 ## OWASP ZAP Automatic scan
 
