@@ -27,6 +27,8 @@ server {
     listen 8080;
     server_name 127.0.0.1;
 
+    add_header Content-Security-Policy "default-src 'self';";
+
     location = /api/auth {
         if ($request_method = OPTIONS ) {
             add_header 'Access-Control-Allow-Origin' 'https://notredditui.switzerlandnorth.cloudapp.azure.com' always;
